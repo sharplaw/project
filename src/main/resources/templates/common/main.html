@@ -1,11 +1,72 @@
+<style>
+    .card-block{
+        display: flex;
+    }
+    .card_col4{
+        width: 23%;
+        margin: 1%;
+        height: 180px;
+        background: #fff;
+        border-radius: 5px;
+        display: flex;
+    }
+    .card_left{
+        width: 90px;
+        height: 90px;
+        color: #fff;
+        line-height: 90px;
+        text-align: center;
+        border-radius: 50%;
+        margin: 40px 30px;
+    }
+    .card_right{
+        flex: 1;
+        line-height: 165px;
+        font-size: 42px;
+        padding-left: 20px;
+    }
+    .iconfont{
+    font-size: 50px;
+    }
+    .color1{
+        background:  #3F51B5;
+    }
+    .color2{
+        background: #2dcb73;
+    }
+    .color3{
+        background: #ff604f;
+    }
+    .color4{
+        background: #FF9800;
+      }
+
+</style>
 <section class="content">
     <header class="content__title">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item">主页</li>
+            <li class="breadcrumb-item">矫正辅助系统</li>
         </ol>
     </header>
     <div class="main-content">
-        <div class="card-block"> </div>
+        <div class="card-block">
+            <a class="card_col4" th:href="@{./web/main/report}" >
+                <div class="card_left color1"><i class="iconfont icon-cursoure"></i></div>
+                <div class="card_right">报道</div>
+            </a>
+            <div class="card_col4">
+                <div class="card_left color2"><i class="iconfont icon-help"></i></div>
+                <div class="card_right">请假</div>
+            </div>
+            <div class="card_col4">
+                <div class="card_left color3"><i class="iconfont icon-heart"></i></div>
+                <div class="card_right">心理</div>
+            </div>
+            <div class="card_col4">
+                <div class="card_left color4"><i class="iconfont icon-cup"></i></div>
+                <div class="card_right">学习</div>
+            </div>
+        </div>
     </div>
     <div data-th-include="common/footer"></div>
 </section>
