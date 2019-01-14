@@ -28,6 +28,12 @@ public class PrisonerController {
         return "web/main/report";
     }
 
+    @Log("跳转社区服刑人员管理页")
+    @RequestMapping("prisoner/list")
+    public String indexList() {
+        return "web/main/peopleSetting";
+    }
+
     @Log("添加社区服刑人员信息")
     @RequestMapping("prisoner/add")
     @ResponseBody
