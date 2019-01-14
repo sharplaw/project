@@ -4,7 +4,9 @@ import cc.mrbird.common.service.IService;
 import cc.mrbird.prisoner.domain.JzPrisoner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface PrisonerService extends IService<JzPrisoner> {
-    @Transactional
-    void savePrisoner(JzPrisoner jzPrisoner);
+
+    public List<JzPrisoner> selectPrisoner(JzPrisoner jzPrisoner);
 }

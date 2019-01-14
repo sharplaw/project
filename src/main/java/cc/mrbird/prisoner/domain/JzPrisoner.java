@@ -2,6 +2,8 @@ package cc.mrbird.prisoner.domain;
 
 import cc.mrbird.common.annotation.ExportConfig;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -12,9 +14,11 @@ public class JzPrisoner implements Serializable {
 
 
     @Id
+    @GeneratedValue(generator = "JDBC")
     @ExportConfig(value = "主键ID")
     private int id	;
 
+    @Column(name = "prisonerNo")
     @ExportConfig(value = "人员编号")
     private String prisonerNo	;
 
@@ -36,21 +40,27 @@ public class JzPrisoner implements Serializable {
     @ExportConfig(value = "地址")
     private String address;
 
+    @ExportConfig(value = "负责人")
+    private String leader;
+
     @ExportConfig(value = "签字")
     private String  signature;
 
     @ExportConfig(value = "指纹信息")
     private String  fingerprints;
 
+    @Column(name = "servingStartTime")
     @ExportConfig(value = "服刑开始时间")
     private String servingStartTime;
 
+    @Column(name = "servingEndTime")
     @ExportConfig(value = "服刑结束时间")
     private String servingEndTime;
 
     @ExportConfig(value = "状态")
     private String status;
 
+    @Column(name = "createTime")
     @ExportConfig(value = "创建时间")
     private String createTime	;
 
@@ -164,5 +174,13 @@ public class JzPrisoner implements Serializable {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getLeader() {
+        return leader;
+    }
+
+    public void setLeader(String leader) {
+        this.leader = leader;
     }
 }
