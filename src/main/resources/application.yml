@@ -8,9 +8,9 @@ spring:
       # 数据库访问配置, 使用druid数据源 
       db-type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/mrbird?useUnicode=true&characterEncoding=utf8
-      username: root
-      password: root
+      url: jdbc:mysql://47.93.227.30:3306/mrbird?useUnicode=true&characterEncoding=utf8
+      username: admini
+      password: MYSoL!23_admin
       # 连接池配置
       initial-size: 5
       min-idle: 5
