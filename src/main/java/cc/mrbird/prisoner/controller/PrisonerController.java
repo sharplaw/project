@@ -4,7 +4,6 @@ import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.prisoner.domain.JzPrisoner;
 import cc.mrbird.prisoner.service.PrisonerService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class PrisonerController {
     @ResponseBody
     public ResponseBo addPrisoner(JzPrisoner jzPrisoner){
         try {
-        prisonerService.save(jzPrisoner);
+        prisonerService.addPrisoner(jzPrisoner);
             return ResponseBo.ok();
         } catch (Exception e) {
             log.error("添加失败", e);
