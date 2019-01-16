@@ -59,7 +59,9 @@ public class ZKFPDemo extends JFrame{
 	private long mhDevice = 0;
 	private long mhDB = 0;
 	private WorkThread workThread = null;
-	
+
+
+
 	public void launchFrame(){
 		this.setLayout (null);
 		btnOpen = new JButton("Open");  
@@ -123,7 +125,7 @@ public class ZKFPDemo extends JFrame{
 		this.setVisible(true);
 		this.setTitle("ZKFinger Demo");
 		this.setResizable(false);
-		
+
 		btnOpen.addActionListener(new ActionListener() {
 
 			@Override
@@ -585,6 +587,7 @@ public class ZKFPDemo extends JFrame{
                         //Base64 Template
 						String base64 = FingerprintSensorEx.BlobToBase64(lastRegTemp,cbRegTemp);
 						//生成base64
+
                         textArea.setText("enroll succ");
                     } else {
                     	textArea.setText("enroll fail, error code=" + ret);
