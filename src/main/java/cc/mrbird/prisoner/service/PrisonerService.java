@@ -6,7 +6,6 @@ import cc.mrbird.prisoner.domain.JzPrisoner;
 
 
 import java.util.List;
-import java.util.Map;
 
 public interface PrisonerService extends IService<JzPrisoner> {
 

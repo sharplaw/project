@@ -1,22 +1,16 @@
-package cc.mrbird;
+package cc.mrbird.common.zk;
 
 import com.zkteco.biometric.FingerprintSensorErrorCode;
 import com.zkteco.biometric.FingerprintSensorEx;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 
 public class ZKFPDemo extends JFrame{
 	JButton btnOpen = null;
@@ -590,8 +584,7 @@ public class ZKFPDemo extends JFrame{
                         System.arraycopy(regTemp, 0, lastRegTemp, 0, cbRegTemp);
                         //Base64 Template
 						String base64 = FingerprintSensorEx.BlobToBase64(lastRegTemp,cbRegTemp);
-						//生成base64位
-						System.out.println(base64);
+						//生成base64
                         textArea.setText("enroll succ");
                     } else {
                     	textArea.setText("enroll fail, error code=" + ret);

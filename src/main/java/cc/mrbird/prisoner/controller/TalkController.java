@@ -2,7 +2,6 @@ package cc.mrbird.prisoner.controller;
 
 import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.domain.ResponseBo;
-import cc.mrbird.prisoner.domain.JzPrisoner;
 import cc.mrbird.prisoner.domain.JzTalk;
 import cc.mrbird.prisoner.service.TalkService;
 import org.slf4j.Logger;
