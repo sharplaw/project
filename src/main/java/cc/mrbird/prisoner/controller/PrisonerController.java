@@ -1,9 +1,12 @@
 package cc.mrbird.prisoner.controller;
 
 import cc.mrbird.common.annotation.Log;
+import cc.mrbird.common.controller.BaseController;
+import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.prisoner.domain.JzPrisoner;
 import cc.mrbird.prisoner.service.PrisonerService;
+import cc.mrbird.system.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import java.util.Map;
 
 @Controller
-public class PrisonerController {
+public class PrisonerController  extends BaseController {
 
     @Autowired
     private PrisonerService prisonerService;
@@ -52,16 +55,9 @@ public class PrisonerController {
     @Log("查询社区服刑人员信息")
     @RequestMapping("prisoner/select")
     @ResponseBody
-    public ResponseBo selectPrisoner(JzPrisoner jzPrisoner){
-        try {
-         List<JzPrisoner> result= prisonerService.selectPrisoner(jzPrisoner);
-            return ResponseBo.ok(result);
-        } catch (Exception e) {
-            log.error("查询失败", e);
-            return ResponseBo.error("查询失败！");
-        }
+    public Map<String, Object> selectPrisoner(QueryRequest request, JzPrisoner jzPrisoner){
 
-
+            return super.selectByPageNumSize(request, () -> this.prisonerService.selectPrisoner(jzPrisoner,request));
     }
 
 

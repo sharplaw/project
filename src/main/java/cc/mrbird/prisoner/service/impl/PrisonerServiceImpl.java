@@ -1,5 +1,6 @@
 package cc.mrbird.prisoner.service.impl;
 
+import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.service.impl.BaseService;
 import cc.mrbird.prisoner.domain.JzPrisoner;
 import cc.mrbird.prisoner.domain.JzTalk;
@@ -28,7 +29,7 @@ public class PrisonerServiceImpl extends BaseService<JzPrisoner> implements Pris
     private TalkService talkService;
     private Logger log = LoggerFactory.getLogger(this.getClass());
     @Override
-    public List<JzPrisoner> selectPrisoner(JzPrisoner jzPrisoner) {
+    public List<JzPrisoner> selectPrisoner(JzPrisoner jzPrisoner, QueryRequest request) {
         try {
         Example example = new Example(JzPrisoner.class);
         if (StringUtils.isNotBlank(jzPrisoner.getPrisonerNo())) {
