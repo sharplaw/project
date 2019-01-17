@@ -2,6 +2,7 @@ package cc.mrbird.prisoner.service.impl;
 
 import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.service.impl.BaseService;
+import cc.mrbird.prisoner.dao.prisonerMapper;
 import cc.mrbird.prisoner.domain.JzPrisoner;
 import cc.mrbird.prisoner.domain.JzTalk;
 import cc.mrbird.prisoner.service.PrisonerService;
@@ -27,32 +28,15 @@ public class PrisonerServiceImpl extends BaseService<JzPrisoner> implements Pris
 
     @Autowired
     private TalkService talkService;
+    @Autowired
+    private cc.mrbird.prisoner.dao.prisonerMapper prisoner;
     private Logger log = LoggerFactory.getLogger(this.getClass());
     @Override
     public List<JzPrisoner> selectPrisoner(JzPrisoner jzPrisoner, QueryRequest request) {
-        try {
-        Example example = new Example(JzPrisoner.class);
-        if (StringUtils.isNotBlank(jzPrisoner.getPrisonerNo())) {
-            example.createCriteria().andCondition("prisonerNo=", jzPrisoner.getPrisonerNo());
-        }
-        if (StringUtils.isNotBlank(jzPrisoner.getName())) {
-            example.createCriteria().andCondition("name=", jzPrisoner.getName());
-        }
-        if (StringUtils.isNotBlank(jzPrisoner.getCard())) {
-            example.createCriteria().andCondition("card=", jzPrisoner.getCard());
-        }
-        if (StringUtils.isNotBlank(jzPrisoner.getSex())) {
-            example.createCriteria().andCondition("sex=", jzPrisoner.getSex());
-        }
-        if (StringUtils.isNotBlank(jzPrisoner.getPassword())) {
-            example.createCriteria().andCondition("password=", jzPrisoner.getPassword());
-        }
-            return this.selectByExample(example);
+        List<JzPrisoner> result=prisoner.findPrisoner(jzPrisoner);
+            return result;
 
-        } catch (Exception e) {
-            log.error("获取信息失败", e);
-            return new ArrayList<>();
-        }
+
 
     }
 

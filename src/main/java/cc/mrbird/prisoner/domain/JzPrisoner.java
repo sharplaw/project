@@ -67,6 +67,10 @@ public class JzPrisoner implements Serializable {
     @ExportConfig(value = "创建时间")
     private String createTime	;
 
+    @Column(insertable=false)
+    @ExportConfig(value = "负责人名称")
+    private String username;
+
     public int getId() {
         return id;
     }
@@ -193,5 +197,13 @@ public class JzPrisoner implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
