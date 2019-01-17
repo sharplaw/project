@@ -29,5 +29,8 @@
         <if test="sex != null and sex != ''">
             AND j.sex = #{sex}
         </if>
+        <if test="leader != null and leader != ''">
+            AND j.leader = #{leader}
+        </if>
   </select>
 </mapper>
