@@ -1,4 +1,23 @@
 $(function () {
+    $.ajax({
+        type:"get",
+        url:ctx + "user/list?deptId=6",
+        dataType:"json", //预期服务器返回数据的类型
+        success:function(r){
+            var html='';
+            var res=r.rows
+            for(var i=0;i<res.length;i++){
+                console.log(r.rows[i])
+                html+="<option value='"+r.rows[i].userId+"'>"+r.rows[i].username+"</option>"
+            }
+            $("select[name='leader']").append(html)
+        },
+        error:function(jqXHR){
+            alert("发生错误："+ jqXHR.status);
+        }
+    });
+
+
     var $jobTableForm = $(".job-table-form");
     var settings = {
         url: ctx + "prisoner/select",//prisoner/select   job/list
@@ -10,7 +29,7 @@ $(function () {
                 pageNum: params.offset / params.limit + 1,
                 name: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".autocomplete-input").val(),
                 card: $jobTableForm.find("#sys-cron-clazz-list-method").find(".autocomplete-input").val(),
-                // status: $jobTableForm.find("select[name='status']").val()
+                 leader: $jobTableForm.find("select[name='leader']").val()
             };
         },
         columns: [{
