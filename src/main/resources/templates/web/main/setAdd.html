@@ -1,0 +1,137 @@
+<style>
+    .modal-lg{
+        max-width: 1200px !important;
+    }
+</style>
+<div class="modal fade" id="job-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="job-add-modal-title">新增任务</h3>
+            </div>
+            <div class="modal-body">
+                <form id="job-add-form">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               姓名：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               矫正开始时间：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="servingStartTime" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               编号：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="prisonerNo" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               矫正结束时间：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="servingEndTim" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               矫正类型：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="corrective" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               性别：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="sex" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               身份证号：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="card" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               电话：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="telephone" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               地址：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="address" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               指纹录入：
+					            </span>
+                                <div class="form-group">
+                                    <input type="button" name="" class="btn btn-success" value="指纹信息录入">
+                                    <input type="hidden" name="fingerprints"/>
+                                    <input type="hidden" name="id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-save" id="job-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-secondary btn-close">关闭</button>
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-th-src="@{js/app\peopleSetting/setAdd.js}"></script>
+<script data-th-src="@{js/app\peopleSetting/setEdit.js}"></script>
