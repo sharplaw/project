@@ -28,7 +28,8 @@
 					               矫正开始时间：
 					            </span>
                                 <div class="form-group">
-                                    <input type="text" name="servingStartTime" class="form-control">
+                                    <input type="text" id="date1" name="date1" class="form-control">
+                                    <input type="hidden" id = "servingStartTime" name="servingStartTime" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -50,7 +51,9 @@
 					               矫正结束时间：
 					            </span>
                                 <div class="form-group">
-                                    <input type="text" name="servingEndTim" class="form-control">
+                                    <!--<input type="text" name="servingEndTim" class="form-control">-->
+                                    <input type="text" id="date2" name="date2" class="form-control">
+                                    <input type="hidden" id = "servingEndTime" name="servingEndTime" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -115,10 +118,10 @@
                                 <span class="input-group-addon">
 					               指纹录入：
 					            </span>
-                                <div class="form-group">
+                                <div class="form-group" id="addID">
                                     <input type="button" name="" class="btn btn-success" value="指纹信息录入">
                                     <input type="hidden" name="fingerprints"/>
-                                    <input type="hidden" name="id"/>
+                                    <!--<input type="hidden" name="id"/>-->
                                 </div>
                             </div>
                         </div>

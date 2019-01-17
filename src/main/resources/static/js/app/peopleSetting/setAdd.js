@@ -19,6 +19,55 @@ var $jobAddForm = $("#job-add-form");
 })(jQuery);
 $(function () {
     validateRule();
+    $("input[name='date1']").daterangepicker(
+        {
+            singleDatePicker: true,//设置为单个的datepicker，而不是有区间的datepicker 默认false
+            showDropdowns: true,//当设置值为true的时候，允许年份和月份通过下拉框的形式选择 默认false
+            autoUpdateInput: false,//1.当设置为false的时候,不给与默认值(当前时间)2.选择时间时,失去鼠标焦点,不会给与默认值 默认true
+            timePicker24Hour : true,//设置小时为24小时制 默认false
+            timePicker : true,//可选中时分 默认false
+            locale: {
+                format: "YYYY-MM-DD HH:mm:ss",
+                applyLabel: '确定',
+                cancelLabel: '取消',
+                separator: " - ",
+                daysOfWeek: ["日","一","二","三","四","五","六"],
+                monthNames: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
+            }
+
+        }
+    ).on('cancel.daterangepicker', function(ev, picker) {
+        $("#date1").val("请选择日期");
+        $("#servingStartTime").val("");
+    }).on('apply.daterangepicker', function(ev, picker) {
+        $("#servingStartTime").val(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
+        $("#date1").val(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
+    });
+    $("input[name='date2']").daterangepicker(
+        {
+            singleDatePicker: true,//设置为单个的datepicker，而不是有区间的datepicker 默认false
+            showDropdowns: true,//当设置值为true的时候，允许年份和月份通过下拉框的形式选择 默认false
+            autoUpdateInput: false,//1.当设置为false的时候,不给与默认值(当前时间)2.选择时间时,失去鼠标焦点,不会给与默认值 默认true
+            timePicker24Hour : true,//设置小时为24小时制 默认false
+            timePicker : true,//可选中时分 默认false
+            locale: {
+                format: "YYYY-MM-DD HH:mm:ss",
+                applyLabel: '确定',
+                cancelLabel: '取消',
+                separator: " - ",
+                daysOfWeek: ["日","一","二","三","四","五","六"],
+                monthNames: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
+            }
+
+        }
+    ).on('cancel.daterangepicker', function(ev, picker) {
+        $("#date2").val("请选择日期");
+        $("#servingEndTime").val("");
+    }).on('apply.daterangepicker', function(ev, picker) {
+        $("#servingEndTime").val(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
+        $("#date2").val(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
+    });
+
 
     $("#job-add .btn-save").click(function () {
         var name = $(this).attr("name");
