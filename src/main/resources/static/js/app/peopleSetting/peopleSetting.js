@@ -51,7 +51,7 @@ $(function () {
                 field: 'telephone',
                 title: '联系电话'
             }, {
-                field: 'leader',
+                field: 'username',
                 title: '负责人'
             }, {
                 field: 'corrective',
