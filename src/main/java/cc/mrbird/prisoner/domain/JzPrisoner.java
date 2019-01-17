@@ -34,6 +34,9 @@ public class JzPrisoner implements Serializable {
     @ExportConfig(value = "身份证号")
     private String card	;
 
+    @ExportConfig(value = "随机码")
+    private String password;
+
     @ExportConfig(value = "电话号码")
     private String telephone;
 
@@ -182,5 +185,13 @@ public class JzPrisoner implements Serializable {
 
     public void setLeader(String leader) {
         this.leader = leader;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

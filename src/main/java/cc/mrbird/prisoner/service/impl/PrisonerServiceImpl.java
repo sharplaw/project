@@ -44,6 +44,9 @@ public class PrisonerServiceImpl extends BaseService<JzPrisoner> implements Pris
         if (StringUtils.isNotBlank(jzPrisoner.getSex())) {
             example.createCriteria().andCondition("sex=", jzPrisoner.getSex());
         }
+        if (StringUtils.isNotBlank(jzPrisoner.getPassword())) {
+            example.createCriteria().andCondition("password=", jzPrisoner.getPassword());
+        }
             return this.selectByExample(example);
 
         } catch (Exception e) {

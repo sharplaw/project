@@ -6,7 +6,6 @@ import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.prisoner.domain.JzPrisoner;
 import cc.mrbird.prisoner.service.PrisonerService;
-import cc.mrbird.system.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -41,6 +41,7 @@ public class PrisonerController  extends BaseController {
     @ResponseBody
     public ResponseBo addPrisoner(JzPrisoner jzPrisoner){
         try {
+            jzPrisoner.setPassword("111111");
         prisonerService.addPrisoner(jzPrisoner);
             return ResponseBo.ok();
         } catch (Exception e) {
@@ -75,5 +76,32 @@ public class PrisonerController  extends BaseController {
 
 
     }
+    @Log("查询社区服刑人员信息")
+    @RequestMapping("prisoner/selectSingle")
+    @ResponseBody
+    public ResponseBo selectSinglePrisoner(QueryRequest request, JzPrisoner jzPrisoner){
+        List<JzPrisoner> result=this.prisonerService.selectPrisoner(jzPrisoner,request);
+        if(result.size()>0){
+            return ResponseBo.ok(result);
+        }else{
+            return ResponseBo.error();
+        }
 
+    }
+
+
+    @Log("更新社区服刑人员信息")
+    @RequestMapping("prisoner/del")
+    @ResponseBody
+    public ResponseBo delPrisoner(JzPrisoner jzPrisoner){
+        try {
+            prisonerService.delete(jzPrisoner);
+            return ResponseBo.ok();
+        } catch (Exception e) {
+            log.error("更新失败", e);
+            return ResponseBo.error("更新失败！");
+        }
+
+
+    }
 }
