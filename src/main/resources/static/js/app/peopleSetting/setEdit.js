@@ -13,7 +13,7 @@ function updateJob() {
     var sels = selected[0];
     var $form = $('#job-add');
     $form.modal();
-    $('#addID').append("<input type=\"hidden\" name=\"id\"/>")
+    $('#addID').append("<input type='hidden' name='id'/>")
         $("#job-add-modal-title").html('修改任务');
         $form.find("input[name='name']").val(sels.name);
         $form.find("input[name='servingStartTime']").val(sels.servingStartTime);

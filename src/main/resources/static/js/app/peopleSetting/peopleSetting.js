@@ -35,12 +35,20 @@ $(function () {
                 field: 'leader',
                 title: '负责人'
             }, {
+                field: 'corrective',
+                title: '矫正类型'
+            }, {
                 field: 'servingStartTime',
-                title: '矫正时间',
+                title: '矫正开始时间',
                 // formatter: function (value, row, index) {
                 //     if (value === '1') return '<span class="badge badge-danger">暂停</span>';
                 //     if (value === '0') return '<span class="badge badge-success">正常</span>';
                 // }
+            }
+            , {
+                field: 'servingEndTime',
+                title: '矫正结束时间',
+
             }
         ]
     };
