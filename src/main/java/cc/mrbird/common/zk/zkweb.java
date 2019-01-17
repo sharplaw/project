@@ -302,11 +302,11 @@ public class zkweb {
 
         }
         if (enroll_idx==3) {
-            map.put("times","enroll_idx");
+            map.put("times",enroll_idx);
             map.put("base",base);
             return ResponseBo.ok(map);
         }else{
-            map.put("times","enroll_idx");
+            map.put("times",enroll_idx);
             map.put("base","");
             return ResponseBo.error(map);
         }
