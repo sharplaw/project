@@ -2,10 +2,7 @@ package cc.mrbird.prisoner.domain;
 
 import cc.mrbird.common.annotation.ExportConfig;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 @Table(name = "jz_talk")
 public class JzTalk implements Serializable {
@@ -26,9 +23,11 @@ public class JzTalk implements Serializable {
     @ExportConfig(value = "记录人")
     private String recorder;
 
+    @Column(name = "talkerUnit")
     @ExportConfig(value = "谈话人单位及职务")
     private String talkerUnit;
 
+    @Column(name = "recorderUnit")
     @ExportConfig(value = "记录人单位及职务")
     private String recorderUnit;
 
@@ -47,6 +46,7 @@ public class JzTalk implements Serializable {
     @ExportConfig(value = "创建时间")
     private String createTime	;
     //他表字段
+    @Column(insertable=false)
     @ExportConfig(value = "姓名")
     private String name;
 
