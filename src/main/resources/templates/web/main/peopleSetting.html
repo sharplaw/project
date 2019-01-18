@@ -16,6 +16,7 @@
     }
 </style>
 <div data-th-include="web/main/setAdd"></div>
+<div data-th-include="web/main/moban"></div>
 <div class="card">
     <div class="card-block">
         <div class="table-responsive">
@@ -41,7 +42,7 @@
                             <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#job-add" shiro:hasPermission="job:add">新增任务</a>
                             <a href="javascript:void(0)" class="dropdown-item" onclick="updateJob()" shiro:hasPermission="job:update">修改任务</a>
                             <a href="javascript:void(0)" class="dropdown-item" onclick="deleteJob()" shiro:hasPermission="job:delete">删除任务</a>
-                            <!--<a href="javascript:void(0)" class="dropdown-item" onclick="runJob()" shiro:hasPermission="job:run">编辑任务</a>-->
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="moban()" >谈话模板</a>
                             <!--<a href="javascript:void(0)" class="dropdown-item" onclick="pauseJob()" shiro:hasPermission="job:pause">暂停任务</a>-->
                             <!--<a href="javascript:void(0)" class="dropdown-item" onclick="resumeJob()" shiro:hasPermission="job:resume">恢复任务</a>-->
                         </div>

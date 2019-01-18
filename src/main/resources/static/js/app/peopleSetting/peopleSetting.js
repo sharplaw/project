@@ -79,6 +79,9 @@ $(function () {
 function search() {
     $MB.refreshTable('jobTable');
 }
+function closemoban() {
+    $('#moban').modal('hide')
+}
 
 function refresh() {
     $(".job-table-form")[0].reset();

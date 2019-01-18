@@ -17,8 +17,11 @@ function updateJob() {
         $("#job-add-modal-title").html('修改任务');
         $form.find("input[name='name']").val(sels.name);
         $form.find("input[name='servingStartTime']").val(sels.servingStartTime);
+    $form.find("input[name='date1']").val(sels.servingStartTime);
+    $form.find("input[name='date2']").val(sels.servingEndTime);
+
         $form.find("input[name='prisonerNo']").val(sels.prisonerNo);
-        $form.find("input[name='servingEndTim']").val(sels.servingEndTim);
+        $form.find("input[name='servingEndTime']").val(sels.servingEndTime);
         $form.find("input[name='corrective']").val(sels.corrective);
         $form.find("input[name='sex']").val(sels.sex);
         $form.find("input[name='card']").val(sels.card);

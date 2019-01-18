@@ -116,6 +116,7 @@ $(function () {
                     data:jsSerialize,
                     success:function(r){
                         // window.location.reload()
+                        $("input[name=id]").remove();
                         closeModal();
                         refresh();
                         $MB.n_success(r.msg);
