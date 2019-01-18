@@ -141,7 +141,132 @@ function closeModal() {
     validator.resetForm();
     $("#job-add-modal-title").html('新增任务');
 }
+var timing='';
+function zwsb() {
+    var skip=$('#skip').val();
+    if(skip=='0'){//启动指纹识别
+       // $('#hidezw1').show();
+        $('.hidezw2').show();
+        $('#zhiwMsg').hide()
+        // $.ajax({
+        //     type:"post",
+        //     url:ctx + "zk/start",
+        //     dataType:"json", //预期服务器返回数据的类型
+        //     data:{},
+        //     success:function(r){
+        // window.setTimeout(function(){
+        //     $('#skip').val('1');
+        //     $('#zhiwMsg').show();
+        //     $('.hidezw2').hide();
+        //     $('#zhiwMsg').val('开始录入')
+        // },500);
+        //     },
+        //     error:function(jqXHR){
+        //         alert("发生错误："+ jqXHR.status);
+        //     $('#zhiwMsg').hide();
+        //     $('#zhiwerror').show();
+        //     }
+        // });
 
+        /*成功后--调试接口时可删除下面此部分*/
+        window.setTimeout(function(){
+            $('#skip').val('1');
+            $('#zhiwMsg').show();
+            $('.hidezw2').hide();
+            $('#zhiwMsg').val('开始录入')
+        },1000);
+
+    }else if(skip=='1'){//开始识别
+        $('#zhiwMsg').hide()
+        $('.hidezw1').show();
+        $('.hidezw2').show();
+        $('.spmsg').html('正在录入中请稍候...')
+
+        // $.ajax({
+        //     type:"post",
+        //     url:ctx + "zk/lu",
+        //     dataType:"json", //预期服务器返回数据的类型
+        //     data:{},
+        //     success:function(r){
+        //   timing = window.setInterval(timingFunc,1000);
+        //     },
+        //     error:function(jqXHR){
+        //         alert("发生错误："+ jqXHR.status);
+        //     $('#zhiwMsg').hide();
+        //     $('#zhiwerror').show();
+        //     }
+        // });
+
+        /*成功后--调试接口时可删除下面此部分*/
+         timing = window.setInterval(timingFunc,1000);
+    }
+}
+function timingFunc() {
+    console.log('正在录入中请稍候...')
+    // $.ajax({
+    //     type:"post",
+    //     url:ctx + "zk/check",
+    //     dataType:"json", //预期服务器返回数据的类型
+    //     data:{},
+    //     success:function(r){
+    //     if(r.code=='200'){//录入完毕
+    //         $("input[name=fingerprints]").val(r.base)
+    //         window.clearInterval(timing);
+    //         $('.hidezw1').hide();
+    //         $('.hidezw2').show();
+    //         $('.spmsg').html('已完成录入，正在断开设备...')
+    //         closeShebei()
+    //     }
+    //     },
+    //     error:function(jqXHR){
+    //         alert("发生错误："+ jqXHR.status);
+    //          window.clearInterval(timing);
+    //     $('#zhiwMsg').hide();
+    //     $('#zhiwerror').show();
+    //     }
+    // });
+
+    /*成功后--调试接口时可删除下面此部分*/
+    window.clearInterval(timing);
+    $('.hidezw1').hide();
+    $('.hidezw2').show();
+    $('.spmsg').html('已完成录入，正在断开设备...')
+         closeShebei()
+}
+function closeShebei() {
+    // $.ajax({
+    //     type:"post",
+    //     url:ctx + "zk/lu",
+    //     dataType:"json", //预期服务器返回数据的类型
+    //     data:{},
+    //     success:function(r){
+    //         window.setTimeout(function(){
+    //             $('.spmsg').html('录入完成')
+    //         },500);
+    //     },
+    //     error:function(jqXHR){
+    //         alert("发生错误："+ jqXHR.status);
+    //     $('#zhiwMsg').hide();
+    //     $('#zhiwerror').show();
+    //     }
+    // });
+
+    /*成功后--调试接口时可删除下面此部分*/
+    window.setTimeout(function(){
+        $('.spmsg').html('录入完成')
+    },1000);
+
+
+}
+//重新录入指纹**************发送接口错误时还原指纹录入重新使用
+function chongzhiwen(){
+    $('.hidezw1').hide();
+    $('.hidezw2').hide();
+    $('.spmsg').html('正在唤起设备中请稍候...')
+    $('#zhiwMsg').show();
+    $('#zhiwMsg').val('启动指纹识别')
+    $('#skip').val('0');
+}
 function validateRule() {
     var icon = "<i class='zmdi zmdi-close-circle zmdi-hc-fw'></i> ";
     validator = $jobAddForm.validate({

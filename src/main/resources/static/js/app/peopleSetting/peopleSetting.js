@@ -36,8 +36,8 @@ $(function () {
             checkbox: true
         },
             {
-                field: 'id',
-                title: '任务ID'
+                field: 'prisonerNo',
+                title: '人员编号'
             }, {
                 field: 'name',
                 title: '姓名'
