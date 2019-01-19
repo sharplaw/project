@@ -1,25 +1,204 @@
 <style>
-    .card-block p { line-height: 1.95rem; font-size: 1.1rem; }
-    .card-footer { display: inline; }
-    .card-footer span { font-size: 1rem; color: #707070; cursor: pointer; }
-    .prev-article { display: inline-block; float: left; }
-    .next-article { display: inline-block; float: right; }
+.card{
+    height:630px;
+}
+.img_body{
+    width:  50%;
+    text-align:  center;
+}
+.img_sty{
+        height: 500px;
+        padding: 20px;
+}
+.img_body div{
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        background: #3F51B5;
+        color: #fff;
+        text-align: left;
+        padding-left: 20px;
+}
+#chat_room_msg{
+    height: 300px;
+    overflow: auto;
+}
+    #chat_room_msg span{
+        border-bottom: 1px solid #ccc;
+        display: block;
+        height: 25px;
+        line-height: 25px;
+    }
 </style>
 <div class="card">
-    <div class="card-header">
-        <h1 class="card-title" style="margin-top:1.1rem"></h1>
-        <div class="card-subtitle" style="margin-top:1rem"></div>
-    </div>
-    <div class="card-block">
-    </div>
-    <div class="card-footer">
-        <div class="prev-article">
-            <span><i class="zmdi zmdi-arrow-left zmdi-hc-fw"></i>上一篇</span>
+    <div style=" display: flex; " id="img1">
+        <div class="img_body">
+            <div>活动情况模板</div>
+            <img src="../img/static/hdqk.png" alt="" class="img_sty">
+            <!--<input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 10%;width: 80%;" value="点击填写活动情况" onclick="reportCover()">-->
         </div>
-        <div class="next-article">
-            <span>下一篇<i class="zmdi zmdi-arrow-right zmdi-hc-fw"></i></span>
+        <div style="width: 2px;"></div>
+        <div class="img_body">
+            <div>教育谈话模板</div>
+            <img src="../img/static/jyth.png" alt="" class="img_sty">
+            <!--<input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 10%;width: 80%;" value="点击填写教育谈话" onclick="reportCover()">-->
         </div>
-        <div id="today" hidden></div>
+    </div>
+    <!--<div id="img2" style="display: none;">-->
+        <!--<div class="img_body">-->
+            <!--<div>正在登入中...</div>-->
+            <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547922905876&di=74e15d62e2bc05034179a2d7d4cbbb1d&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01212057a062c30000012e7ed325fe.gif" alt="">-->
+        <!--</div>-->
+      <!--</div>-->
+    <input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 36%" value="点击报道" onclick="reportCover()">
+</div>
+<script>
+    $(function(){
+      //  report_cover()//弹出登录
+        reportCover()//登录聊天室
+    })
+
+    function reportCover(){
+        console.log('登录聊天室...')
+        var $form = $('#chat_room');
+
+    /* 开始建立连接*/
+        if('WebSocket' in window){
+            var ws = new WebSocket("ws://localhost:8080/websocketTest/" + 'MrBird');
+            console.log("连接成功");
+        }else{
+            alert('无法连接机器...');
+        }
+
+        // 初始化一个 WebSocket 对象
+       // var ws = new WebSocket("ws://localhost:9998/echo");
+
+        // 建立 web socket 连接成功触发事件
+                ws.onopen = function () {
+                    $form.modal();
+                    // 使用 send() 方法发送数据
+                    ws.send("发送数据");
+                    alert("数据发送中...");
+                };
+
+        // 接收服务端数据时触发事件
+                ws.onmessage = function (evt) {
+                    var received_msg = evt.data;
+                    alert("数据已接收...");
+                };
+
+        // 断开 web socket 连接成功触发事件
+                ws.onclose = function () {
+                    $MB.n_success("连接已关闭...");
+                    window.setTimeout(function(){
+                        $('#chat_room').modal('hide')
+                    },500);
+
+                };
+    }
+function report_cover() {
+    var $form = $('#report_cover');
+    $form.modal();
+}
+function baodao(){
+    var card=$("input[name=card]").val();
+    var password=$("input[name=password]").val();
+    $.ajax({
+        type:"get",
+        url:ctx + "prisoner/select",
+        dataType:"json", //预期服务器返回数据的类型
+        data:{
+            card:card,
+            password:password
+        },
+        success:function(r){
+            if(r.total=='1'){
+                $('#report_cover').modal('hide')
+                $MB.n_success('成功登入...');
+            }else{
+                $MB.n_warning('未查询到该人员，请正确填写！');
+            }
+        },
+        error:function(jqXHR){
+            alert("发生错误："+ jqXHR.status);
+        }
+    });
+}
+</script>
+<div class="modal fade" id="report_cover" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">开始报道</h3>
+            </div>
+            <div class="modal-body" style="background: #f0f0f075">
+                <form id="job-add-form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               身份证号码：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="card" class="form-control" placeholder="请输入身份证号码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					                         机器随机码：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="password" class="form-control"placeholder="请输入随机码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="button" class="btn btn-success bg-indigo" style="height:  50px;width: 80%;margin: 0 10%;" value="登录" onclick="baodao()">
+                        </div>
+                    </div>
+
+                    <hr>  <hr>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-save" >保存</button>-->
+                <!--<button type="button" class="btn btn-secondary btn-close" onclick=" $('#report_cover').modal('hide')">关闭</button>-->
+                <button class="btn-hide"></button>
+            </div>
+        </div>
     </div>
 </div>
-<script data-th-src="@{js/app/web/article/article.js}"></script>
+
+<!-- 弹出框2-->
+<div class="modal fade" id="chat_room" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">机器连接中...</h3>
+            </div>
+            <div class="modal-body" style="background: #f0f0f075">
+                <form id="chat_room_msg">
+                    <span>xxxxx</span>
+                    <span>xxxxx</span>
+                    <span>xxxxx</span>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-save" >保存</button>-->
+                <!--<button type="button" class="btn btn-secondary btn-close" onclick=" $('#report_cover').modal('hide')">关闭</button>-->
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

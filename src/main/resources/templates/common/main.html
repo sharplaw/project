@@ -56,41 +56,41 @@
             <li class="breadcrumb-item">社区服刑人员辅助系统</li>
         </ol>
     </header>
-    <!--<div class="main-content">-->
-        <!--<div class="card-block">-->
-            <!--<a class="card_col4" th:href="@{/prisoner/report}" >-->
-                <!--<div class="card_left color1"><i class="iconfont icon-cursoure"></i></div>-->
-                <!--<div class="card_right">报道</div>-->
-            <!--</a>-->
-            <!--<div class="card_col4">-->
-                <!--<div class="card_left color2"><i class="iconfont icon-help"></i></div>-->
-                <!--<div class="card_right">请假</div>-->
-            <!--</div>-->
-            <!--<div class="card_col4">-->
-                <!--<div class="card_left color3"><i class="iconfont icon-heart"></i></div>-->
-                <!--<div class="card_right">心理</div>-->
-            <!--</div>-->
-            <!--<div class="card_col4">-->
-                <!--<div class="card_left color4"><i class="iconfont icon-cup"></i></div>-->
-                <!--<div class="card_right">学习</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
     <div class="main-content">
         <div class="card-block">
-            <a class="card_col3" name="prisoner/list"  onclick="loadMain(this);">
-                <div class="card_left color1"><i class="iconfont icon-share"></i></div>
-                <div class="card_right">人员管理</div>
+            <a class="card_col4"  name="prisoner/report"  onclick="loadMain(this);">
+                <div class="card_left color1"><i class="iconfont icon-cursoure"></i></div>
+                <div class="card_right">报道</div>
             </a>
-            <div class="card_col3">
-                <div class="card_left color2"><i class="iconfont icon-notepad"></i></div>
-                <div class="card_right">学习管理</div>
+            <div class="card_col4" name="prisoner/list"  onclick="loadMain(this);">
+                <div class="card_left color2"><i class="iconfont icon-help"></i></div>
+                <div class="card_right">请假</div>
             </div>
-            <div class="card_col3">
-                <div class="card_left color3"><i class="iconfont icon-mouse"></i></div>
-                <div class="card_right">我的工作</div>
+            <div class="card_col4">
+                <div class="card_left color3"><i class="iconfont icon-heart"></i></div>
+                <div class="card_right">心理</div>
+            </div>
+            <div class="card_col4">
+                <div class="card_left color4"><i class="iconfont icon-cup"></i></div>
+                <div class="card_right">学习</div>
             </div>
         </div>
     </div>
+    <!--<div class="main-content">-->
+        <!--<div class="card-block">-->
+            <!--<a class="card_col3" name="prisoner/list"  onclick="loadMain(this);">-->
+                <!--<div class="card_left color1"><i class="iconfont icon-share"></i></div>-->
+                <!--<div class="card_right">人员管理</div>-->
+            <!--</a>-->
+            <!--<div class="card_col3">-->
+                <!--<div class="card_left color2"><i class="iconfont icon-notepad"></i></div>-->
+                <!--<div class="card_right">学习管理</div>-->
+            <!--</div>-->
+            <!--<div class="card_col3">-->
+                <!--<div class="card_left color3"><i class="iconfont icon-mouse"></i></div>-->
+                <!--<div class="card_right">我的工作</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
     <div data-th-include="common/footer"></div>
 </section>
