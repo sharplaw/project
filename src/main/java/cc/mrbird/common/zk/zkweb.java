@@ -218,7 +218,7 @@ public class zkweb {
                         System.arraycopy(regTemp, 0, lastRegTemp, 0, cbRegTemp);
                         //Base64 Template
                         base= FingerprintSensorEx.BlobToBase64(lastRegTemp, cbRegTemp);
-
+                        System.out.println(base);
 
                         // textArea.setText("enroll succ");
                     } else {
@@ -305,7 +305,7 @@ public class zkweb {
         if (enroll_idx==3) {
             map.put("times",enroll_idx);
             map.put("base",base);
-            return ResponseBo.ok(map);
+            return ResponseBo.ok(base);
         }else{
             map.put("times",enroll_idx);
             map.put("base","");
