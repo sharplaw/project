@@ -73,7 +73,7 @@ $(function () {
         var name = $(this).attr("name");
         validator = $jobAddForm.validate();
         var flag = validator.form();
-        var fjsSerialize=$jobAddForm.serializeObject();
+        var jsSerialize=$jobAddForm.serializeObject();
         console.log(jsSerialize)
         if (flag) {
             if (name === "save") {
@@ -199,7 +199,7 @@ function zwsb() {
         });
 
         /*成功后--调试接口时可删除下面此部分*/
-         timing = window.setInterval(timingFunc,1000);
+         // timing = window.setInterval(timingFunc,1000);
     }
 }
 function timingFunc() {
