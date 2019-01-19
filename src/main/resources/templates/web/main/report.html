@@ -64,7 +64,7 @@
 
     /* 开始建立连接*/
         if('WebSocket' in window){
-            var ws = new WebSocket("ws://localhost:8080/websocketTest/" + 'MrBird');
+            var ws = new WebSocket("ws://localhost:8080/websocket" );
             console.log("连接成功");
         }else{
             alert('无法连接机器...');
