@@ -59,6 +59,7 @@
         $("#chat_room_msg").html('')
         /* 开始建立连接*/
         ws=new WebSocket("ws://localhost:8080/websocket/"+"pad001" );
+        /*  备注：发送给pc====01为设备正在填写活动情况  02活动情况填写完毕*/
         if('WebSocket' in window){
             console.log("连接成功");
             $("#chat_room_msg").append("<span>连接成功</span>")
@@ -84,7 +85,7 @@
                //打开报道页
                 //alert("打开报道")
                 console.log(evt)
-                ws.send("正在填写活动情况");
+                ws.send("01");
             }
 
             $("#chat_room_msg").append("<span>数据已接收...</span>")
