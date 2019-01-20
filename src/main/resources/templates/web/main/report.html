@@ -64,7 +64,7 @@
     $("#chat_room_msg").html('')
     /* 开始建立连接*/
         if('WebSocket' in window){
-            var ws = new WebSocket("ws://localhost:8080/websocket/"+"mrbird" );
+            var ws = new WebSocket("ws://localhost:8080/websocket/"+"pc001" );
             console.log("连接成功");
             $("#chat_room_msg").append("<span>连接成功</span>")
         }else{

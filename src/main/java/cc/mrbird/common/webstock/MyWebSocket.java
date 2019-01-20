@@ -64,21 +64,29 @@ public class MyWebSocket {
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         System.out.println("来自客户端的消息:" + message);
-        String[] messages = message.split("-f,t-");
+        if(userId.indexOf("pc")!=-1){
+            userId.replace("pc","pad");
+        }else if(userId.indexOf("pad")!=-1){
+            userId.replace("pad","pc");
+        }else{
+            session.getBasicRemote().sendText("illegal"); //回复用户
+        }
+
+       // String[] messages = message.split("-f,t-");
         //接收者名称
-        String toName = messages[0].trim();
+       // String toName = messages[0].trim();
         //发送给接收者的信息
-        String toMessage = 1 >= messages.length ? "" : messages[1];
+       // String toMessage = 1 >= messages.length ? "" : messages[1];
         //用户判断接收者是否存在
         boolean flag = false;
         //发消息
         for(Map<String, MyWebSocket> item: mapSocket){
             try {
                 for (String key : item.keySet()) {
-                    if(toName.equals(key)){
+                    if(userId.equals(key)){
                         flag = true;
                         MyWebSocket myWebSocket = item.get(key);
-                        myWebSocket.sendMessage(key, toMessage);
+                        myWebSocket.sendMessage(key, message);
                     }
                 }
             } catch (IOException e) {
@@ -87,7 +95,7 @@ public class MyWebSocket {
             }
         }
         if(!flag){
-            session.getBasicRemote().sendText(toName + "用户不在线！"); //回复用户
+            session.getBasicRemote().sendText( "offline"); //回复用户
         }
 //        //这里注释掉的内容是群发消息
 //        for(Map<String, MyWebSocket> item: mapSocket){
