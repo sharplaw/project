@@ -25,4 +25,10 @@ public class PadController extends BaseController {
     public String login() {
         return "ipad/login";
     }
+
+    @Log("跳转谈话页")
+    @RequestMapping("pad/indexlogin")
+    public String indexlogin() {
+        return "ipad/indexlogin";
+    }
 }
