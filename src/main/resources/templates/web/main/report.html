@@ -52,6 +52,7 @@
       <!--</div>-->
     <input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 36%" value="点击报道" onclick="reportCover()">
 </div>
+
 <script>
     $(function(){
       //  report_cover()//弹出登录
@@ -136,8 +137,12 @@ function baodao(){
             alert("发生错误："+ jqXHR.status);
         }
     });
+
+
 }
+
 </script>
+
 <div class="modal fade" id="report_cover" data-keyboard="false" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
