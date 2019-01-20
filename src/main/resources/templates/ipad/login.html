@@ -1,10 +1,105 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>连接系统</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.ico}" />
+    <!-- Vendor styles -->
+    <link rel="stylesheet" data-th-href="@{../css/material-design-iconic-font/css/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" data-th-href="@{../css/jquery.scrollbar/jquery.scrollbar.css}">
+    <!-- App styles -->
+    <link rel="stylesheet" data-th-href="@{../css/app.css}">
+    <!--alifont-->
+    <link rel="stylesheet" data-th-href="@{../css/alifont/iconfont.css}">
+    <!-- Bootstrap Table -->
+    <link rel="stylesheet" data-th-href="@{../css/bootstrap-table/bootstrap-table.css}">
+    <!-- animate -->
+    <link rel="stylesheet" data-th-href="@{../css/animate/animate.min.css}">
+    <!-- multiple-select -->
+    <link rel="stylesheet" data-th-href="@{../css/multiple-select/multiple-select.css}">
+    <!-- jsTree -->
+    <link rel="stylesheet" data-th-href="@{../css/jsTree/style.min.css}">
+    <!-- treeTable -->
+    <link rel="stylesheet" data-th-href="@{../css/jqTreeGrid/jquery.treegrid.css}">
+    <!-- sweetalert2 -->
+    <link rel="stylesheet" data-th-href="@{../css/sweetalert2/sweetalert2.css}">
+    <!-- datarangepicker -->
+    <link rel="stylesheet" data-th-href="@{../css/daterangepicker/daterangepicker.css}">
+    <style>
+        #chat_room_msg{
+            height: 200px;
+            overflow: auto;
+        }
+        #chat_room_msg span{
+            display: block;
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
-
+    <main class="main">
+        <div id="one">
+            <header style=" height: 200px; margin-top: 50px; line-height: 200px; text-align: center; font-size: 40px; color: #3F51B5; ">矫正链接系统</header>
+            <div style=" padding: 200px; ">
+                <input type="button" name="" class="btn btn-success" style="height: 50px;margin: 0 auto;width: 100%;" value="连接进入系统" onclick="linkto()">
+            </div>
+            <div></div>
+            <div id="chat_room_msg"></div>
+        </div>
+        <div data-th-include="ipad/index" style="display: none" id="two"></div>
+    </main>
 </body>
 </html>
+<script>
+
+    function linkto() {
+        alert('${user.username}')// data-th-utext="${user.username}"
+        $("#chat_room_msg").html('')
+        /* 开始建立连接*/
+        if('WebSocket' in window){
+            var ws = new WebSocket("ws://localhost:8080/websocket/"+"pad001" );
+            console.log("连接成功");
+            $("#chat_room_msg").append("<span>连接成功</span>")
+        }else{
+            alert('无法连接机器...');
+            $("#chat_room_msg").append("<span>无法连接机器...</span>")
+        }
+
+        // 初始化一个 WebSocket 对象
+        // var ws = new WebSocket("ws://localhost:9998/echo");
+
+        // 建立 web socket 连接成功触发事件
+        ws.onopen = function () {
+            // 使用 send() 方法发送数据
+           //ws.send("发送数据");
+            //console.log("数据发送中...");
+            //$("#chat_room_msg").append("<span>数据发送中...</span>")
+        };
+
+        // 接收服务端数据时触发事件
+        ws.onmessage = function (evt) {
+            var received_msg = evt.data;
+            console.log(evt)
+            $("#chat_room_msg").append("<span>数据已接收...</span>")
+            $("#chat_room_msg").append("<span>"+evt.data+"</span>")
+            if(evt.data=='发送数据用户不在线！'){
+                window.setTimeout(function(){
+                    $("#chat_room_msg").append("<span>"+evt.data+",请检查设备重试...</span>");
+                },1000);
+            }else{
+                $('#one').hide();
+                $('#two').show();
+            }
+        };
+
+        // 断开 web socket 连接成功触发事件
+        ws.onclose = function () {
+            window.setTimeout(function(){
+                $("#chat_room_msg").append("连接已关闭...")
+            },500);
+
+        };
+    }
+</script>
