@@ -65,9 +65,9 @@ public class MyWebSocket {
     public void onMessage(String message, Session session) throws IOException {
         System.out.println("来自客户端的消息:" + message);
         if(userId.indexOf("pc")!=-1){
-            userId.replace("pc","pad");
+         userId=   userId.replace("pc","pad");
         }else if(userId.indexOf("pad")!=-1){
-            userId.replace("pad","pc");
+            userId=  userId.replace("pad","pc");
         }else{
             session.getBasicRemote().sendText("illegal"); //回复用户
         }

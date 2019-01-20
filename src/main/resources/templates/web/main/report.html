@@ -79,7 +79,7 @@
                 ws.onopen = function () {
                     $form.modal();
                     // 使用 send() 方法发送数据
-                    ws.send("发送数据");
+                    ws.send("pisline");
                     console.log("数据发送中...");
                     $("#chat_room_msg").append("<span>数据发送中...</span>")
                 };
@@ -87,10 +87,13 @@
         // 接收服务端数据时触发事件
                 ws.onmessage = function (evt) {
                     var received_msg = evt.data;
+                    if(evt.data=='offline'){
+                        $("#chat_room_msg").append("<span>pad未连接...</span>")
+                        $("#chat_room_msg").append(evt.data)
+                    }
                     console.log(evt)
-                    $("#chat_room_msg").append("<span>数据已接收...</span>")
-                    $("#chat_room_msg").append(evt.data)
-                    if(evt.data=='发送数据用户不在线！'){
+
+                    if(evt.data=='offline'){
                         window.setTimeout(function(){
                             $MB.n_warning("<span>"+evt.data+",请检查设备重试...</span>");
                             $('#chat_room').modal('hide')
