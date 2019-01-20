@@ -50,19 +50,16 @@
             <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547922905876&di=74e15d62e2bc05034179a2d7d4cbbb1d&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01212057a062c30000012e7ed325fe.gif" alt="">-->
         <!--</div>-->
       <!--</div>-->
-    <input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 36%" value="点击报道" onclick="sendbao()">
+    <input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 36%" value="点击报道" onclick="reportCover()">
 </div>
 
 <script>
     $(function(){
       //  report_cover()//弹出登录
-        reportCover()//登录聊天室
+      //  reportCover()//登录聊天室
     })
 
-    function sendbao(){
-        console.log('登录聊天室...')
-        ws.send("openB");
-    }
+
     function reportCover(){
         console.log('登录聊天室...')
         var $form = $('#chat_room');
@@ -85,6 +82,7 @@
                     $form.modal();
                     // 使用 send() 方法发送数据
                    // ws.send("pisline");
+                    ws.send("openB");
                     console.log("数据发送中...");
                  //   $("#chat_room_msg").append("<span>数据发送中...</span>")
                 };
@@ -200,12 +198,12 @@ function baodao(){
 </div>
 
 <!-- 弹出框2-->
-<div class="modal fade" id="chat_room" data-keyboard="false" data-backdrop="static" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title pull-left">机器连接中...</h3>
-            </div>
+<!--<div class="modal fade" id="chat_room" data-keyboard="false" data-backdrop="static" tabindex="-1">-->
+    <!--<div class="modal-dialog modal-lg">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<h3 class="modal-title pull-left">机器连接中...</h3>-->
+            <!--</div>-->
             <!--<div class="modal-body" style="background: #f0f0f075">-->
                 <!--<form id="chat_room_msg">-->
                     <!--<span>xxxxx</span>-->
