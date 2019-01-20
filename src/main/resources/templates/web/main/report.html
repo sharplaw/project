@@ -61,13 +61,15 @@
     function reportCover(){
         console.log('登录聊天室...')
         var $form = $('#chat_room');
-
+    $("#chat_room_msg").html('')
     /* 开始建立连接*/
         if('WebSocket' in window){
             var ws = new WebSocket("ws://localhost:8080/websocket/"+"mrbird" );
             console.log("连接成功");
+            $("#chat_room_msg").append("<span>连接成功</span>")
         }else{
             alert('无法连接机器...');
+            $("#chat_room_msg").append("<span>无法连接机器...</span>")
         }
 
         // 初始化一个 WebSocket 对象
@@ -78,19 +80,31 @@
                     $form.modal();
                     // 使用 send() 方法发送数据
                     ws.send("发送数据");
-                    alert("数据发送中...");
+                    console.log("数据发送中...");
+                    $("#chat_room_msg").append("<span>数据发送中...</span>")
                 };
 
         // 接收服务端数据时触发事件
                 ws.onmessage = function (evt) {
                     var received_msg = evt.data;
-                    alert("数据已接收...");
+                    console.log(evt)
+                    $("#chat_room_msg").append("<span>数据已接收...</span>")
+                    $("#chat_room_msg").append(evt.data)
+                    if(evt.data=='发送数据用户不在线！'){
+                        window.setTimeout(function(){
+                            $MB.n_warning("<span>"+evt.data+",请检查设备重试...</span>");
+                            $('#chat_room').modal('hide')
+                        },1000);
+                    }else{
+
+                    }
                 };
 
         // 断开 web socket 连接成功触发事件
                 ws.onclose = function () {
                     $MB.n_success("连接已关闭...");
                     window.setTimeout(function(){
+                        $("#chat_room_msg").append("连接已关闭...")
                         $('#chat_room').modal('hide')
                     },500);
 
