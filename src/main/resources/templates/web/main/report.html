@@ -90,17 +90,13 @@
                     if(evt.data=='offline'){
                         $("#chat_room_msg").append("<span>pad未连接...</span>")
                         $("#chat_room_msg").append(evt.data)
-                    }
-                    console.log(evt)
-
-                    if(evt.data=='offline'){
                         window.setTimeout(function(){
                             $MB.n_warning("<span>"+evt.data+",请检查设备重试...</span>");
                             $('#chat_room').modal('hide')
                         },1000);
-                    }else{
-
                     }
+                    console.log(evt.data);
+
                 };
 
         // 断开 web socket 连接成功触发事件
