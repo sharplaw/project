@@ -112,10 +112,11 @@
         // 断开 web socket 连接成功触发事件
                 ws.onclose = function () {
                     $MB.n_success("连接已关闭...");
+                    $("#chat_room_msg").append("连接已关闭...")
+                    $('#chat_room').modal('hide')
                     window.setTimeout(function(){
-                        $("#chat_room_msg").append("连接已关闭...")
-                        $('#chat_room').modal('hide')
-                    },500);
+                        window.location.reload()
+                    },1000);
 
                 };
     }

@@ -79,7 +79,7 @@
 
         // 接收服务端数据时触发事件
         ws.onmessage = function (evt) {
-
+            console.log(evt.data)
             $("#chat_room_msg").append("<span>数据已接收...</span>")
             $("#chat_room_msg").append("<span>"+evt.data+"</span>")
             if(evt.data=='openA'){
@@ -100,9 +100,10 @@
 
         // 断开 web socket 连接成功触发事件
         ws.onclose = function () {
+            $("#chat_room_msg").append("连接已关闭...")
             window.setTimeout(function(){
-                $("#chat_room_msg").append("连接已关闭...")
-            },500);
+                window.location.reload()
+            },1000);
 
         };
     }
