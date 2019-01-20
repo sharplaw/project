@@ -59,7 +59,7 @@
         $("#chat_room_msg").html('')
         /* 开始建立连接*/
         ws=new WebSocket("ws://localhost:8080/websocket/"+"pad001" );
-        /*  备注：发送给pc====01为设备正在填写活动情况  02活动情况填写完毕*/
+        /*  备注：发送给pc====01为设备正在填写活动情况  02活动情况填写完毕 03正在填写谈话记录*/
         if('WebSocket' in window){
             console.log("连接成功");
             $("#chat_room_msg").append("<span>连接成功</span>")
@@ -79,20 +79,18 @@
 
         // 接收服务端数据时触发事件
         ws.onmessage = function (evt) {
-            var received_msg = evt.data;
-
-            if(received_msg=="openA"){
-               //打开报道页
-                //alert("打开报道")
-                console.log(evt)
-                ws.send("01");
-            }
 
             $("#chat_room_msg").append("<span>数据已接收...</span>")
             $("#chat_room_msg").append("<span>"+evt.data+"</span>")
             if(evt.data=='openA'){
+                ws.send("01");
                 $('#one').hide();
                 $('#two').show();
+            }else if(evt.data=='openB'){
+                ws.send("03");
+                $('#one').hide();
+                $('#two').show();
+
             }else{
                 window.setTimeout(function(){
                     $("#chat_room_msg").append("<span>"+evt.data+",请检查设备重试...</span>");
