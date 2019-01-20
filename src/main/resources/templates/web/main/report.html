@@ -56,40 +56,41 @@
 <script>
     $(function(){
       //  report_cover()//弹出登录
+
       //  reportCover()//登录聊天室
+
     })
 
 
     function reportCover(){
         console.log('登录聊天室...')
         var $form = $('#chat_room');
-    //$("#chat_room_msg").html('')
+    $("#chat_room_msg").html('')
+        $form.modal();
     /* 开始建立连接*/
         if('WebSocket' in window){
             var ws = new WebSocket("ws://localhost:8080/websocket/"+"pc001" );
             console.log("连接成功");
-           // $("#chat_room_msg").append("<span>连接成功</span>")
+            $("#chat_room_msg").append("<span>连接成功</span>")
         }else{
             alert('无法连接机器...');
-          //  $("#chat_room_msg").append("<span>无法连接机器...</span>")
+            $("#chat_room_msg").append("<span>无法连接机器...</span>")
         }
 
-        // 初始化一个 WebSocket 对象
-       // var ws = new WebSocket("ws://localhost:9998/echo");
 
         // 建立 web socket 连接成功触发事件
                 ws.onopen = function () {
-                    $form.modal();
+
                     // 使用 send() 方法发送数据
-                   // ws.send("pisline");
-                    ws.send("openB");
+                    ws.send("openA");
                     console.log("数据发送中...");
-                 //   $("#chat_room_msg").append("<span>数据发送中...</span>")
+                   $("#chat_room_msg").append("<span>数据发送中...</span>")
                 };
 
         // 接收服务端数据时触发事件
                 ws.onmessage = function (evt) {
                     var received_msg = evt.data;
+                    console.log(evt)
                     if(evt.data=='offline'){
                         $("#chat_room_msg").append("<span>pad未连接...</span>")
                         $("#chat_room_msg").append(evt.data)
@@ -97,6 +98,8 @@
                             $MB.n_warning("<span>"+evt.data+",请检查设备重试...</span>");
                             $('#chat_room').modal('hide')
                         },1000);
+                    }else if(evt.data=="正在填写活动情况"){
+                        $("#chat_room_msg").append("<span>"+evt.data+"</span>")
                     }
                     console.log(evt.data);
 
@@ -198,19 +201,19 @@ function baodao(){
 </div>
 
 <!-- 弹出框2-->
-<!--<div class="modal fade" id="chat_room" data-keyboard="false" data-backdrop="static" tabindex="-1">-->
-    <!--<div class="modal-dialog modal-lg">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<h3 class="modal-title pull-left">机器连接中...</h3>-->
-            <!--</div>-->
-            <!--<div class="modal-body" style="background: #f0f0f075">-->
-                <!--<form id="chat_room_msg">-->
-                    <!--<span>xxxxx</span>-->
-                    <!--<span>xxxxx</span>-->
-                    <!--<span>xxxxx</span>-->
-                <!--</form>-->
-            <!--</div>-->
+<div class="modal fade" id="chat_room" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">机器连接中...</h3>
+            </div>
+            <div class="modal-body" style="background: #f0f0f075">
+                <form id="chat_room_msg">
+                    <span>xxxxx</span>
+                    <span>xxxxx</span>
+                    <span>xxxxx</span>
+                </form>
+            </div>
 
             <div class="modal-footer">
                 <!--<button type="button" class="btn btn-save" >保存</button>-->

@@ -53,13 +53,13 @@
 </body>
 </html>
 <script>
-
+    var ws = '';
     function linkto() {
-        alert('${user.username}')// data-th-utext="${user.username}"
+        //alert('${user.username}')// data-th-utext="${user.username}"
         $("#chat_room_msg").html('')
         /* 开始建立连接*/
+        ws=new WebSocket("ws://localhost:8080/websocket/"+"pad001" );
         if('WebSocket' in window){
-            var ws = new WebSocket("ws://localhost:8080/websocket/"+"pad001" );
             console.log("连接成功");
             $("#chat_room_msg").append("<span>连接成功</span>")
         }else{
@@ -67,13 +67,11 @@
             $("#chat_room_msg").append("<span>无法连接机器...</span>")
         }
 
-        // 初始化一个 WebSocket 对象
-        // var ws = new WebSocket("ws://localhost:9998/echo");
 
         // 建立 web socket 连接成功触发事件
         ws.onopen = function () {
             // 使用 send() 方法发送数据
-           //ws.send("发送数据");
+
             console.log("数据发送中...");
             $("#chat_room_msg").append("<span>数据发送中...</span>")
         };
@@ -82,21 +80,22 @@
         ws.onmessage = function (evt) {
             var received_msg = evt.data;
 
-            if(received_msg=="openB"){
+            if(received_msg=="openA"){
                //打开报道页
-                alert("打开报道")
+                //alert("打开报道")
                 console.log(evt)
+                ws.send("正在填写活动情况");
             }
 
             $("#chat_room_msg").append("<span>数据已接收...</span>")
             $("#chat_room_msg").append("<span>"+evt.data+"</span>")
-            if(evt.data=='发送数据用户不在线！'){
+            if(evt.data=='openA'){
+                $('#one').hide();
+                $('#two').show();
+            }else{
                 window.setTimeout(function(){
                     $("#chat_room_msg").append("<span>"+evt.data+",请检查设备重试...</span>");
                 },1000);
-            }else{
-                $('#one').hide();
-                $('#two').show();
             }
         };
 

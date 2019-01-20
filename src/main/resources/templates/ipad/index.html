@@ -129,15 +129,6 @@
                 cxt.drawImage(imgs,0,0,padwidth,padheight);
             }
 
-            // var imgs = new Image();
-            // imgs.src = "http://img2.3lian.com/2014/f5/63/d/16.jpg";
-            // imgs.onload = createPat;//图片加载完成再执行
-            // function createPat(){
-            //     var bg = this.cxt.createPattern(imgs,"no-repeat");
-            //     this.cxt.fillStyle = bg;
-            //     this.cxt.fillRect(0,0,padwidth,padheight);
-            // }
-
 
 
             //开始绘制
@@ -168,6 +159,7 @@
                 //$('#autographbase64').val(aaa)
                 // $('#autographfinish').val('成功')
                 //$('.autographshow').hide();
+                ws.send("活动情况填写完毕");
 
             }.bind(this), false);
         };
