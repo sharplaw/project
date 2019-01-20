@@ -81,7 +81,13 @@
         // 接收服务端数据时触发事件
         ws.onmessage = function (evt) {
             var received_msg = evt.data;
-            console.log(evt)
+
+            if(received_msg=="openB"){
+               //打开报道页
+                alert("打开报道")
+                console.log(evt)
+            }
+
             $("#chat_room_msg").append("<span>数据已接收...</span>")
             $("#chat_room_msg").append("<span>"+evt.data+"</span>")
             if(evt.data=='发送数据用户不在线！'){
