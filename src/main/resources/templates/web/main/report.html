@@ -91,7 +91,7 @@
                     var received_msg = evt.data;
                     console.log(evt)
                     if(evt.data=='offline'){
-                        $("#chat_room_msg").append("<span>pad未连接...</span>")
+                        $("#chat_room_msg").append("<span>ipad未连接...</span>")
                         $("#chat_room_msg").append(evt.data)
                         window.setTimeout(function(){
                             $MB.n_warning("<span>"+evt.data+",请检查设备重试...</span>");
