@@ -55,18 +55,17 @@
 
 <script>
     $(function(){
-      //  report_cover()//弹出登录
+       report_cover()//弹出登录
 
-        reportCover()//登录聊天室
+        //   reportCover()//登录聊天室
 
     })
 
     var ws;
     function reportCover(){
         console.log('登录聊天室...')
-        var $form = $('#chat_room');
-    $("#chat_room_msg").html('')
-        $form.modal();
+        $("#chat_room_msg").html('')
+
     /* 开始建立连接*/
         if('WebSocket' in window){
              ws = new WebSocket("ws://localhost:8080/websocket/"+"pc001" );
@@ -98,8 +97,8 @@
                             $MB.n_warning("<span>"+evt.data+",请检查设备重试...</span>");
                             $('#chat_room').modal('hide')
                         },1000);
-                    }else if(evt.data=="正在填写活动情况"){
-                        $("#chat_room_msg").append("<span>"+evt.data+"</span>")
+                    }else if(evt.data=="01"){
+                        $("#chat_room_msg").append("<span>设备正在填写活动情况...</span>")
                     }
                     console.log(evt.data);
 
@@ -117,6 +116,8 @@
     }
 
     function sendbao(){
+        var $form = $('#chat_room');
+        $form.modal();
         ws.send("openA");
     }
 function report_cover() {
@@ -138,6 +139,7 @@ function baodao(){
             if(r.total=='1'){
                 $('#report_cover').modal('hide')
                 $MB.n_success('成功登入...');
+                reportCover()//加载链接
             }else{
                 $MB.n_warning('未查询到该人员，请正确填写！');
             }
