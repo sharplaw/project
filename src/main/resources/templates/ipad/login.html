@@ -49,16 +49,18 @@
             <div id="chat_room_msg"></div>
         </div>
         <div data-th-include="ipad/index" style="display: none" id="two"></div>
+        <div data-th-include="ipad/indexlogin" style="display: none" id="three"></div>
     </main>
 </body>
 </html>
 <script>
     var ws = '';
+    var lineUsername=localStorage.getItem("username");
     function linkto() {
         //alert('${user.username}')// data-th-utext="${user.username}"
         $("#chat_room_msg").html('')
         /* 开始建立连接*/
-        ws=new WebSocket("ws://localhost:8080/websocket/"+"pad001" );
+        ws=new WebSocket("ws://localhost:8080/websocket/"+lineUsername );
         /*  备注：发送给pc====01为设备正在填写活动情况  02活动情况填写完毕 03正在填写谈话记录*/
         if('WebSocket' in window){
             console.log("连接成功");
@@ -83,13 +85,15 @@
             $("#chat_room_msg").append("<span>数据已接收...</span>")
             $("#chat_room_msg").append("<span>"+evt.data+"</span>")
             if(evt.data=='openA'){
-                ws.send("pad001,01");
+                ws.send(""+lineUsername+",01");
                 $('#one').hide();
                 $('#two').show();
+                $('#three').hide();
             }else if(evt.data=='openB'){
-                ws.send("pad001,03");
+                ws.send(""+lineUsername+",03");
                 $('#one').hide();
-                $('#two').show();
+                $('#two').hide();
+                $('#three').show();
 
             }else{
                 window.setTimeout(function(){

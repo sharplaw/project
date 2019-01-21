@@ -78,6 +78,7 @@ function login() {
         dataType: "json",
         success: function (r) {
             if (r.code === 0) {
+                localStorage.setItem("username",username);
                 var typpe=goPAGE();
                 location.href = ctx + typpe;
             } else {

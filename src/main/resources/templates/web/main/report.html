@@ -55,6 +55,7 @@
 
 <script>
     $(function(){
+
        report_cover()//弹出登录
 
         //   reportCover()//登录聊天室
@@ -62,13 +63,14 @@
     })
 
     var ws;
+    var lineUsernamePC=localStorage.getItem("username");
     function reportCover(){
         console.log('登录聊天室...')
         $("#chat_room_msg").html('')
 
     /* 开始建立连接*/
         if('WebSocket' in window){
-             ws = new WebSocket("ws://localhost:8080/websocket/"+"pc001" );
+             ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsernamePC );
             console.log("连接成功");
             $("#chat_room_msg").append("<span>连接成功</span>")
         }else{
@@ -101,7 +103,7 @@
                         $("#chat_room_msg").append("<span>设备正在填写活动情况...</span>")
                     }else if(evt.data=="02"){
                         $("#chat_room_msg").append("<span>活动情况填写完毕...</span>")
-                        ws.send("pc001,openB");
+                        ws.send("openB");
                     }else if(evt.data=="03"){
                         $("#chat_room_msg").append("<span>正在填写谈话记录...</span>")
                     }
@@ -124,7 +126,7 @@
     function sendbao(){
         var $form = $('#chat_room');
         $form.modal();
-        ws.send("pc001,openA");
+        ws.send("openA");
     }
 function report_cover() {
     var $form = $('#report_cover');
