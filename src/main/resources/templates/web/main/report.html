@@ -103,7 +103,7 @@
                         $("#chat_room_msg").append("<span>设备正在填写活动情况...</span>")
                     }else if(evt.data=="02"){
                         $("#chat_room_msg").append("<span>活动情况填写完毕...</span>")
-                        ws.send("openB");
+                        ws.send(lineUsernamePC+",openB");
                     }else if(evt.data=="03"){
                         $("#chat_room_msg").append("<span>正在填写谈话记录...</span>")
                     }
@@ -126,7 +126,7 @@
     function sendbao(){
         var $form = $('#chat_room');
         $form.modal();
-        ws.send("openA");
+        ws.send(lineUsernamePC+",openA");
     }
 function report_cover() {
     var $form = $('#report_cover');
