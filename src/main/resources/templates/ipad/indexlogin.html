@@ -1,10 +1,76 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <head>
+    <title></title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <script data-th-src="@{../js/html2canvas.js}"></script>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <style>
+        .page_body{
+            display: flex;    height: 50px;
+        }
+        .page_left{
+            width: 38%; font-size: 20px; font-weight: 700;
+        }
+        .page_right{
+            font-size: 16px;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
+<div  id="capture" style=" padding: 5%; ">
+    <div style=" height: 50px; line-height: 50px; text-align: center; font-size: 25px; font-weight: 700; margin-bottom: 40px; ">社区服刑人员教育谈话记录</div>
+    <div class="page_body">
+        <div class="page_left">谈话时间：</div>
+        <div class="page_right">2019年1月21日23:01:06 至 2019年1月21日23:01:08</div>
+    </div>
+    <div class="page_body">
+        <div class="page_left">谈话地点：</div>
+        <div class="page_right">dadadadas</div>
+    </div>
+    <div class="page_body">
+        <div class="page_left">谈话人：</div>
+        <div class="page_right">dasdasd</div>
+    </div>
+    <div class="page_body">
+        <div class="page_left">谈话人所在单位及职务：</div>
+        <div class="page_right">dadasdas</div>
+    </div>
+    <div class="page_body">
+        <div class="page_left">记录人：</div>
+        <div class="page_right">大神的</div>
+    </div> <div class="page_body">
+    <div class="page_left">记录人所在单位及职务：</div>
+    <div class="page_right">大叔大婶大所大 阿萨德</div>
+</div> <div class="page_body">
+    <div class="page_left">社区服刑人员：</div>
+    <div class="page_right">2大神</div>
+</div>
+    <div style=" height: 50px; line-height: 50px; font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 20px; ">谈话内容</div>
+<u style=" height: 30px; line-height: 30px; ">哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈哈哈不止哈哈哈哈哈不止哈哈</u>
+<div style="height: 50px;"></div>
+    <div style=" height: 40px; line-height: 40px; float: right; margin-right: 25%; ">社区服刑人员(签字):</div>
+    <div style=" float: right; height: 40px; clear: both; line-height: 40px; margin-right: 25%; display: flex; ">
+        <div style=" width: 50px; ">年</div>
+        <div style=" width: 50px; ">月</div>
+        <div style=" width: 50px; ">日</div>
+    </div>
 
+</div>
+<input type="button" value="copyimg" id="btimg">
 </body>
+<script>
+    $(function(){
+        $('#btimg').click(function(){
+            html2canvas(document.querySelector("#capture")).then(canvas => {
+                document.body.appendChild(canvas)
+                    var url = canvas.toDataURL();
+                    console.log(url)
+        })
+        });
+    });
+</script>
 </html>
