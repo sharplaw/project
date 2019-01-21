@@ -23,12 +23,14 @@ public class PictureController  extends BaseController {
     @RequestMapping("picture/upload")
     @ResponseBody
     public ResponseBo upload(String imgStr, String prisonerNo, String seet) {
+      String a[]=  imgStr.split(",");
+        String imgStrs= a[1];
         Date date = new Date();
         int month = date.getMonth();
         int months = month + 1;
         String mon = String.valueOf(months);
-        String path = "D://" + prisonerNo + "//" + mon + "//" + prisonerNo + "-" + mon + "-" + seet + ".jpg";
-       boolean flag= Base.CreateImage(imgStr, path);
+        String path = "D://" + prisonerNo + "//" + mon + "//" + prisonerNo + "-" + mon + "-" + seet + ".png";
+       boolean flag= Base.CreateImage(imgStrs, path);
        if(flag=true){
            return ResponseBo.ok();
        }else{
