@@ -2,6 +2,7 @@ package cc.mrbird.common.webstock;
 
 import org.springframework.stereotype.Component;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -64,29 +65,28 @@ public class MyWebSocket {
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         System.out.println("来自客户端的消息:" + message);
-        if(userId.indexOf("pc")!=-1){
-         userId=   userId.replace("pc","pad");
-        }else if(userId.indexOf("pad")!=-1){
-            userId=  userId.replace("pad","pc");
+        String[] messages = message.split(",");
+        //接收者名称
+        String toName = messages[0].trim();
+        //发送给接收者的信息
+        if(toName.indexOf("pc")!=-1){
+            toName=   toName.replace("pc","pad");
+        }else if(toName.indexOf("pad")!=-1){
+            toName=  toName.replace("pad","pc");
         }else{
             session.getBasicRemote().sendText("illegal"); //回复用户
         }
-
-       // String[] messages = message.split("-f,t-");
-        //接收者名称
-       // String toName = messages[0].trim();
-        //发送给接收者的信息
-       // String toMessage = 1 >= messages.length ? "" : messages[1];
+       String toMessage = 1 >= messages.length ? "" : messages[1];
         //用户判断接收者是否存在
         boolean flag = false;
         //发消息
         for(Map<String, MyWebSocket> item: mapSocket){
             try {
                 for (String key : item.keySet()) {
-                    if(userId.equals(key)){
+                    if(toName.equals(key)){
                         flag = true;
                         MyWebSocket myWebSocket = item.get(key);
-                        myWebSocket.sendMessage(key, message);
+                        myWebSocket.sendMessage(key, toMessage);
                     }
                 }
             } catch (IOException e) {

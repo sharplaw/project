@@ -83,11 +83,11 @@
             $("#chat_room_msg").append("<span>数据已接收...</span>")
             $("#chat_room_msg").append("<span>"+evt.data+"</span>")
             if(evt.data=='openA'){
-                ws.send("01");
+                ws.send("pad001,01");
                 $('#one').hide();
                 $('#two').show();
             }else if(evt.data=='openB'){
-                ws.send("03");
+                ws.send("pad001,03");
                 $('#one').hide();
                 $('#two').show();
 
