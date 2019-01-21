@@ -30,7 +30,8 @@ public class PictureController  extends BaseController {
         int months = month + 1;
         String mon = String.valueOf(months);
         String path = "D://" + prisonerNo + "//" + mon + "//" + prisonerNo + "-" + mon + "-" + seet + ".png";
-       boolean flag= Base.CreateImage(imgStrs, path);
+        String filepath="D://" + prisonerNo + "//" + mon;
+        boolean flag= Base.CreateImage(imgStrs, path,filepath);
        if(flag=true){
            return ResponseBo.ok();
        }else{
