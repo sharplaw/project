@@ -148,6 +148,29 @@
         this.saveEl.addEventListener("click", function() {
             var imgBase64 = this.canvas.toDataURL();
             console.log(imgBase64);
+            $.ajax({
+                type:"post",
+                url: "../picture/upload",
+                dataType:"json", //预期服务器返回数据的类型
+                data:{
+                    prisonerNo:imgBase64,
+                    imgStr:imgBase64,
+                    seet:2,
+                },
+                success:function(r){
+                    if(r.code=='0'){
+                        ws.send(lineUsername+",finish");
+                        alert('已完成报道！')
+                        window.setTimeout(function(){
+                            window.location.reload()
+                        },1000);
+
+                    }
+                },
+                error:function(jqXHR){
+                    alert("发生错误："+ jqXHR.status);
+                }
+            });
 
 
         }.bind(this), false);

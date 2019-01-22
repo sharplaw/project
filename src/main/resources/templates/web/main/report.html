@@ -107,6 +107,14 @@
                         ws.send(lineUsernamePC+",openB");
                     }else if(evt.data=="03"){
                         $("#chat_room_msg").append("<span>正在填写谈话记录...</span>")
+                    }else if(evt.data=='finish'){
+                        $("#chat_room_msg").append("<span>已完成报道内容...</span>");
+                        $('#chat_room').modal('hide')
+                        $MB.n_success("已完成报道内容...");
+                        window.setTimeout(function(){
+                            window.location.reload()
+                        },1500);
+
                     }
                     console.log(evt.data);
 

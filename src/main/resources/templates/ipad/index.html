@@ -161,8 +161,25 @@
                 //$('#autographbase64').val(aaa)
                 // $('#autographfinish').val('成功')
                 //$('.autographshow').hide();
-                ws.send(lineUsername+",02");
 
+                $.ajax({
+                    type:"post",
+                    url: "../picture/upload",
+                    dataType:"json", //预期服务器返回数据的类型
+                    data:{
+                        prisonerNo:pullprisonerNo,
+                        imgStr:imgBase64,
+                        seet:1,
+                    },
+                    success:function(r){
+                        if(r.code=='0'){
+                            ws.send(lineUsername+",02");
+                        }
+                    },
+                    error:function(jqXHR){
+                        alert("发生错误："+ jqXHR.status);
+                    }
+                });
             }.bind(this), false);
         };
 
