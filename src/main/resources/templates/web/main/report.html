@@ -101,6 +101,7 @@
                         },1000);
                     }else if(evt.data=="01"){
                         $("#chat_room_msg").append("<span>设备正在填写活动情况...</span>")
+                        ws.send(lineUsernamePC+",prisonerNo"+sendprisonerNo+"");
                     }else if(evt.data=="02"){
                         $("#chat_room_msg").append("<span>活动情况填写完毕...</span>")
                         ws.send(lineUsernamePC+",openB");
@@ -132,6 +133,7 @@ function report_cover() {
     var $form = $('#report_cover');
     $form.modal();
 }
+var sendprisonerNo='';
 function baodao(){
     var card=$("input[name=card]").val();
     var password=$("input[name=password]").val();
@@ -147,6 +149,7 @@ function baodao(){
             if(r.total=='1'){
                 $('#report_cover').modal('hide')
                 $MB.n_success('成功登入...');
+                sendprisonerNo = r.rows[0].prisonerNo;
                 reportCover()//加载链接
             }else{
                 $MB.n_warning('未查询到该人员，请正确填写！');

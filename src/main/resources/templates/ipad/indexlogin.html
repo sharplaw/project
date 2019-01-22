@@ -20,37 +20,38 @@
         }
     </style>
 </head>
-<body>
+<body style=" margin: 0; ">
+<div id="canvasDiv2"></div>
 <div  id="capture" style=" padding: 5%; ">
     <div style=" height: 50px; line-height: 50px; text-align: center; font-size: 25px; font-weight: 700; margin-bottom: 40px; ">社区服刑人员教育谈话记录</div>
     <div class="page_body">
         <div class="page_left">谈话时间：</div>
-        <div class="page_right">2019年1月21日23:01:06 至 2019年1月21日23:01:08</div>
+        <div class="page_right" id="THtime"></div>
     </div>
     <div class="page_body">
         <div class="page_left">谈话地点：</div>
-        <div class="page_right">dadadadas</div>
+        <div class="page_right"></div>
     </div>
     <div class="page_body">
         <div class="page_left">谈话人：</div>
-        <div class="page_right">dasdasd</div>
+        <div class="page_right" id="talker"></div>
     </div>
     <div class="page_body">
         <div class="page_left">谈话人所在单位及职务：</div>
-        <div class="page_right">dadasdas</div>
+        <div class="page_right" id="talkerUnit"></div>
     </div>
     <div class="page_body">
         <div class="page_left">记录人：</div>
-        <div class="page_right">大神的</div>
+        <div class="page_right" id="recorder"></div>
     </div> <div class="page_body">
     <div class="page_left">记录人所在单位及职务：</div>
-    <div class="page_right">大叔大婶大所大 阿萨德</div>
+    <div class="page_right" id="recorderUnit"> </div>
 </div> <div class="page_body">
     <div class="page_left">社区服刑人员：</div>
-    <div class="page_right">2大神</div>
+    <div class="page_right" id="THname"></div>
 </div>
     <div style=" height: 50px; line-height: 50px; font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 20px; ">谈话内容</div>
-<u style=" height: 30px; line-height: 30px; ">哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈哈哈不止哈哈哈哈哈不止哈哈哈哈哈哈哈不止哈哈哈哈哈不止哈哈</u>
+<u style=" height: 30px; line-height: 30px; " id="conment"></u>
 <div style="height: 50px;"></div>
     <div style=" height: 40px; line-height: 40px; float: right; margin-right: 25%; ">社区服刑人员(签字):</div>
     <div style=" float: right; height: 40px; clear: both; line-height: 40px; margin-right: 25%; display: flex; ">
@@ -58,19 +59,120 @@
         <div style=" width: 50px; ">月</div>
         <div style=" width: 50px; ">日</div>
     </div>
-
+    <div style="height:80px;"></div>
 </div>
-<input type="button" value="copyimg" id="btimg">
+
+<div style=" height: 50px; line-height: 50px; text-align: center; position: fixed; bottom: 0; width: 100%; background: #3F51B5; color: #fff; " id="btn_submit2">确认提交</div>
 </body>
 <script>
     $(function(){
-        $('#btimg').click(function(){
-            html2canvas(document.querySelector("#capture")).then(canvas => {
-                document.body.appendChild(canvas)
-                    var url = canvas.toDataURL();
-                    console.log(url)
-        })
-        });
+
+       // showMSG('N39111210')
     });
+    var img2url;
+    var img2height=''
+    function showMSG(data) {
+        $.ajax({
+            type:"get",
+            url:"../talk/select",
+            dataType:"json", //预期服务器返回数据的类型
+            data:{
+                prisonerNo:data,
+            },
+            success:function(r){
+                var res=r.msg[0]
+                $('#THtime').html(""+res.talkStartTime+"至"+res.talkEndTime+"")
+                $('#talker').html(res.talker)
+                $('#talkerUnit').html(res.talkerUnit)
+                $('#recorder').html(res.recorder)
+                $('#recorderUnit').html(res.recorderUnit)
+                $('#THname').html(res.name)
+                $('#conment').html(res.conment)
+                html2canvas(document.querySelector("#capture")).then(canvas => {
+                   // document.body.appendChild(canvas)
+                 img2url = canvas.toDataURL();
+                img2height= parseInt($('#capture').get(0).offsetHeight);
+                console.log(img2url)
+                $('#capture').hide()
+                new lineCanvas2({
+                    el: document.getElementById("canvasDiv2"),//绘制canvas的父级div
+                    clearEl: document.getElementById("btn_clear"),//清除按钮
+                    saveEl: document.getElementById("btn_submit2"),//保存按钮
+                    img:img2url,
+                    //      linewidth:1,//线条粗细，选填
+                    //      color:"black",//线条颜色，选填
+                    //      background:"#ffffff"//线条背景，选填
+                });
+            })
+
+            },
+            error:function(jqXHR){
+                alert("发生错误："+ jqXHR.status);
+            }
+        });
+    }
+
+
+    function lineCanvas2(obj) {
+
+        var padwidth=window.screen.availWidth;
+        var padheight=img2height;
+        console.log(padwidth)
+        console.log(padheight)
+        this.linewidth = 1;
+        this.color = "#000000";
+        this.background = "#ffffff";
+        for (var i in obj) {
+            this[i] = obj[i];
+        };
+        this.canvas = document.createElement("canvas");
+        this.el.appendChild(this.canvas);
+        this.cxt = this.canvas.getContext("2d");
+        this.canvas.width = padwidth;
+        this.canvas.height = padheight;
+        this.cxt.fillStyle = '#fff';
+        this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.width);
+        this.cxt.strokeStyle = this.color;
+        this.cxt.lineWidth = this.linewidth;
+        this.cxt.lineCap = "round";
+
+
+        var cxt = this.cxt
+        var imgs = new Image();
+        imgs.src = this.img;;
+        imgs.onload = drawImg;//图片加载完成再执行
+        function drawImg(){
+            cxt.drawImage(imgs,0,0,padwidth,padheight);
+        }
+        //保存图片，直接转base64
+        this.saveEl.addEventListener("click", function() {
+            var imgBase64 = this.canvas.toDataURL();
+            console.log(imgBase64);
+
+
+        }.bind(this), false);
+
+
+
+        //开始绘制
+        this.canvas.addEventListener("touchstart", function(e) {
+            this.cxt.beginPath();
+            this.cxt.moveTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+        }.bind(this), false);
+        //绘制中
+        this.canvas.addEventListener("touchmove", function(e) {
+            this.cxt.lineTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+            this.cxt.stroke();
+        }.bind(this), false);
+        //结束绘制
+        this.canvas.addEventListener("touchend", function() {
+            this.cxt.closePath();
+        }.bind(this), false);
+        //清除画布
+        this.clearEl.addEventListener("click", function() {
+            this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }.bind(this), false);
+
+    };
 </script>
 </html>
