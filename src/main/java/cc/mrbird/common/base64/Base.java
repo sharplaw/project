@@ -24,7 +24,7 @@ public class Base {
         return encoder.encodeToString(data);
     }
  // base64字符串转换成图片
-    public static boolean CreateImage(String imgStr,String path) {
+    public static boolean CreateImage(String imgStr,String path,String filePath) {
         if (imgStr == null) // 图像数据为空
             return false;
         Base64.Decoder decoder = Base64.getDecoder();
@@ -38,6 +38,8 @@ public class Base {
             }
             // 生成jpeg图片
             String imgFilePath = path;// 新生成的图片
+            File outDir =new File(filePath);
+            outDir.mkdirs();
             OutputStream out = new FileOutputStream(imgFilePath);
             out.write(b);
             out.flush();
