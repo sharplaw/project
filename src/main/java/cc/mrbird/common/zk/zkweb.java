@@ -1,5 +1,8 @@
 package cc.mrbird.common.zk;
 
+import afu.org.checkerframework.checker.guieffect.qual.UI;
+import cc.mrbird.common.Pic.PicBuffer;
+import cc.mrbird.common.Pic.UploadImg;
 import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.base64.Base;
 import cc.mrbird.common.domain.ResponseBo;
@@ -332,8 +335,15 @@ public class zkweb {
             String mon = String.valueOf(months);
             String result=   Base.imageToBase64Str("fingerprint.bmp");
             Base.CreateImage(result,"D://"+PrionerNo+"//"+mon+"//fingerprint.png","D://"+PrionerNo+"//"+mon);
+            PicBuffer.changeRGB("D://"+PrionerNo+"//"+mon+"//fingerprint.png");
+            UploadImg UI = new UploadImg("D://"+PrionerNo+"//"+mon+"//fingerprint.png", "D://"+PrionerNo+"//"+mon+"//fingerprint.png", "fingerprint","png",150,200);
+            try {
+                UI.createThumbnail();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             map.put("times",enroll_idx);
-            map.put("base",base);
+            map.put("path","D://"+PrionerNo+"//"+mon+"//fingerprint.png");
             return ResponseBo.ok(map);
         }else{
             map.put("times",enroll_idx);

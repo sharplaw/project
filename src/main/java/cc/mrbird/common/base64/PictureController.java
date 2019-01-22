@@ -33,7 +33,7 @@ public class PictureController  extends BaseController {
         String filepath="D://" + prisonerNo + "//" + mon;
         boolean flag= Base.CreateImage(imgStrs, path,filepath);
        if(flag=true){
-           return ResponseBo.ok();
+           return ResponseBo.ok(path);
        }else{
            return ResponseBo.error();
        }
