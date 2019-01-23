@@ -173,6 +173,7 @@
                     },
                     success:function(r){
                         if(r.code=='0'){
+                            actiivityUrl=r.msg;
                             ws.send(lineUsername+",02");
                         }
                     },
