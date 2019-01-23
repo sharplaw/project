@@ -51,7 +51,7 @@ public class TaskController  extends BaseController {
             int months = month + 1;
             String mon = String.valueOf(months);
             int year = date.getYear();
-            String years = String.valueOf(months);
+            String years = String.valueOf(year);
             jzTask.setStatue("0");
             jzTask.setYear(years);
             jzTask.setMonth(mon);

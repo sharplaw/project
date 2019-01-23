@@ -23,7 +23,7 @@ public class JzTask  implements Serializable {
     @ExportConfig(value = "任务类型")
     private String taskType;
 
-    @Column(name = "taskType")
+    @Column(name = "actiivityUrl")
     @ExportConfig(value = "活动情况")
     private String  actiivityUrl;
 
