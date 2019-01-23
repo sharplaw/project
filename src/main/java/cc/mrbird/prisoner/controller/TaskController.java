@@ -8,6 +8,7 @@ import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.prisoner.domain.JzPrisoner;
 import cc.mrbird.prisoner.domain.JzTask;
+import cc.mrbird.prisoner.service.PrisonerService;
 import cc.mrbird.prisoner.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,6 +28,9 @@ public class TaskController  extends BaseController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private PrisonerService prisonerService;
 
     @Log("查询任务信息")
     @RequestMapping("task/select")
@@ -39,13 +44,12 @@ public class TaskController  extends BaseController {
     @Log("添加社区服刑人员信息")
     @RequestMapping("task/add")
     @ResponseBody
-    public ResponseBo addTask(JzTask jzTask){
+    public ResponseBo addTask(JzTask jzTask,QueryRequest request){
         try {
             Date date = new Date();
             int month = date.getMonth();
             int months = month + 1;
             String mon = String.valueOf(months);
-
             int year = date.getYear();
             String years = String.valueOf(months);
             jzTask.setStatue("0");

@@ -8,17 +8,18 @@
 
     </resultMap>
     <select id="findTask" resultMap="taskMap">
-  	SELECT
-	j.*, t.USERNAME username,
-	z.card,
-	z.`name`,
-	z.telephone
-FROM
-	jz_task j
-LEFT JOIN jz_prisoner z ON j.prisonerNo = z.prisonerNo
-LEFT JOIN t_user t ON j.leader = t.USER_ID
-WHERE
-	1 = 1
+        SELECT
+        j.*, t.USERNAME username,
+        z.card,
+        z.`name`,
+        z.telephone,
+        z.leader
+        FROM
+        jz_task j
+        LEFT JOIN jz_prisoner z ON j.prisonerNo = z.prisonerNo
+        LEFT JOIN t_user t ON z.leader = t.USER_ID
+        WHERE
+        1 = 1
 
         <if test="prisonerNo != null and prisonerNo != ''">
             AND j.prisonerNo = #{prisonerNo}
@@ -33,7 +34,7 @@ WHERE
             AND j.statue = #{statue}
         </if>
         <if test="leader != null and leader != ''">
-            AND j.leader = #{leader}
+            AND z.leader = #{leader}
         </if>
         <if test="taskType != null and taskType != ''">
             AND j.taskType = #{taskType}

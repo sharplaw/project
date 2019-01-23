@@ -39,8 +39,6 @@ public class JzTask  implements Serializable {
     @ExportConfig(value = "指纹信息")
     private String fingerUrl;
 
-    @ExportConfig(value = "负责人")
-    private String leader;
 
     @ExportConfig(value = "任务状态")
     private String     statue;
@@ -58,6 +56,10 @@ public class JzTask  implements Serializable {
     @Column(insertable=false)
     @ExportConfig(value = "姓名")
     private String name;
+
+    @Column(insertable=false)
+    @ExportConfig(value = "负责人")
+    private String leader;
 
     @Column(insertable=false)
     @ExportConfig(value = "负责人姓名")
