@@ -21,14 +21,14 @@ public class TaskServiceImpl extends BaseService<JzTask> implements TaskService 
     private taskMapper task;
     @Override
     public List<JzTask> selectTask(JzTask jzTask, QueryRequest request) {
-        List<JzTask> result=task.findtask(jzTask);
+        List<JzTask> result=task.findTask(jzTask);
         return result;
     }
 
     @Override
     public String finishTask(JzTask jzTask) {
 
-        List<JzTask> result=task.findtask(jzTask);
+        List<JzTask> result=task.findTask(jzTask);
         if(result.size()>0){
            String iconPath= result.get(0).getActiivityUrl();
            String targerPath=result.get(0).getFingerUrl();

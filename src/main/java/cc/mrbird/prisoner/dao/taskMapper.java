@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface taskMapper extends MyMapper<JzTask> {
 
-    List<JzTask > findtask(JzTask jzTask);
+    List<JzTask > findTask(JzTask jzTask);
 }

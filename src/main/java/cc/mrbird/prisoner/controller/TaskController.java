@@ -35,7 +35,7 @@ public class TaskController  extends BaseController {
     @Log("查询任务信息")
     @RequestMapping("task/select")
     @ResponseBody
-    public Map<String, Object> selectPrisoner(QueryRequest request, JzTask jzTask){
+    public Map<String, Object> selectTask(QueryRequest request, JzTask jzTask){
 
         return super.selectByPageNumSize(request, () -> this.taskService.selectTask(jzTask,request));
     }
