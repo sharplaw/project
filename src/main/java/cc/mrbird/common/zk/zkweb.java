@@ -342,7 +342,7 @@ public class zkweb {
                 e.printStackTrace();
             }
             map.put("times",enroll_idx);
-            map.put("base",base);
+            map.put("path","D://"+PrionerNo+"//"+mon+"//fingerprint.png");
             return ResponseBo.ok(map);
         }else{
             map.put("times",enroll_idx);

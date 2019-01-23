@@ -10,4 +10,6 @@ public interface TaskService extends IService<JzTask> {
 
 
     List<JzTask> selectTask(JzTask jzTask, QueryRequest request);
+
+    String finishTask(JzTask jzTask);
 }

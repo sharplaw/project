@@ -1,6 +1,7 @@
 package cc.mrbird.prisoner.controller;
 
 
+import cc.mrbird.common.Pic.ImageMarkLogoByIcon;
 import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.QueryRequest;
@@ -60,7 +61,7 @@ public class TaskController  extends BaseController {
 
     }
 
-    @Log("更新社区服刑人员信息")
+    @Log("更新任务信息")
     @RequestMapping("task/update")
     @ResponseBody
     public ResponseBo updateTask(JzTask jzTask){
@@ -74,4 +75,29 @@ public class TaskController  extends BaseController {
 
 
     }
+
+    @Log("跳转任务页")
+    @RequestMapping("task/policeJob")
+    public String index() {
+        return "web/main/policeJob";
+    }
+
+
+    @Log("完成任务")
+    @RequestMapping("task/finish")
+    @ResponseBody
+    public ResponseBo finishTask(JzTask jzTask){
+
+        try {
+            taskService.finishTask(jzTask);
+            return ResponseBo.ok();
+        } catch (Exception e) {
+            log.error("完成失败", e);
+            return ResponseBo.error("完成失败！");
+        }
+
+
+    }
+
+
 }

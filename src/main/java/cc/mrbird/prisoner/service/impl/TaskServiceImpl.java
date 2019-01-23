@@ -1,5 +1,6 @@
 package cc.mrbird.prisoner.service.impl;
 
+import cc.mrbird.common.Pic.ImageMarkLogoByIcon;
 import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.service.impl.BaseService;
 import cc.mrbird.prisoner.dao.taskMapper;
@@ -22,5 +23,26 @@ public class TaskServiceImpl extends BaseService<JzTask> implements TaskService 
     public List<JzTask> selectTask(JzTask jzTask, QueryRequest request) {
         List<JzTask> result=task.findtask(jzTask);
         return result;
+    }
+
+    @Override
+    public String finishTask(JzTask jzTask) {
+
+        List<JzTask> result=task.findtask(jzTask);
+        if(result.size()>0){
+           String iconPath= result.get(0).getActiivityUrl();
+           String targerPath=result.get(0).getFingerUrl();
+            ImageMarkLogoByIcon.markImageByIcon(iconPath, iconPath, targerPath);
+            jzTask.setStatue("1");
+           int rs= this.updateNotNull(jzTask);
+           if(rs!=0){
+               return "success";
+           }else{
+               return "error";
+           }
+
+        }
+
+        return "error";
     }
 }
