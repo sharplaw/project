@@ -18,62 +18,62 @@ $(function () {
     });
 
 
-    var $jobTableForm = $(".job-table-form");
-    var settings = {
-        url: ctx + "prisoner/select",//prisoner/select   job/list
-        pageSize: 10,
-        queryParams: function (params) {
-            console.log(params)
-            return {
-                pageSize: params.limit,
-                pageNum: params.offset / params.limit + 1,
-                name: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".autocomplete-input").val(),
-                card: $jobTableForm.find("#sys-cron-clazz-list-method").find(".autocomplete-input").val(),
-                 leader: $jobTableForm.find("select[name='leader']").val()
-            };
-        },
-        columns: [{
-            checkbox: true
-        },
-            {
-                field: 'prisonerNo',
-                title: '人员编号'
-            }, {
-                field: 'name',
-                title: '姓名'
-            }, {
-                field: 'card',
-                title: '身份证号码'
-            }, {
-                field: 'sex',
-                title: '性别'
-            }, {
-                field: 'telephone',
-                title: '联系电话'
-            }, {
-                field: 'username',
-                title: '负责人'
-            }, {
-                field: 'corrective',
-                title: '矫正类型'
-            }, {
-                field: 'servingStartTime',
-                title: '矫正开始时间',
-                // formatter: function (value, row, index) {
-                //     if (value === '1') return '<span class="badge badge-danger">暂停</span>';
-                //     if (value === '0') return '<span class="badge badge-success">正常</span>';
-                // }
-            }
-            , {
-                field: 'servingEndTime',
-                title: '矫正结束时间',
+var $jobTableForm = $(".job-table-form");
+var settings = {
+    url: ctx + "prisoner/select",//prisoner/select   job/list
+    pageSize: 10,
+    queryParams: function (params) {
+        console.log(params)
+        return {
+            pageSize: params.limit,
+            pageNum: params.offset / params.limit + 1,
+            name: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".autocomplete-input").val(),
+            card: $jobTableForm.find("#sys-cron-clazz-list-method").find(".autocomplete-input").val(),
+            leader: $jobTableForm.find("select[name='leader']").val()
+        };
+    },
+    columns: [{
+        checkbox: true
+    },
+        {
+            field: 'prisonerNo',
+            title: '人员编号'
+        }, {
+            field: 'name',
+            title: '姓名'
+        }, {
+            field: 'card',
+            title: '身份证号码'
+        }, {
+            field: 'sex',
+            title: '性别'
+        }, {
+            field: 'telephone',
+            title: '联系电话'
+        }, {
+            field: 'username',
+            title: '负责人'
+        }, {
+            field: 'corrective',
+            title: '矫正类型'
+        }, {
+            field: 'servingStartTime',
+            title: '矫正开始时间',
+            // formatter: function (value, row, index) {
+            //     if (value === '1') return '<span class="badge badge-danger">暂停</span>';
+            //     if (value === '0') return '<span class="badge badge-success">正常</span>';
+            // }
+        }
+        , {
+            field: 'servingEndTime',
+            title: '矫正结束时间',
 
-            }
-        ]
-    };
+        }
+    ]
+};
 
-    $MB.initTable('jobTable', settings);
-    initSysCronClazzList();
+$MB.initTable('jobTable', settings);
+initSysCronClazzList();
 });
 
 function search() {

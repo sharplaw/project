@@ -11,10 +11,28 @@ function updateJob() {
         return;
     }
     var sels = selected[0];
-    var $form = $('#job-add');
-    $form.modal();
-    $('#addID').append("<input type='hidden' name='id'/>")
-    $("#job-add-modal-title").html('修改任务');
+    if(sels.statue=='0'){
+        $.ajax({
+            type:"get",
+            url:ctx + "task/selectSingle",
+            dataType:"json", //预期服务器返回数据的类型
+            data:{id:sels.id},
+            success:function(r){
+                var $form = $('#job-add');
+                $form.modal();
+            },
+            error:function(jqXHR){
+                alert("发生错误："+ jqXHR.status);
+            }
+        });
+
+    }else{
+        var $form = $('#job-add1');
+        $form.modal();
+    }
+
+    // $('#addID').append("<input type='hidden' name='id'/>")
+    // $("#job-add-modal-title").html('修改任务');
     $form.find("input[name='name']").val(sels.name);
     $form.find("input[name='servingStartTime']").val(sels.servingStartTime);
     $form.find("input[name='date1']").val(sels.servingStartTime);
@@ -28,7 +46,7 @@ function updateJob() {
     $form.find("input[name='telephone']").val(sels.telephone);
     $form.find("input[name='address']").val(sels.address);
     $form.find("input[name='id']").val(sels.id);
-    $("#job-add-button").attr("name", "update");
+    // $("#job-add-button").attr("name", "update");
 
 
 }
@@ -60,9 +78,9 @@ $(function () {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                // name: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".autocomplete-input").val(),
-                // card: $jobTableForm.find("#sys-cron-clazz-list-method").find(".autocomplete-input").val(),
-                // leader: $jobTableForm.find("select[name='leader']").val()
+                name: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".autocomplete-input").val(),
+                 // card: $jobTableForm.find("#sys-cron-clazz-list-method").find(".autocomplete-input").val(),
+                 leader: $jobTableForm.find("select[name='leader']").val()
             };
         },
         columns: [{
@@ -75,20 +93,23 @@ $(function () {
                 field: 'name',
                 title: '姓名'
             }, {
-                field: 'card',
-                title: '身份证号码'
+                field: 'talker',
+                title: '谈话人'
             }, {
-                field: 'sex',
-                title: '性别'
+                field: 'talkerUnit',
+                title: '谈话人信息'
+            },{
+                field: 'recorder',
+                title: '记录人'
             }, {
-                field: 'telephone',
-                title: '联系电话'
+                field: 'recorderUnit',
+                title: '记录人信息'
             }, {
-                field: 'username',
-                title: '负责人'
+                field: 'talkStartTime',
+                title: '开始时间'
             }, {
-                field: 'corrective',
-                title: '矫正类型'
+                field: 'talkEndTime',
+                title: '结束时间'
             }, {
                 field: 'servingStartTime',
                 title: '矫正开始时间',
@@ -106,5 +127,5 @@ $(function () {
     };
 
     $MB.initTable('jobTable', settings);
-    initSysCronClazzList();
+    // initSysCronClazzList();
 });

@@ -3,7 +3,7 @@ function updateJob() {
     console.log(selected)
     var selected_length = selected.length;
     if (!selected_length) {
-        $MB.n_warning('请勾选需要修改的任务！');
+        $MB.n_warning('请勾选一个任务！');
         return;
     }
     if (selected_length > 1) {
