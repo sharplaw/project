@@ -60,25 +60,29 @@ public class TaskServiceImpl extends BaseService<JzTask> implements TaskService 
         if(result.size()>0){
             if(StringUtils.isNotBlank(result.get(0).getActiivityUrl())){
                 actUrl=result.get(0).getActiivityUrl();
+                String act=  Base.imageToBase64Str(actUrl);
+                result.get(0).setActiivityUrl(act);
             }
              if(StringUtils.isNotBlank(result.get(0).getTalkUrl())){
                  talkUrl=result.get(0).getTalkUrl();
+                 String talk=  Base.imageToBase64Str(talkUrl);
+                 result.get(0).setTalkUrl(talk);
              }
             if(StringUtils.isNotBlank(result.get(0).getFingerUrl())){
                 fingerUrl=result.get(0).getFingerUrl();
+                String finger=  Base.imageToBase64Str(fingerUrl);
+                result.get(0).setFingerUrl(finger);
             }
             if(StringUtils.isNotBlank(result.get(0).getFreedayUrl())){
                 freeUrl=result.get(0).getFreedayUrl();
+                String free=Base.imageToBase64Str(freeUrl);
+                result.get(0).setFreedayUrl(free);
             }
         }
-        String act=  Base.imageToBase64Str(actUrl);
-        result.get(0).setActiivityUrl(act);
-        String talk=  Base.imageToBase64Str(talkUrl);
-        result.get(0).setTalkUrl(talk);
-        String finger=  Base.imageToBase64Str(fingerUrl);
-        result.get(0).setFingerUrl(finger);
-        String free=Base.imageToBase64Str(freeUrl);
-        result.get(0).setFreedayUrl(free);
+
+
+
+
         return result;
     }
 }

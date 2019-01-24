@@ -46,7 +46,7 @@ public class TaskController  extends BaseController {
     @ResponseBody
     public ResponseBo selectSingleTask(QueryRequest request, JzTask jzTask){
      List<JzTask> result=  taskService.findSingleTask(jzTask);
-         return ResponseBo.ok();
+         return ResponseBo.ok(result);
     }
 
 

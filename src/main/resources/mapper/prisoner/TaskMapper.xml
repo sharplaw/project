@@ -20,7 +20,9 @@
         LEFT JOIN t_user t ON z.leader = t.USER_ID
         WHERE
         1 = 1
-
+        <if test="id != null and id != ''">
+            AND j.id = #{id}
+        </if>
         <if test="prisonerNo != null and prisonerNo != ''">
             AND j.prisonerNo = #{prisonerNo}
         </if>
