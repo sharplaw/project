@@ -41,6 +41,15 @@ public class TaskController  extends BaseController {
     }
 
 
+    @Log("查询任务信息")
+    @RequestMapping("task/selectSingle")
+    @ResponseBody
+    public ResponseBo selectSingleTask(QueryRequest request, JzTask jzTask){
+     List<JzTask> result=  taskService.findSingleTask(jzTask);
+         return ResponseBo.ok();
+    }
+
+
     @Log("添加社区服刑人员信息")
     @RequestMapping("task/add")
     @ResponseBody

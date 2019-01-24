@@ -12,4 +12,6 @@ public interface TaskService extends IService<JzTask> {
     List<JzTask> findTask(JzTask jzTask, QueryRequest request);
 
     String finishTask(JzTask jzTask);
+
+    List<JzTask> findSingleTask(JzTask jzTask);
 }
