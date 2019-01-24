@@ -9,7 +9,7 @@ import java.util.List;
 public interface TaskService extends IService<JzTask> {
 
 
-    List<JzTask> selectTask(JzTask jzTask, QueryRequest request);
+    List<JzTask> findTask(JzTask jzTask, QueryRequest request);
 
     String finishTask(JzTask jzTask);
 }

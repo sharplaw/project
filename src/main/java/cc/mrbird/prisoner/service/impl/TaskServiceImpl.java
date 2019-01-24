@@ -20,7 +20,7 @@ public class TaskServiceImpl extends BaseService<JzTask> implements TaskService 
     @Autowired
     private taskMapper task;
     @Override
-    public List<JzTask> selectTask(JzTask jzTask, QueryRequest request) {
+    public List<JzTask> findTask(JzTask jzTask, QueryRequest request) {
         List<JzTask> result=task.findTask(jzTask);
         return result;
     }

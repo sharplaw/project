@@ -37,7 +37,7 @@ public class TaskController  extends BaseController {
     @ResponseBody
     public Map<String, Object> selectTask(QueryRequest request, JzTask jzTask){
 
-        return super.selectByPageNumSize(request, () -> this.taskService.selectTask(jzTask,request));
+        return super.selectByPageNumSize(request, () -> this.taskService.findTask(jzTask,request));
     }
 
 
