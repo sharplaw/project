@@ -186,7 +186,7 @@ $(function () {
                 // });
                 $.ajax({
                     type:"post",
-                    url:ctx + "prisoner/add",
+                    url:ctx + "task/add",
                     dataType:"json", //预期服务器返回数据的类型
                     data:jsSerialize,
                     success:function(r){
@@ -211,7 +211,7 @@ $(function () {
                 // });
                 $.ajax({
                     type:"post",
-                    url:ctx + "prisoner/update",
+                    url:ctx + "task/update",
                     dataType:"json", //预期服务器返回数据的类型
                     data:jsSerialize,
                     success:function(r){
@@ -310,13 +310,13 @@ function timingFunc() {
     console.log('请按三次设备，请稍候...')
     $.ajax({
         type:"post",
-        url:ctx + "zk/check",
+        url:ctx + "zk/checkpic",
         dataType:"json", //预期服务器返回数据的类型
-        data:{},
+        data:sels.prionerNo,
         success:function(r){
 
             if(r.code=='0'){//录入完毕
-                $("input[name=fingerprints]").val(r.msg)
+                $("input[name=fingerUrl]").val(r.msg.path)
                 window.clearInterval(timing);
                 $('.hidezw1').hide();
                 $('.hidezw2').show();

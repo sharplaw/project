@@ -333,16 +333,16 @@ public class zkweb {
             int months = month + 1;
             String mon = String.valueOf(months);
             String result=   Base.imageToBase64Str("fingerprint.bmp");
-            Base.CreateImage(result,"D://"+PrionerNo+"//"+mon+"//fingerprint.png","D://"+PrionerNo+"//"+mon);
-            PicBuffer.changeRGB("D://"+PrionerNo+"//"+mon+"//fingerprint.png");
-            UploadImg UI = new UploadImg("D://"+PrionerNo+"//"+mon+"//fingerprint.png", "D://"+PrionerNo+"//"+mon, "fingerprint","png",150,200);
+            Base.CreateImage(result,"E://"+PrionerNo+"//"+mon+"//fingerprint.png","E://"+PrionerNo+"//"+mon);
+            PicBuffer.changeRGB("E://"+PrionerNo+"//"+mon+"//fingerprint.png");
+            UploadImg UI = new UploadImg("E://"+PrionerNo+"//"+mon+"//fingerprint.png", "E://"+PrionerNo+"//"+mon, "fingerprint","png",150,200);
             try {
                 UI.createThumbnail();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             map.put("times",enroll_idx);
-            map.put("path","D://"+PrionerNo+"//"+mon+"//fingerprint.png");
+            map.put("path","E://"+PrionerNo+"//"+mon+"//fingerprint.png");
             return ResponseBo.ok(map);
         }else{
             map.put("times",enroll_idx);
