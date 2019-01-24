@@ -1,3 +1,4 @@
+var PrionerNo=''
 function updateJob() {
     var selected = $("#jobTable").bootstrapTable("getSelections");
     console.log(selected)
@@ -11,6 +12,7 @@ function updateJob() {
         return;
     }
     var sels = selected[0];
+    PrionerNo=sels.prisonerNo;
     if(sels.statue=='0'){
         $.ajax({
             type:"get",
@@ -176,32 +178,8 @@ $(function () {
         var jsSerialize=$jobAddForm.serializeObject();
         console.log(jsSerialize)
         if (flag) {
-            if (name === "save") {
-                // $.post(ctx + "job/add", $jobAddForm.serialize(), function (r) {
-                //     if (r.code === 0) {
-                //         closeModal();
-                //         refresh();
-                //         $MB.n_success(r.msg);
-                //     } else $MB.n_danger(r.msg);
-                // });
-                $.ajax({
-                    type:"post",
-                    url:ctx + "task/add",
-                    dataType:"json", //预期服务器返回数据的类型
-                    data:jsSerialize,
-                    success:function(r){
-                        // window.location.reload()
-                        closeModal();
-                        refresh();
-                        $MB.n_success(r.msg);
-                    },
-                    error:function(jqXHR){
-                        alert("发生错误："+ jqXHR.status);
-                    }
-                });
 
-            }
-            if (name === "update") {
+            if (name === "save") {
                 // $.post(ctx + "job/update", $jobAddForm.serialize(), function (r) {
                 //     if (r.code === 0) {
                 //         closeModal();
@@ -312,7 +290,7 @@ function timingFunc() {
         type:"post",
         url:ctx + "zk/checkpic",
         dataType:"json", //预期服务器返回数据的类型
-        data:sels.prionerNo,
+        data:{PrionerNo:PrionerNo},
         success:function(r){
 
             if(r.code=='0'){//录入完毕
