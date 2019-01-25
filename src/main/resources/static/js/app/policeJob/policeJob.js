@@ -39,6 +39,14 @@ function updateJob() {
 
 
 }
+function search() {
+    $MB.refreshTable('jobTable');
+}
+function refresh() {
+   // $(".job-table-form")[0].reset();
+    search();
+}
+
 $(function () {
 
     var $jobTableForm = $(".job-table-form");
@@ -50,9 +58,9 @@ $(function () {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                name: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".autocomplete-input").val(),
-                 // card: $jobTableForm.find("#sys-cron-clazz-list-method").find(".autocomplete-input").val(),
-                 leader: $jobTableForm.find("select[name='leader']").val()
+                name: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".form-control").val(),
+                talker: $jobTableForm.find("#sys-cron-clazz-list-method").find(".form-control").val(),
+                 //leader: $jobTableForm.find("select[name='leader']").val()
             };
         },
         columns: [{
