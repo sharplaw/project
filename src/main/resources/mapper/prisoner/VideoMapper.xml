@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.prisoner.dao.VideoMapper">
+    <resultMap id="videoMap" type="cc.mrbird.prisoner.domain.JzVideo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+
+    </resultMap>
+    <select id="findVideo" resultMap="videoMap">
+        SELECT
+       *
+        FROM
+        jz_video j
+
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            AND j.id = #{id}
+        </if>
+        <if test="type != null and type != ''">
+            AND j.type = #{type}
+        </if>
+        <if test="flag != null and flag != ''">
+            AND z.flag = #{flag}
+        </if>
+
+  </select>
+
+</mapper>
