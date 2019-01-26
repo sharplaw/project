@@ -73,7 +73,11 @@ $(function () {
                 field: 'name',
                 title: '姓名'
             }, {
-                field: 'username;',
+                field: 'taskType',
+                title: '任务类型'
+
+            },{
+                field: 'username',
                 title: '负责人'
             }, {
                 field: 'card',
