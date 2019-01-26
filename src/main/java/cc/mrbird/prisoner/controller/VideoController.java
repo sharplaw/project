@@ -14,4 +14,11 @@ public class VideoController  extends BaseController {
     public String index() {
         return "web/main/video";
     }
+
+    @Log("跳转视频设置页")
+    @RequestMapping("video/set")
+    public String indexSetting() {
+        return "web/main/videoSetting";
+    }
+
 }
