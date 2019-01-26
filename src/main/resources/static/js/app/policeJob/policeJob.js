@@ -73,35 +73,20 @@ $(function () {
                 field: 'name',
                 title: '姓名'
             }, {
-                field: 'talker',
-                title: '谈话人'
+                field: 'username;',
+                title: '负责人'
             }, {
-                field: 'talkerUnit',
-                title: '谈话人信息'
+                field: 'card',
+                title: '身份证'
             },{
-                field: 'recorder',
-                title: '记录人'
+                field: 'year',
+                title: '年'
             }, {
-                field: 'recorderUnit',
-                title: '记录人信息'
+                field: 'month',
+                title: '月'
             }, {
-                field: 'talkStartTime',
-                title: '开始时间'
-            }, {
-                field: 'talkEndTime',
-                title: '结束时间'
-            }, {
-                field: 'servingStartTime',
-                title: '矫正开始时间',
-                // formatter: function (value, row, index) {
-                //     if (value === '1') return '<span class="badge badge-danger">暂停</span>';
-                //     if (value === '0') return '<span class="badge badge-success">正常</span>';
-                // }
-            }
-            , {
-                field: 'servingEndTime',
-                title: '矫正结束时间',
-
+                field: 'telephone',
+                title: '电话'
             }
         ]
     };
