@@ -24,6 +24,10 @@ public class JzVideo {
     @ExportConfig(value = "路径地址")
     private String  videoUrl;
 
+    @Column(name = "photoUrl")
+    @ExportConfig(value = "封面路径地址")
+    private String  photoUrl;
+
     @ExportConfig(value = "视频类型")
     private String  type;
 
@@ -88,5 +92,13 @@ public class JzVideo {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }
