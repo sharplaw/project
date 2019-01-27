@@ -1,6 +1,7 @@
 <link rel="stylesheet" data-th-href="@{css/autocomplete/autocomplete.css}">
 <link rel="stylesheet" data-th-href="@{js/bootstrap-fileinput-4.4.8/css/fileinput.css}">
 <link rel="stylesheet" data-th-href="@{js/bootstrap-fileinput-4.4.8/css/fileinput-rtl.css}">
+
 <script data-th-src="@{js/bootstrap-fileinput-4.4.8/js/fileinput.js}"></script>
 <script data-th-src="@{js/bootstrap-fileinput-4.4.8/js/zh.js}"></script>
 
@@ -19,6 +20,9 @@
         height: 1rem !important;
         margin: 0  ;
     }
+    .dropdown-toggle .caret{
+        display: none;
+    }
 </style>
 <div data-th-include="web/main/video/videos"></div>
 <div class="card">
@@ -32,7 +36,7 @@
                         <i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
                         <div class="dropdown-menu dropdown-menu-right">
                             <!--<a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#job-add" shiro:hasPermission="job:add">任务管理</a>-->
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="videoseting()">视频管理</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="videoseting()">视频管理 </a>
                             <a href="javascript:void(0)" class="dropdown-item" onclick="addvideo()">添加视频</a>
                             <a href="javascript:void(0)" class="dropdown-item" onclick="delvideo()">删除视频</a>
                             <!--<a href="javascript:void(0)" class="dropdown-item" onclick="deleteJob()" shiro:hasPermission="job:delete">删除人员</a>-->
@@ -48,26 +52,20 @@
                             <div class="col-sm-3">
                                 <div class="input-group">
                                     <span class="input-group-addon">
-					               	姓名：
+					               编号：
 					            </span>
                                     <div class="form-group">
-                                        <div id="sys-cron-clazz-list-bean" class="form-control">
-                                            <i class="form-group__bar"></i>
                                             <input type="text" name="beanName"  class="form-control">
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        负责人：
+                                       标题：
 					            </span>
                                     <div class="form-group">
-                                        <div id="sys-cron-clazz-list-method" class="form-control">
-                                            <i class="form-group__bar"></i>
                                             <input  type="text" name="methodName" class="form-control">
-                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -1,5 +1,9 @@
 var PrionerNo='',ID=''
 
+function addvideo() {
+    var $form = $('#job-add1');
+    $form.modal();
+}
 function videoseting() {
     var selected = $("#jobTable").bootstrapTable("getSelections");
     console.log(selected)
@@ -13,52 +17,57 @@ function videoseting() {
         return;
     }
     var sels = selected[0];
-    PrionerNo=sels.prisonerNo;
+    //PrionerNo=sels.prisonerNo;
     ID=sels.id;
     var $form = $('#job-add');
     $form.modal();
-
+    $form.find("input[name='title_edit']").val(sels.title);
+    $form.find("input[name='describle_edit']").val(sels.describle);
+    $form.find("input[name='videoUrl_edit']").val(sels.videoUrl);
 
 
 }
 function delvideo() {
-    var selected = $("#jobTable").bootstrapTable("getSelections");
-    console.log(selected)
+    var selected = $("#jobTable").bootstrapTable('getSelections');
     var selected_length = selected.length;
     if (!selected_length) {
         $MB.n_warning('请勾选需要删除的任务！');
         return;
     }
-    if (selected_length > 1) {
-        $MB.n_warning('一次只能删除一个任务！');
-        return;
+    var ids = "";
+    for (var i = 0; i < selected_length; i++) {
+        ids += selected[i].id;
+        if (i !== (selected_length - 1)) ids += ",";
     }
-    var sels = selected[0];
-    PrionerNo=sels.prisonerNo;
-    ID=sels.id;
-    if(sels.statue=='0'){
+
+    $MB.confirm({
+        text: "确定删除选中的任务？",
+        confirmButtonText: "确定删除"
+    }, function () {
+        // $.post(ctx + 'job/delete', {"ids": ids}, function (r) {
+        //     if (r.code === 0) {
+        //         $MB.n_success(r.msg);
+        //         refresh();
+        //     } else {
+        //         $MB.n_danger(r.msg);
+        //     }
+        // });
         $.ajax({
-            type:"get",
-            url:ctx + "task/selectSingle",
+            type:"post",
+            url:ctx + "prisoner/del",
             dataType:"json", //预期服务器返回数据的类型
-            data:{id:sels.id},
+            data:{"id": ids},
             success:function(r){
-                $('#img1').attr("src","data:image/png;base64,"+r.msg[0].actiivityUrl+"")
-                $('#img2').attr("src","data:image/png;base64,"+r.msg[0].talkUrl+"")
-                var $form = $('#job-add');
-                $form.modal();
+                // window.location.reload()
+                closeModal();
+                refresh();
+                $MB.n_success(r.msg);
             },
             error:function(jqXHR){
                 alert("发生错误："+ jqXHR.status);
             }
         });
-
-    }else{
-        var $form = $('#job-add1');
-        $form.modal();
-    }
-
-
+    });
 
 }
 function search() {
@@ -73,46 +82,33 @@ $(function () {
 
     var $jobTableForm = $(".job-table-form");
     var settings = {
-        url: ctx + "task/select",//prisoner/select   job/list
+        url: ctx + "video/select",//prisoner/select   job/list
         pageSize: 10,
         queryParams: function (params) {
             console.log(params)
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                name: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".form-control").val(),
-                talker: $jobTableForm.find("#sys-cron-clazz-list-method").find(".form-control").val(),
-                //leader: $jobTableForm.find("select[name='leader']").val()
+                //id: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".form-control").val(),
+               // title: $jobTableForm.find("#sys-cron-clazz-list-method").find(".form-control").val(),
             };
         },
         columns: [{
             checkbox: true
         },
             {
-                field: 'prisonerNo',
-                title: '人员编号'
+                field: 'id',
+                title: '编号'
             }, {
-                field: 'name',
-                title: '姓名'
+                field: 'title',
+                title: '标题'
             }, {
-                field: 'taskType',
-                title: '任务类型'
+                field: 'describle',
+                title: '描述'
 
             },{
-                field: 'username',
-                title: '负责人'
-            }, {
-                field: 'card',
-                title: '身份证'
-            },{
-                field: 'year',
-                title: '年'
-            }, {
-                field: 'month',
-                title: '月'
-            }, {
-                field: 'telephone',
-                title: '电话'
+                field: 'createTime',
+                title: '创建时间'
             }
         ]
     };
@@ -158,7 +154,7 @@ $(function () {
 function closeModal() {
     $MB.closeAndRestModal("job-add");
     $MB.closeAndRestModal("job-add1");
-    validator.resetForm();
+    //validator.resetForm();
 }
 var timing='';
 function zwsb() {
@@ -308,6 +304,34 @@ function chongzhiwen(){
 
 $(function () {
     $("#input-repl-3a").fileinput({
+        dropZoneTitle : "请上传小于150M的视频！",
+        uploadUrl : "saveVideoAddress",
+        language : "zh",
+        autoReplace : true,
+        showCaption : false,
+        showUpload : true,
+        overwriteInitial : true,
+        showUploadedThumbs : true,
+        //showPreview:false,                   //显示上传图片的大小信息
+        maxFileCount : 1,
+        minFileCount:1,
+        maxFileSize : 153600,//文件最大153600kb=150M
+        initialPreviewShowDelete : false,
+        showRemove : true,//是否显示删除按钮
+        showClose : false,
+        layoutTemplates : {
+            actionUpload:'',
+        },
+        allowedFileExtensions : [ "mp4","avi","dat","3gp","mov","rmvb","wmv"],
+        previewSettings : {
+            image : {
+                width : "100%",
+                height : "100%"
+            },
+        }
+    });
+
+    $("#input-repl-3a1").fileinput({
         dropZoneTitle : "请上传小于150M的视频！",
         uploadUrl : "saveVideoAddress",
         language : "zh",
