@@ -22,6 +22,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -54,9 +55,16 @@ public class VideoController  extends BaseController {
         return super.selectByPageNumSize(request, () -> this.videoService.findVideo(jzVideo,request));
     }
 
+    @Log("查询单个视频信息")
+    @RequestMapping("video/selectSingle")
+    @ResponseBody
+    public ResponseBo selectVideoSingle(QueryRequest request, JzVideo jzVideo){
+        List<JzVideo> result= videoService.findSingleVideo(jzVideo);
+        return ResponseBo.ok(result);
 
+    }
 
-    @Log("更新任务信息")
+    @Log("更新视频信息")
     @RequestMapping("video/update")
     @ResponseBody
     public ResponseBo updateVideo(JzVideo jzVideo){
@@ -93,7 +101,7 @@ public class VideoController  extends BaseController {
 
 
 
-    @Log("添加视频信息")
+    @Log("上传视频信息")
     @RequestMapping("video/upload")
     @ResponseBody
     public ResponseBo uploadVideo(@RequestParam("file") MultipartFile file, JzVideo jzVideo, QueryRequest request){
