@@ -54,11 +54,11 @@ function delvideo() {
         // });
         $.ajax({
             type:"post",
-            url:ctx + "prisoner/del",
+            url:ctx + "video/update",
             dataType:"json", //预期服务器返回数据的类型
-            data:{"id": ids},
+            data:{"id": ids,flag:1},
             success:function(r){
-                // window.location.reload()
+                window.location.reload()
                 closeModal();
                 refresh();
                 $MB.n_success(r.msg);
@@ -306,6 +306,7 @@ $(function () {
     $("#input-repl-3a").fileinput({
         dropZoneTitle : "请上传小于150M的视频！",
         uploadUrl : "video/upload",
+        enctype: 'multipart/form-data',
         language : "zh",
         autoReplace : true,
         showCaption : false,
@@ -334,6 +335,7 @@ $(function () {
     $("#input-repl-3a1").fileinput({
         dropZoneTitle : "请上传小于150M的视频！",
         uploadUrl : "video/upload",
+        enctype: 'multipart/form-data',
         language : "zh",
         autoReplace : true,
         showCaption : false,
