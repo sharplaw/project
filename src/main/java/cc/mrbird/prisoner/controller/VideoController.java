@@ -6,7 +6,6 @@ import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.vedio.Contants;
 import cc.mrbird.common.util.vedio.ConverVideoTest;
-import cc.mrbird.prisoner.domain.JzTask;
 import cc.mrbird.prisoner.domain.JzVideo;
 import cc.mrbird.prisoner.service.VideoService;
 import org.slf4j.Logger;
