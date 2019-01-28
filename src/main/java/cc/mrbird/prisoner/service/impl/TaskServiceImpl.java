@@ -34,11 +34,11 @@ public class TaskServiceImpl extends BaseService<JzTask> implements TaskService 
 
         List<JzTask> result=task.findTask(jzTask);
         if(result.size()>0){
-           String iconPath= result.get(0).getActiivityUrl();
-           String targerPath=result.get(0).getFingerUrl();
-            String iconPaths= result.get(0).getTalkUrl();
-            ImageMarkLogoByIcon.markImageByIcon(iconPath, iconPath, targerPath);
-            ImageMarkLogoByIcon.markImageByIcon(iconPaths, iconPaths, targerPath);
+           String targerPath= result.get(0).getActiivityUrl();
+           String iconPath=result.get(0).getFingerUrl();
+            String targersPath= result.get(0).getTalkUrl();
+            ImageMarkLogoByIcon.markImageByIcon(iconPath, targerPath, targerPath);
+            ImageMarkLogoByIcon.markImageByIcon(iconPath, targersPath, targersPath);
             jzTask.setStatue("1");
            int rs= this.updateNotNull(jzTask);
            if(rs!=0){

@@ -78,6 +78,8 @@ public class TaskController  extends BaseController {
     @RequestMapping("task/update")
     @ResponseBody
     public ResponseBo updateTask(JzTask jzTask){
+
+        System.out.println(jzTask.getFingerUrl());
         try {
             taskService.updateNotNull(jzTask);
             return ResponseBo.ok();

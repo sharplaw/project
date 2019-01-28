@@ -1,4 +1,4 @@
-var PrionerNo='',ID=''
+var PrionerNo='',ID='',path=''
 function updateJob() {
     var selected = $("#jobTable").bootstrapTable("getSelections");
     console.log(selected)
@@ -210,6 +210,7 @@ function timingFunc() {
 
             if(r.code=='0'){//录入完毕
                 $("input[name=fingerUrl]").val(r.msg.path)
+                path=r.msg.path;
                 window.clearInterval(timing);
                 $('.hidezw1').hide();
                 $('.hidezw2').show();
@@ -239,6 +240,7 @@ function closeShebei() {
         dataType:"json", //预期服务器返回数据的类型
         data:{},
         success:function(r){
+            console.log(r.msg.path)
             window.setTimeout(function(){
                 $('.spmsg').html('录入完成')
             },500);
@@ -246,7 +248,7 @@ function closeShebei() {
                 type:"post",
                 url:ctx + "task/update",
                 dataType:"json", //预期服务器返回数据的类型
-                data:{id:ID,fingerUrl: $("input[name=fingerUrl]").val(r.msg.path)},
+                data:{id:ID,fingerUrl:path},
                 success:function(r){
                     window.setTimeout(function(){
                         $('.spmsg').html('已更新数据')
