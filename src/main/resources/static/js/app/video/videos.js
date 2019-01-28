@@ -305,7 +305,7 @@ function chongzhiwen(){
 $(function () {
     $("#input-repl-3a").fileinput({
         dropZoneTitle : "请上传小于150M的视频！",
-        uploadUrl : "saveVideoAddress",
+        uploadUrl : "video/upload",
         language : "zh",
         autoReplace : true,
         showCaption : false,
@@ -333,7 +333,7 @@ $(function () {
 
     $("#input-repl-3a1").fileinput({
         dropZoneTitle : "请上传小于150M的视频！",
-        uploadUrl : "saveVideoAddress",
+        uploadUrl : "video/upload",
         language : "zh",
         autoReplace : true,
         showCaption : false,
