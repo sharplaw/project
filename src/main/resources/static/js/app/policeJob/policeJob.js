@@ -21,6 +21,7 @@ function updateJob() {
             dataType:"json", //预期服务器返回数据的类型
             data:{id:sels.id},
             success:function(r){
+                console.log(r.msg[0].actiivityUrl)
                 $('#img1').attr("src","data:image/png;base64,"+r.msg[0].actiivityUrl+"")
                 $('#img2').attr("src","data:image/png;base64,"+r.msg[0].talkUrl+"")
                 var $form = $('#job-add');
@@ -32,8 +33,26 @@ function updateJob() {
         });
 
     }else{
-        var $form = $('#job-add1');
-        $form.modal();
+        $.ajax({
+            type:"get",
+            url:ctx + "task/selectSingle",
+            dataType:"json", //预期服务器返回数据的类型
+            data:{id:sels.id},
+            success:function(r){
+                console.log(r.msg[0].actiivityUrl)
+                $('.img1').attr("src","data:image/png;base64,"+r.msg[0].actiivityUrl+"")
+                $('.img2').attr("src","data:image/png;base64,"+r.msg[0].talkUrl+"")
+                var $form = $('#job-add1');
+                $form.modal();
+            },
+            error:function(jqXHR){
+                alert("发生错误："+ jqXHR.status);
+            }
+        });
+        // $('.img1').attr("src",sels.fingerUrl)
+        // $('.img2').attr("src",sels.talkUrl)
+        // var $form = $('#job-add1');
+        // $form.modal();
     }
 
 
@@ -136,7 +155,7 @@ $(function () {
 function closeModal() {
     $MB.closeAndRestModal("job-add");
     $MB.closeAndRestModal("job-add1");
-    validator.resetForm();
+  //  validator.resetForm();
 }
 var timing='';
 function zwsb() {
