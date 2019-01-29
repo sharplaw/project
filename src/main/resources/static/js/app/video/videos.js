@@ -1,8 +1,9 @@
-var PrionerNo='',ID=''
+var PrionerNo='',ID='',savetype='1'
 
 function addvideo() {
-    var $form = $('#job-add1');
+    var $form = $('#job-add');
     $form.modal();
+    savetype='2'
 }
 function videoseting() {
     var selected = $("#jobTable").bootstrapTable("getSelections");
@@ -16,6 +17,7 @@ function videoseting() {
         $MB.n_warning('一次只能处理一个任务！');
         return;
     }
+    savetype='1'
     var sels = selected[0];
     //PrionerNo=sels.prisonerNo;
     ID=sels.id;
@@ -24,7 +26,20 @@ function videoseting() {
     $form.find("input[name='title_edit']").val(sels.title);
     $form.find("input[name='describle_edit']").val(sels.describle);
     $form.find("input[name='videoUrl_edit']").val(sels.videoUrl);
+    $form.find("select[name='type']").val(sels.type);
 
+    $.ajax({
+        type:"post",
+        url:ctx + "video/selectSingle",
+        dataType:"json", //预期服务器返回数据的类型
+        data:{"id": ID},
+        success:function(r){
+
+        },
+        error:function(jqXHR){
+            alert("发生错误："+ jqXHR.status);
+        }
+    });
 
 }
 function delvideo() {
@@ -54,7 +69,7 @@ function delvideo() {
         // });
         $.ajax({
             type:"post",
-            url:ctx + "video/update",
+            url:ctx + "video/delte",
             dataType:"json", //预期服务器返回数据的类型
             data:{"id": ids,flag:1},
             success:function(r){
@@ -340,30 +355,61 @@ $(function () {
     })
 })
 function save(){
-    var videoUrl = $('input[name=videoUrl]').val();
-    var photoUrl = $('input[name=photoUrl]').val();
-    var types = $('select[name=type]').val();
+    if(savetype=='1'){
+        var videoUrl = $('input[name=videoUrl]').val();
+        var photoUrl = $('input[name=photoUrl]').val();
+        var types = $('select[name=type]').val();
 
-    var title_edit = $('input[name=title_edit]').val();
-    var describle_edit = $('input[name=describle_edit]').val();
+        var title_edit = $('input[name=title_edit]').val();
+        var describle_edit = $('input[name=describle_edit]').val();
 
-    $.ajax({
-        type:"post",
-        url:ctx + "video/add",
-        dataType:"json", //预期服务器返回数据的类型
-        data:{
-            title:title_edit,
-            type:types,
-            describle:describle_edit,
-            videoUrl:videoUrl,
-            photoUrl:photoUrl,
-        },
-        success:function(r){
+        $.ajax({
+            type:"post",
+            url:ctx + "video/update",
+            dataType:"json", //预期服务器返回数据的类型
+            data:{
+                id:ID,
+                title:title_edit,
+                type:types,
+                describle:describle_edit,
+                videoUrl:videoUrl,
+                photoUrl:photoUrl,
+            },
+            success:function(r){
 
 
-        },
-        error:function(jqXHR){
-            alert("发生错误："+ jqXHR.status);
-        }
-    });
+            },
+            error:function(jqXHR){
+                alert("发生错误："+ jqXHR.status);
+            }
+        });
+    }else{
+        var videoUrl = $('input[name=videoUrl]').val();
+        var photoUrl = $('input[name=photoUrl]').val();
+        var types = $('select[name=type]').val();
+
+        var title_edit = $('input[name=title_edit]').val();
+        var describle_edit = $('input[name=describle_edit]').val();
+
+        $.ajax({
+            type:"post",
+            url:ctx + "video/add",
+            dataType:"json", //预期服务器返回数据的类型
+            data:{
+                title:title_edit,
+                type:types,
+                describle:describle_edit,
+                videoUrl:videoUrl,
+                photoUrl:photoUrl,
+            },
+            success:function(r){
+
+
+            },
+            error:function(jqXHR){
+                alert("发生错误："+ jqXHR.status);
+            }
+        });
+    }
+
 }
