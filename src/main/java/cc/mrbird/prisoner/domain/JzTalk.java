@@ -31,6 +31,10 @@ public class JzTalk implements Serializable {
     @ExportConfig(value = "记录人单位及职务")
     private String recorderUnit;
 
+    @Column(name = "talkAddress")
+    @ExportConfig(value = "谈话地点")
+    private String talkAddress;
+
     @ExportConfig(value = "谈话内容")
     private String conment;
 
@@ -136,5 +140,13 @@ public class JzTalk implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTalkAddress() {
+        return talkAddress;
+    }
+
+    public void setTalkAddress(String talkAddress) {
+        this.talkAddress = talkAddress;
     }
 }

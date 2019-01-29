@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -56,13 +57,12 @@ public class TaskController  extends BaseController {
     public ResponseBo addTask(JzTask jzTask,QueryRequest request){
         try {
             Date date = new Date();
+            String[] strNow = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString().split("-");
             int month = date.getMonth();
             int months = month + 1;
             String mon = String.valueOf(months);
-            int year = date.getYear();
-            String years = String.valueOf(year);
             jzTask.setStatue("0");
-            jzTask.setYear(years);
+            jzTask.setYear( strNow[0]);
             jzTask.setMonth(mon);
             taskService.save(jzTask);
             return ResponseBo.ok();

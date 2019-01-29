@@ -22,7 +22,7 @@
             AND j.type = #{type}
         </if>
         <if test="flag != null and flag != ''">
-            AND z.flag = #{flag}
+            AND j.flag = #{flag}
         </if>
 
   </select>
