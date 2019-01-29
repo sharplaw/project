@@ -90,7 +90,6 @@ public class PrisonerController  extends BaseController {
 
     }
 
-
     @Log("更新社区服刑人员信息")
     @RequestMapping("prisoner/del")
     @ResponseBody

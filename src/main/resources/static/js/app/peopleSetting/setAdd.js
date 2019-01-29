@@ -212,7 +212,8 @@ function timingFunc() {
         success:function(r){
 
         if(r.code=='0'){//录入完毕
-            $("input[name=fingerprints]").val(r.msg)
+
+            $("input[name=fingerprints]").val(r.msg.base)
             window.clearInterval(timing);
             $('.hidezw1').hide();
             $('.hidezw2').show();
