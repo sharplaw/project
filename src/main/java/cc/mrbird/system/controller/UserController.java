@@ -69,6 +69,17 @@ public class UserController extends BaseController {
         return super.selectByPageNumSize(request, () -> this.userService.findUserWithDept(user, request));
     }
 
+
+
+    @Log("获取负责人信息")
+    @RequestMapping("user/checklist")
+    @ResponseBody
+    public ResponseBo usercheckList(QueryRequest request, User user) {
+      List<User> result=  userService.findUserWithDept(user, request);
+
+        return ResponseBo.ok(result);
+    }
+
     @RequestMapping("user/excel")
     @ResponseBody
     public ResponseBo userExcel(User user) {

@@ -178,6 +178,8 @@ public class VideoController  extends BaseController {
                 ConverVideoTest c = new ConverVideoTest();
                 c.run(yuanPATH);   //调用转码
                 System.out.println("=================转码过程彻底结束=====================");
+            }else{
+
             }
 
             //获取转码后的mp4文件名
