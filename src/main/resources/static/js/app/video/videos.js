@@ -123,24 +123,24 @@ $(function () {
     // validateRule();
 
 
-    $("#job-add .btn-save").click(function () {
-        $.ajax({
-            type:"post",
-            url:ctx + "task/finish",
-            dataType:"json", //预期服务器返回数据的类型
-            data:{id:ID},
-            success:function(r){
-                closeModal();
-                refresh();
-                $MB.n_success(r.msg);
-            },
-            error:function(jqXHR){
-                alert("发生错误："+ jqXHR.status);
-
-            }
-        });
-
-    });
+    // $("#job-add .btn-save").click(function () {
+    //     $.ajax({
+    //         type:"post",
+    //         url:ctx + "task/finish",
+    //         dataType:"json", //预期服务器返回数据的类型
+    //         data:{id:ID},
+    //         success:function(r){
+    //             closeModal();
+    //             refresh();
+    //             $MB.n_success(r.msg);
+    //         },
+    //         error:function(jqXHR){
+    //             alert("发生错误："+ jqXHR.status);
+    //
+    //         }
+    //     });
+    //
+    // });
 
     $("#job-add .btn-close").click(function () {
         closeModal();
@@ -304,60 +304,66 @@ function chongzhiwen(){
 
 $(function () {
     $("#input-repl-3a").fileinput({
-        dropZoneTitle : "请上传小于150M的视频！",
-        uploadUrl : "video/upload",
+        dropZoneTitle: "请上传小于150M的视频！",
+        uploadUrl: "video/upload",
         enctype: 'multipart/form-data',
-        language : "zh",
-        autoReplace : true,
-        showCaption : false,
-        showUpload : true,
-        overwriteInitial : true,
-        showUploadedThumbs : true,
+        language: "zh",
+        autoReplace: true,
+        showCaption: false,
+        showUpload: true,
+        overwriteInitial: true,
+        showUploadedThumbs: true,
         //showPreview:false,                   //显示上传图片的大小信息
-        maxFileCount : 1,
-        minFileCount:1,
-        maxFileSize : 153600,//文件最大153600kb=150M
-        initialPreviewShowDelete : false,
-        showRemove : true,//是否显示删除按钮
-        showClose : false,
-        layoutTemplates : {
-            actionUpload:'',
+        maxFileCount: 1,
+        minFileCount: 1,
+        maxFileSize: 153600,//文件最大153600kb=150M
+        initialPreviewShowDelete: false,
+        showRemove: true,//是否显示删除按钮
+        showClose: false,
+        layoutTemplates: {
+            actionUpload: '',
         },
-        allowedFileExtensions : [ "mp4","avi","dat","3gp","mov","rmvb","wmv"],
-        previewSettings : {
-            image : {
-                width : "100%",
-                height : "100%"
+        allowedFileExtensions: ["mp4", "avi", "dat", "3gp", "mov", "rmvb"],
+        previewSettings: {
+            image: {
+                width: "100%",
+                height: "100%"
             },
         }
     });
 
-    $("#input-repl-3a1").fileinput({
-        dropZoneTitle : "请上传小于150M的视频！",
-        uploadUrl : "video/upload",
-        enctype: 'multipart/form-data',
-        language : "zh",
-        autoReplace : true,
-        showCaption : false,
-        showUpload : true,
-        overwriteInitial : true,
-        showUploadedThumbs : true,
-        //showPreview:false,                   //显示上传图片的大小信息
-        maxFileCount : 1,
-        minFileCount:1,
-        maxFileSize : 153600,//文件最大153600kb=150M
-        initialPreviewShowDelete : false,
-        showRemove : true,//是否显示删除按钮
-        showClose : false,
-        layoutTemplates : {
-            actionUpload:'',
+    $("#input-repl-3a").on("fileuploaded", function (event, data, previewId, index) {
+
+        $('input[name=videoUrl]').val(data.response.msg.path)
+        $('input[name=photoUrl]').val(data.response.msg.pic)
+
+    })
+})
+function save(){
+    var videoUrl = $('input[name=videoUrl]').val();
+    var photoUrl = $('input[name=photoUrl]').val();
+    var types = $('select[name=type]').val();
+
+    var title_edit = $('input[name=title_edit]').val();
+    var describle_edit = $('input[name=describle_edit]').val();
+
+    $.ajax({
+        type:"post",
+        url:ctx + "video/add",
+        dataType:"json", //预期服务器返回数据的类型
+        data:{
+            title:title_edit,
+            type:types,
+            describle:describle_edit,
+            videoUrl:videoUrl,
+            photoUrl:photoUrl,
         },
-        allowedFileExtensions : [ "mp4","avi","dat","3gp","mov","rmvb","wmv"],
-        previewSettings : {
-            image : {
-                width : "100%",
-                height : "100%"
-            },
+        success:function(r){
+
+
+        },
+        error:function(jqXHR){
+            alert("发生错误："+ jqXHR.status);
         }
     });
-})
+}

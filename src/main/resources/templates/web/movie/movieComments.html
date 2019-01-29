@@ -3,6 +3,9 @@
 .custom-control-char img { width: 3rem; height: 3rem; border-radius: 2px; }
 .todo__info { display: inline; }
 .todo__item small { margin-top: 0; }
+.m {
+
+}
 </style>
 <div class="modal fade" id="movie-comments" data-keyboard="false" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-lg">
@@ -10,13 +13,22 @@
             <div class="modal-header">
                 <h3 class="modal-title pull-left" id="movie-comments-modal-title">影片评论</h3>
             </div>
-            <div class="modal-body">
-            	<div class="listview listview--bordered">
-            	
-				</div>            
+            <div class="modal-body" style="  height: 600px; ">
+            	<!--<div class="listview listview&#45;&#45;bordered">-->
+            	<!---->
+				<!--</div>            -->
+
+                <div class="m" style="  height: 600px; ">
+                    <video id="my-video" class="video-js" controls preload="auto" width="650" height="590"
+                           poster="m.jpg" data-setup="{}">
+                        <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+                        <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+                        <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
+                        <p class="vjs-no-js"> To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> </p>
+                    </video>
+                </div>
             </div>
-            
-            
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">关闭</button>
             </div>
