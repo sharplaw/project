@@ -17,7 +17,6 @@
                             <div class="input-group">
                                 <span class="input-group-addon">
 					              标题：
-
 					            </span>
                                 <div class="form-group">
                                     <input type="text" name="title_edit" class="form-control">
@@ -39,27 +38,30 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               视频类型：
+					            </span>
+                                <div class="form-group">
+                                    <select class="form-control" name="type" style="height: 45px;">
+                                        <option value="1" >法律类</option>
+                                        <option value="2" >新闻</option>
+                                        <option value="3" >事实</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row" style=" margin: 0;  ">
                         <div class="col-sm-12">
-                            <!--<div style=" height: 100%; display: flex;    padding: 20px 20px 20px 25%;">-->
-                                <!--<span style="line-height: 110px;">-->
-					              <!--录入指纹：-->
-					            <!--</span>-->
-                                <!--<div style="line-height: 107px;">-->
-                                    <!--<input type="button" name="" class="btn btn-success" style="height:  50px;" id="zhiwMsg" value="启动指纹识别" onclick="zwsb()">-->
-                                    <!--<input type="button" name=""  class="btn btn-success bg-red" style="height:  50px;display: none" id="zhiwerror" value="重新识别指纹" onclick="chongzhiwen()">-->
-                                    <!--<input type="hidden" id="skip" value="0"/>-->
-                                    <!--<input type="hidden" name="fingerprints"/>-->
-                                <!--</div>-->
-                                <!--<div style=" width: 110px; height: 110px; margin: 0 50px; display: none;" class="hidezw1" >-->
-                                    <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547834929067&di=a5ac28d81175c8e7867eecd396783172&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01c5d75a1e800da801217132ed9143.gif"-->
-                                         <!--style=" width: 110px; height: 110px; " alt="">-->
-                                <!--</div>-->
-                                <!--<div style="line-height: 110px;color: #2fbb7f;font-size:  20px;display: none;" class="hidezw2"><i class=" iconfont icon-send" style=" font-size: 20px; "></i>    <span class="spmsg">正在唤起设备中请稍候...</span></div>-->
-                            <!--</div>-->
-
-
                             <input id="input-repl-3a" name="file" type="file" multiple  accept="mp4,avi,dat,3gp,mov,rmvb" />
+
+                            <input type="hidden" name="videoUrl">
+                            <input type="hidden" name="photoUrl">
+
                         </div>
                     </div>
                     <hr>  <hr>
@@ -67,7 +69,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-save" id="job-add-button" name="save">保存</button>
+                <div  class="btn btn-save" onclick="save()">保存</div>
                 <button type="button" class="btn btn-secondary btn-close">关闭</button>
                 <button class="btn-hide"></button>
             </div>
@@ -75,72 +77,3 @@
     </div>
 </div>
 
-<div class="modal fade" id="job-add1" data-keyboard="false" data-backdrop="static" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title pull-left" id="job-add-modal-title1">新增任务</h3>
-            </div>
-            <div class="modal-body">
-                <form id="job-add-form1">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-					              标题：
-					            </span>
-                                <div class="form-group">
-                                    <input type="text" name="title_add" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-					               描述：
-					            </span>
-                                <div class="form-group">
-                                    <input type="text" name="describle_add" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" style=" margin: 0;  ">
-                        <div class="col-sm-12">
-                            <!--<div style=" height: 100%; display: flex;    padding: 20px 20px 20px 25%;">-->
-                            <!--<span style="line-height: 110px;">-->
-                            <!--录入指纹：-->
-                            <!--</span>-->
-                            <!--<div style="line-height: 107px;">-->
-                            <!--<input type="button" name="" class="btn btn-success" style="height:  50px;" id="zhiwMsg" value="启动指纹识别" onclick="zwsb()">-->
-                            <!--<input type="button" name=""  class="btn btn-success bg-red" style="height:  50px;display: none" id="zhiwerror" value="重新识别指纹" onclick="chongzhiwen()">-->
-                            <!--<input type="hidden" id="skip" value="0"/>-->
-                            <!--<input type="hidden" name="fingerprints"/>-->
-                            <!--</div>-->
-                            <!--<div style=" width: 110px; height: 110px; margin: 0 50px; display: none;" class="hidezw1" >-->
-                            <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547834929067&di=a5ac28d81175c8e7867eecd396783172&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01c5d75a1e800da801217132ed9143.gif"-->
-                            <!--style=" width: 110px; height: 110px; " alt="">-->
-                            <!--</div>-->
-                            <!--<div style="line-height: 110px;color: #2fbb7f;font-size:  20px;display: none;" class="hidezw2"><i class=" iconfont icon-send" style=" font-size: 20px; "></i>    <span class="spmsg">正在唤起设备中请稍候...</span></div>-->
-                            <!--</div>-->
-
-
-                            <input id="input-repl-3a1" name="videoFileAddress1" type="file" accept="mp4,avi,dat,3gp,mov,rmvb" />
-                        </div>
-                    </div>
-                    <hr>  <hr>
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-save" id="job-add-button1" name="save">保存</button>
-                <button type="button" class="btn btn-secondary btn-close">关闭</button>
-                <button class="btn-hide"></button>
-            </div>
-        </div>
-    </div>
-</div>
