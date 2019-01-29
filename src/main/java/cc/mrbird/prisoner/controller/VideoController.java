@@ -82,7 +82,7 @@ public class VideoController  extends BaseController {
     @Log("添加视频信息")
     @RequestMapping("video/add")
     @ResponseBody
-    public ResponseBo addVideo(@RequestParam("files") MultipartFile files, JzVideo jzVideo, QueryRequest request){
+    public ResponseBo addVideo(JzVideo jzVideo, QueryRequest request){
         try{
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             jzVideo.setCreateTime(sdf.format(new Date()));
@@ -178,6 +178,8 @@ public class VideoController  extends BaseController {
                 ConverVideoTest c = new ConverVideoTest();
                 c.run(yuanPATH);   //调用转码
                 System.out.println("=================转码过程彻底结束=====================");
+            }else{
+
             }
 
             //获取转码后的mp4文件名

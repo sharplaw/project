@@ -6,6 +6,7 @@ import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.prisoner.domain.JzPrisoner;
 import cc.mrbird.prisoner.service.PrisonerService;
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class PrisonerController  extends BaseController {
     public ResponseBo selectSinglePrisoner(QueryRequest request, JzPrisoner jzPrisoner){
         List<JzPrisoner> result=this.prisonerService.selectPrisoner(jzPrisoner,request);
         if(result.size()>0){
-            return ResponseBo.ok(result);
+            return ResponseBo.ok(result.get(0));
         }else{
             return ResponseBo.error();
         }

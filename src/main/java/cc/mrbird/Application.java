@@ -37,7 +37,7 @@ public class Application {
         //单个文件最大
         factory.setMaxFileSize("204800KB"); //KB,MB
         /// 设置总上传数据总大小
-        factory.setMaxRequestSize("102400KB");
+        factory.setMaxRequestSize("1024000KB");
         return factory.createMultipartConfig();
     }
 }
