@@ -21,12 +21,17 @@ public class AddressUtils {
     public static String getCityInfo(String ip) {
         try {
             String dbPath = AddressUtils.class.getResource("/ip2region/ip2region.db").getPath();
+            System.out.println(dbPath);
+            dbPath="E:/project_jar/project.jar!/ip2region/ip2region.db";
             File file = new File(dbPath);
+
+            System.out.println(dbPath);
             if (!file.exists()) {
                 String tmpDir = System.getProperties().getProperty("java.io.tmpdir");
                 dbPath = tmpDir + "ip.db";
                 file = new File(dbPath);
-                FileUtils.copyInputStreamToFile(AddressUtils.class.getClassLoader().getResourceAsStream("classpath:ip2region/ip2region.db"), file);
+                System.out.println(dbPath);
+                FileUtils.copyInputStreamToFile(AddressUtils.class.getClassLoader().getResourceAsStream("/ip2region/ip2region.db"), file);
             }
             int algorithm = DbSearcher.BTREE_ALGORITHM;
             DbConfig config = new DbConfig();

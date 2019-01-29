@@ -70,7 +70,7 @@
 
     /* 开始建立连接*/
         if('WebSocket' in window){
-             ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsernamePC );
+             ws = new WebSocket("ws://61.181.104.62:8088/websocket/"+lineUsernamePC );
             console.log("连接成功");
             $("#chat_room_msg").append("<span>连接成功</span>")
         }else{

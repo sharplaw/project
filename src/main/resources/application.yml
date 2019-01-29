@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 8080
   tomcat:
     uri-encoding: utf-8
 spring:
@@ -150,7 +150,7 @@ febs:
   # 时间类型参数在前端页面的展示格式，默认格式为 yyyy-MM-dd HH:mm:ss
   timeFormat: yyyy-MM-dd HH:mm:ss
   # 是否开启 AOP 日志，默认开启
-  openAopLog: true
+  openAopLog: false
   shiro:
     # shiro redis缓存时长，默认1800秒
     expireIn: 1800

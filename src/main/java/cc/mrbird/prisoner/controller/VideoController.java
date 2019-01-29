@@ -82,7 +82,7 @@ public class VideoController  extends BaseController {
     @Log("添加视频信息")
     @RequestMapping("video/add")
     @ResponseBody
-    public ResponseBo addVideo(@RequestParam("files") MultipartFile files, JzVideo jzVideo, QueryRequest request){
+    public ResponseBo addVideo(JzVideo jzVideo, QueryRequest request){
         try{
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             jzVideo.setCreateTime(sdf.format(new Date()));
