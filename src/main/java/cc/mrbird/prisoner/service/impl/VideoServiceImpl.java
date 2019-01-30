@@ -33,11 +33,19 @@ public class VideoServiceImpl  extends BaseService<JzVideo> implements VideoServ
     public List<JzVideo> findSingleVideo(JzVideo jzVideo) {
         List<JzVideo> result= video.findVideo(jzVideo);
         String photo=null;
+        String video=null;
         if(result.size()>0){
             if(StringUtils.isNotBlank(result.get(0).getPhotoUrl())){
                 photo=result.get(0).getPhotoUrl();
                 String act=  Base.imageToBase64Str(photo);
                 result.get(0).setPhotoUrl(act);
+            }
+
+            if(StringUtils.isNotBlank(result.get(0).getVideoUrl())){
+                video=result.get(0).getVideoUrl();
+                String a[]=video.split("//");
+                video="61.181.104.62:8081/"+a[1];
+                result.get(0).setPhotoUrl(video);
             }
 
         }
