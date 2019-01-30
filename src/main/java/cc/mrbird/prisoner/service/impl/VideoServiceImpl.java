@@ -32,13 +32,13 @@ public class VideoServiceImpl  extends BaseService<JzVideo> implements VideoServ
                 if(StringUtils.isNotBlank(result.get(i).getPhotoUrl())){
                     photo=result.get(i).getPhotoUrl();
                     String a[]=photo.split("//");
-                    photo="61.181.104.62:8081/"+a[1];
+                    photo="http://61.181.104.62:8081/"+a[1];
                     result.get(1).setPhotoUrl(photo);
                 }
                 if(StringUtils.isNotBlank(result.get(i).getVideoUrl())){
                     video=result.get(i).getVideoUrl();
                     String a[]=video.split("//");
-                    video="61.181.104.62:8081/"+a[1];
+                    video="http://61.181.104.62:8081/"+a[1];
                     result.get(i).setVideoUrl(video);
                 }
             }
@@ -62,7 +62,7 @@ public class VideoServiceImpl  extends BaseService<JzVideo> implements VideoServ
             if(StringUtils.isNotBlank(result.get(0).getVideoUrl())){
                 video=result.get(0).getVideoUrl();
                 String a[]=video.split("//");
-                video="61.181.104.62:8081/"+a[1];
+                video="http://61.181.104.62:8081/"+a[1];
                 result.get(0).setPhotoUrl(video);
             }
 
