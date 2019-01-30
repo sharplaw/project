@@ -106,7 +106,7 @@ public class VideoController  extends BaseController {
     public ResponseBo uploadVideo(@RequestParam("file") MultipartFile file, JzVideo jzVideo, QueryRequest request){
         if (file.getSize() != 0) {
             //上传的多格式的视频文件-作为临时路径保存，转码以后删除-路径不能写//
-            String path = "E:/Projectpicture/websiteimages/temp/";
+            String path = "E://Projectpicture/websiteimages/finshvideo/";
 
             File TempFile = new File(path);
             if (TempFile.exists()) {
@@ -168,12 +168,7 @@ public class VideoController  extends BaseController {
             //调用转码机制flv mp4 f4v m3u8 webm ogg放行直接播放，
             //asx，asf，mpg，wmv，3gp，mov，avi，wmv9，rm，rmvb等进行其他转码为mp4
 
-            if (filename_extension.equals("avi") || filename_extension.equals("rm")
-                    || filename_extension.equals("rmvb") || filename_extension.equals("wmv")
-                    || filename_extension.equals("3gp")  || filename_extension.equals("mov")
-                    ||filename_extension.equals("flv")   || filename_extension.equals("ogg")
-
-            ) {
+            if (filename_extension.equals("mp4")) {
 
                 ConverVideoTest c = new ConverVideoTest();
                 c.run(yuanPATH);   //调用转码
@@ -190,27 +185,27 @@ public class VideoController  extends BaseController {
             String NewVideopath =Mp4path +filename2;
             System.out.println("新视频的url:"+NewVideopath);
 
-            //删除临时文件
-            File file2 = new File(path);
-            if (!file2.exists()) {
-                System.out.println("没有该文件");
-            }
-            if (!file2.isDirectory()) {
-                System.out.println("没有该文件夹");
-            }
-            String[] tempList = file2.list();
-            File temp = null;
-            for (int i = 0; i < tempList.length; i++) {
-                if (path.endsWith(File.separator)) {
-                    temp = new File(path + tempList[i]);
-                } else {
-                    temp = new File(path + File.separator + tempList[i]);
-                }
-                if (temp.isFile() || temp.isDirectory()) {
-                    temp.delete();     //删除文件夹里面的文件
-                }
-            }
-            System.out.println("所有的临时视频文件删除成功");
+//            //删除临时文件
+//            File file2 = new File(path);
+//            if (!file2.exists()) {
+//                System.out.println("没有该文件");
+//            }
+//            if (!file2.isDirectory()) {
+//                System.out.println("没有该文件夹");
+//            }
+//            String[] tempList = file2.list();
+//            File temp = null;
+//            for (int i = 0; i < tempList.length; i++) {
+//                if (path.endsWith(File.separator)) {
+//                    temp = new File(path + tempList[i]);
+//                } else {
+//                    temp = new File(path + File.separator + tempList[i]);
+//                }
+//                if (temp.isFile() || temp.isDirectory()) {
+//                    temp.delete();     //删除文件夹里面的文件
+//                }
+//            }
+           // System.out.println("所有的临时视频文件删除成功");
             Map map=new HashMap();
 
             map.put("pic", Contants.imageRealPath+picname);

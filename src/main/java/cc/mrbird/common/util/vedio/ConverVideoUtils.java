@@ -74,9 +74,9 @@ public class ConverVideoUtils {
         System.out.println("----开始转文件(" + sourceVideoPath + ")-------------------------- ");
 
         //执行转码机制
-        if (process(targetExtension,isDelSourseFile)) {
+       // if (process(targetExtension,isDelSourseFile)) {
 
-            System.out.println("视频转码结束，开始截图================= ");
+          //  System.out.println("视频转码结束，开始截图================= ");
 
             //视频转码完成，调用截图功能--zoutao
             if (processImg(sourceVideoPath)) {
@@ -97,19 +97,16 @@ public class ConverVideoUtils {
                  file1.delete();
               }*/
 
-            String temppath=videofolder + filerealname + ".avi";
-            File file2 = new File(temppath);
-            if (file2.exists()){
-                System.out.println("删除临时文件："+temppath);
-                file2.delete();
-            }
+//            String temppath=videofolder + filerealname + ".avi";
+//            File file2 = new File(temppath);
+//            if (file2.exists()){
+//                System.out.println("删除临时文件："+temppath);
+//                file2.delete();
+//            }
 
-            sourceVideoPath = null;
+           // sourceVideoPath = null;
             return true;
-        } else {
-            sourceVideoPath = null;
-            return false;
-        }
+
     }
 
 
@@ -174,7 +171,7 @@ public class ConverVideoUtils {
         commend.add("-f");
         commend.add("image2");
         commend.add("-y");
-        commend.add(imageRealPath + filerealname + ".jpg");     //生成截图xxx.jpg
+        commend.add(imageRealPath + filerealname + ".png");     //生成截图xxx.jpg
 
         //打印截图命令--zoutao
         StringBuffer test = new StringBuffer();
@@ -555,7 +552,7 @@ public class ConverVideoUtils {
             }.start();
 
             p.waitFor();        //进程等待机制，必须要有，否则不生成mp4！！！
-            System.out.println("生成mp4视频为:"+videofolder + filerealname + ".mp4");
+            System.out.println("生成mp4视频为:"+targetfolder + filerealname + ".mp4");
             return true;
         }
         catch (Exception e) {
