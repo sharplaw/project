@@ -48,6 +48,8 @@ public class JzTask  implements Serializable {
     @ExportConfig(value = "月")
     private String   month;
 
+    @ExportConfig(value = "学习时长")
+    private String sminute;
     @Column(name = "createTime")
     @ExportConfig(value = "创建时间")
     private String createTime;
@@ -200,5 +202,14 @@ public class JzTask  implements Serializable {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+
+    public String getSminute() {
+        return sminute;
+    }
+
+    public void setSminute(String sminute) {
+        this.sminute = sminute;
     }
 }
