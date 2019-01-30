@@ -5,6 +5,19 @@ var $navigation = $("#navigation");
 var redisMemoryInfoInterval;
 var rediskeysSizeInterval;
 
+$(function(){
+    $.ajax({
+        type: "get",
+        url: ctx + "role/checkRoleName",
+        data: {
+            "roleName": localStorage.getItem("username"),
+        },
+        dataType: "json",
+        success: function (r) {
+            console.log(r)
+        }
+    });
+})
 $(window).on("load", function () {
     // 加载loading
     setTimeout(function () {

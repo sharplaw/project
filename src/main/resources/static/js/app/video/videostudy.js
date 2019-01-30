@@ -1,21 +1,24 @@
-$(function () {
-    $.post(ctx + 'movie/getMovieHot', {}, function (r) {
-        if (r.code === 0) {
-            var data = JSON.parse(r.msg);
-            var movie_list = data.ms;
-            var movie_list_html = "";
-            for (var i = 0; i < movie_list.length; i++) {
+function funcvideoList() {
+    $.post(ctx + 'video/select', {}, function (r) {
+        if (r!= '') {
+            // var data = JSON.parse(r.msg);
+            console.log(r.rows)
+             var movie_list = r.rows;
+             var movie_list_html = "";
+             var img='61.181.104.62:8081/Projectpicture/websiteimages/finshvideo/1548811263803.mp4'
+            for (var i = 0; i < r.rows.length; i++) {
+                console.log( movie_list[i].photoUrl)
                 movie_list_html += '<div class="col-xl-3 col-lg-3 col-sm-4 col-6">';
                 movie_list_html += '<div class="groups__item">';
-                movie_list_html += '<li class="movie-img aspectration" data-ratio="16:9" style="background-image:url(' + movie_list[i].img + ');"></li>';
+                movie_list_html += '<li class="movie-img aspectration" data-ratio="16:9" style="background-image:url(' + movie_list[i].photoUrl+ ');"></li>';
                 movie_list_html += '<div class="groups__info">';
-                movie_list_html += '<strong>' + movie_list[i].tCn + '</strong>';
-                movie_list_html += '<small>' + movie_list[i].movieType + '</small>';
-                movie_list_html += getScoreHtml(movie_list[i].r);
+                movie_list_html += '<strong>' + movie_list[i].title + '</strong>';
+                movie_list_html += '<small>' + movie_list[i].describle + '</small>';
+                // movie_list_html += getScoreHtml(movie_list[i].r);
                 movie_list_html += '</div>';
                 movie_list_html += '<div class="dropdown-menu dropdown-menu-right movie-action" style="min-width:100px;background-color:rgba(255,255,255,.9);z-index:1">';
-                movie_list_html += '<a class="dropdown-item" onclick="getMoiveDetail(\'' + movie_list[i].id + '\');" href="javascript:void(0)">查看详情</a>';
-                movie_list_html += '<a class="dropdown-item" onclick="getMoiveComments(\'' + movie_list[i].id + '\',\'' + movie_list[i].tCn + '\');" href="javascript:void(0)">查看评论</a>';
+                // movie_list_html += '<a class="dropdown-item" onclick="getMoiveDetail(\'' + movie_list[i].id + '\');" href="javascript:void(0)">查看详情</a>';
+                movie_list_html += '<a class="dropdown-item" onclick="getMoiveComments(\'' + movie_list[i].id + '\',\'' + movie_list[i].videoUrl + '\',\'' + movie_list[i].photoUrl + '\');" href="javascript:void(0)">学习视频</a>';
                 movie_list_html += '</div></div></div>';
             }
             $(".movie-list").html("").append(movie_list_html);
@@ -32,7 +35,7 @@ $(function () {
             $MB.n_danger(r.msg);
         }
     });
-});
+}
 
 function getScoreHtml(score) {
     var html = '';
@@ -122,41 +125,48 @@ function getMoiveDetail(id) {
     });
 }
 
-function getMoiveComments(id, title) {
-    $.post(ctx + "movie/comments", {"id": id}, function (r) {
-        var data = JSON.parse(r.msg).data;
-        var mini = data.mini.list;
-        var plus = data.plus.list;
-        if (!mini.length && !plus.length) {
-            $MB.n_warning("该影片暂无评论");
-            return;
-        }
-        $("#movie-comments-modal-title").text("《" + title + "》影评");
-        var comments_html = "";
-        for (var i = 0; i < mini.length; i++) {
-            comments_html += '<div class="listview__item">';
-            comments_html += '<label class="custom-control custom-control--char todo__item">';
-            comments_html += '<span class="custom-control-char"><img src="' + mini[i].headImg + '"/></span>';
-            comments_html += '<div class="todo__info">';
-            comments_html += '<span style="display:inline-block">' + mini[i].nickname + '</span>&nbsp;&nbsp;';
-            comments_html += '<small style="display:inline-block">' + getDate(mini[i].commentDate) + '</small>';
-            comments_html += '</div><div class="comments__info" style="padding: 6px 0">';
-            comments_html += '<span>' + mini[i].content + '</span></div></label></div>';
-        }
-        for (var i = 0; i < plus.length; i++) {
-            comments_html += '<div class="listview__item">';
-            comments_html += '<label class="custom-control custom-control--char todo__item">';
-            comments_html += '<span class="custom-control-char"><img src="' + plus[i].headImg + '"/></span>';
-            comments_html += '<div class="todo__info">';
-            comments_html += '<span style="display:inline-block">' + plus[i].nickname + '</span>&nbsp;&nbsp;';
-            comments_html += '<small style="display:inline-block">' + getDate(plus[i].commentDate) + '</small>';
-            comments_html += '</div><div class="comments__info" style="padding: 6px 0">';
-            comments_html += '<span>' + plus[i].content + '</span></div></label></div>';
-        }
-        $(".listview--bordered").html("").append(comments_html);
+function getMoiveComments(id, url,photoUrl) {
+
+    var comments_html="";
+    comments_html+="  <div class='m' style='  height: 600px; '><video id='my-video' class='video-js' controls preload='auto' width='650' height='590' poster='"+photoUrl+"' data-setup='{}'><source src='"+url+"' type='video/mp4'></video> </div><input type='text' id='aa' value='0'> ";
+        $("#listview--bordered").html("").append(comments_html);
         var $form = $('#movie-comments');
         $form.modal();
-    });
+    videosart()
+    // $.post(ctx + "movie/comments", {"id": id}, function (r) {
+    //     var data = JSON.parse(r.msg).data;
+    //     var mini = data.mini.list;
+    //     var plus = data.plus.list;
+    //     if (!mini.length && !plus.length) {
+    //         $MB.n_warning("该影片暂无评论");
+    //         return;
+    //     }
+    //     $("#movie-comments-modal-title").text("《" + title + "》影评");
+    //     var comments_html = "";
+    //     for (var i = 0; i < mini.length; i++) {
+    //         comments_html += '<div class="listview__item">';
+    //         comments_html += '<label class="custom-control custom-control--char todo__item">';
+    //         comments_html += '<span class="custom-control-char"><img src="' + mini[i].headImg + '"/></span>';
+    //         comments_html += '<div class="todo__info">';
+    //         comments_html += '<span style="display:inline-block">' + mini[i].nickname + '</span>&nbsp;&nbsp;';
+    //         comments_html += '<small style="display:inline-block">' + getDate(mini[i].commentDate) + '</small>';
+    //         comments_html += '</div><div class="comments__info" style="padding: 6px 0">';
+    //         comments_html += '<span>' + mini[i].content + '</span></div></label></div>';
+    //     }
+    //     for (var i = 0; i < plus.length; i++) {
+    //         comments_html += '<div class="listview__item">';
+    //         comments_html += '<label class="custom-control custom-control--char todo__item">';
+    //         comments_html += '<span class="custom-control-char"><img src="' + plus[i].headImg + '"/></span>';
+    //         comments_html += '<div class="todo__info">';
+    //         comments_html += '<span style="display:inline-block">' + plus[i].nickname + '</span>&nbsp;&nbsp;';
+    //         comments_html += '<small style="display:inline-block">' + getDate(plus[i].commentDate) + '</small>';
+    //         comments_html += '</div><div class="comments__info" style="padding: 6px 0">';
+    //         comments_html += '<span>' + plus[i].content + '</span></div></label></div>';
+    //     }
+    //     $(".listview--bordered").html("").append(comments_html);
+    //     var $form = $('#movie-comments');
+    //     $form.modal();
+    // });
 }
 
 function getDate(tm) {
