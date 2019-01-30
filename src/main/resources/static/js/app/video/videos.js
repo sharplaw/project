@@ -376,7 +376,8 @@ function save(){
                 photoUrl:photoUrl,
             },
             success:function(r){
-
+                alert(r.msg)
+                window.location.reload()
 
             },
             error:function(jqXHR){
@@ -403,7 +404,8 @@ function save(){
                 photoUrl:photoUrl,
             },
             success:function(r){
-
+                alert(r.msg)
+                window.location.reload()
 
             },
             error:function(jqXHR){
