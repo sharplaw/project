@@ -196,7 +196,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ResponseBo findRoleByName(String userName) {
         try {
-            List<UserWithRole> result=this.userService.findRoleByName(userName);
+            User result=this.userService.findRoleByName(userName);
             return ResponseBo.ok(result);
         } catch (Exception e) {
             log.error("查询失败", e);

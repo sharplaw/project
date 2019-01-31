@@ -42,5 +42,5 @@ public interface UserService extends IService<User> {
 
     void updateUserProfile(User user);
 
-    List<UserWithRole> findRoleByName(String userName);
+    User findRoleByName(String userName);
 }

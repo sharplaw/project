@@ -51,13 +51,14 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 
     @Override
-    public List<UserWithRole> findRoleByName(String userName) {
+    public User findRoleByName(String userName) {
         Example example = new Example(User.class);
         example.createCriteria().andCondition("lower(username)=", userName.toLowerCase());
         List<User> list = this.selectByExample(example);
         if(list.size()>0){
-           ;
-            return   userMapper.findUserWithRole( list.get(0).getUserId());
+            User user=new User();
+            user.setUserId(list.get(0).getUserId());
+            return   userMapper.findUserProfile(user);
 
 
         }
