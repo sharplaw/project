@@ -104,8 +104,8 @@ $(function () {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                //id: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".form-control").val(),
-               // title: $jobTableForm.find("#sys-cron-clazz-list-method").find(".form-control").val(),
+                // id: $jobTableForm.find("#sys-cron-clazz-list-bean").val(),
+                // title: $jobTableForm.find("#sys-cron-clazz-list-method").val(),
             };
         },
         columns: [{
