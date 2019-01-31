@@ -1,4 +1,5 @@
-var PrionerNo='',ID='',path=''
+var PrionerNo='',ID='',path='';
+var issOnlineUrl = "http://127.0.0.1:22001/ZKBIOOnline";
 function updateJob() {
     var selected = $("#jobTable").bootstrapTable("getSelections");
     console.log(selected)
@@ -165,8 +166,8 @@ function zwsb() {
         $('.hidezw2').show();
         $('#zhiwMsg').hide()
         $.ajax({
-            type:"post",
-            url:ctx + "zk/start",
+            type:"get",
+            url: "http://127.0.0.1:22001/zkbioonline/info",
             dataType:"json", //预期服务器返回数据的类型
             data:{},
             success:function(r){
@@ -199,8 +200,8 @@ function zwsb() {
         $('.spmsg').html('正在录入中请稍候...')
 
         $.ajax({
-            type:"post",
-            url:ctx + "zk/lu",
+            type:"get",
+            url:issOnlineUrl+"/fingerprint/beginCapture?type=1&FakeFunOn=0",
             dataType:"json", //预期服务器返回数据的类型
             data:{},
             success:function(r){
@@ -221,20 +222,44 @@ function zwsb() {
 function timingFunc() {
     console.log('请按三次设备，请稍候...')
     $.ajax({
-        type:"post",
-        url:ctx + "zk/checkpic",
+        type:"get",
+        url:issOnlineUrl+"/fingerprint/getImage",
         dataType:"json", //预期服务器返回数据的类型
-        data:{PrionerNo:PrionerNo},
+        data:{},
         success:function(r){
 
-            if(r.code=='0'){//录入完毕
-                $("input[name=fingerUrl]").val(r.msg.path)
-                path=r.msg.path;
-                window.clearInterval(timing);
-                $('.hidezw1').hide();
-                $('.hidezw2').show();
-                $('.spmsg').html('已完成录入，正在断开设备...')
-                closeShebei()
+            if(r.ret=='0'){//录入完毕
+
+                var imgStr=r.data.jpg_base64;
+
+                $.ajax({
+                        type:"post",
+                        url:ctx + "picture/zwupload",
+                        dataType:"json", //预期服务器返回数据的类
+                        data:{prisonerNo:PrionerNo,imgStr:imgStr},
+                        success:function(g){
+                            if(g.code=="0"){
+
+                               // $("input[name=fingerUrl]").val(g.msg.path)
+                                path=g.msg;
+                                console.log(path);
+                                window.clearInterval(timing);
+                                $('.hidezw1').hide();
+                                $('.hidezw2').show();
+                                $('.spmsg').html('已完成录入，正在断开设备...')
+                                closeShebei()
+
+                            }
+                        },
+                    error:function(jqXHR){
+                        alert("发生错误："+ jqXHR.status);
+                        window.clearInterval(timing);
+                        $('#zhiwMsg').hide();
+                        $('#zhiwerror').show();
+                    }}
+                   );
+
+
             }
         },
         error:function(jqXHR){
@@ -254,12 +279,12 @@ function timingFunc() {
 }
 function closeShebei() {
     $.ajax({
-        type:"post",
-        url:ctx + "zk/end",
+        type:"get",
+        url:issOnlineUrl+"/fingerprint/cancelCapture",
         dataType:"json", //预期服务器返回数据的类型
         data:{},
         success:function(r){
-            console.log(r.msg.path)
+            console.log(path);
             window.setTimeout(function(){
                 $('.spmsg').html('录入完成')
             },500);
