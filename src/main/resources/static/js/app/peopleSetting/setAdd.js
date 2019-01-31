@@ -1,5 +1,6 @@
 var validator;
 var $jobAddForm = $("#job-add-form");
+var issOnlineUrl = "http://127.0.0.1:22001/ZKBIOOnline";
 (function($){
     $.fn.serializeObject=function(){
         var o={};
@@ -149,8 +150,8 @@ function zwsb() {
         $('.hidezw2').show();
         $('#zhiwMsg').hide()
         $.ajax({
-            type:"post",
-            url:ctx + "zk/start",
+            type:"get",
+            url: "http://127.0.0.1:22001/zkbioonline/info",
             dataType:"json", //预期服务器返回数据的类型
             data:{},
             success:function(r){
@@ -183,8 +184,8 @@ function zwsb() {
         $('.spmsg').html('正在录入中请稍候...')
 
         $.ajax({
-            type:"post",
-            url:ctx + "zk/lu",
+            type:"get",
+            url:issOnlineUrl+"/fingerprint/beginCapture?type=1&FakeFunOn=0",
             dataType:"json", //预期服务器返回数据的类型
             data:{},
             success:function(r){
@@ -205,21 +206,21 @@ function zwsb() {
 function timingFunc() {
     console.log('请按三次设备，请稍候...')
     $.ajax({
-        type:"post",
-        url:ctx + "zk/check",
+        type:"get",
+        url:issOnlineUrl+"/fingerprint/getTemplate",
         dataType:"json", //预期服务器返回数据的类型
         data:{},
-        success:function(r){
+        success:function(r) {
+            if (r.ret=="0") {
 
-        if(r.code=='0'){//录入完毕
-
-            $("input[name=fingerprints]").val(r.msg.base)
+            $("input[name=fingerprints]").val(r.data.template)
             window.clearInterval(timing);
             $('.hidezw1').hide();
             $('.hidezw2').show();
             $('.spmsg').html('已完成录入，正在断开设备...')
             closeShebei()
         }
+
         },
         error:function(jqXHR){
             alert("发生错误："+ jqXHR.status);
@@ -238,8 +239,8 @@ function timingFunc() {
 }
 function closeShebei() {
     $.ajax({
-        type:"post",
-        url:ctx + "zk/end",
+        type:"get",
+        url:issOnlineUrl+"/fingerprint/cancelCapture",
         dataType:"json", //预期服务器返回数据的类型
         data:{},
         success:function(r){

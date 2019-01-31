@@ -42,7 +42,7 @@ public class PrisonerController  extends BaseController {
     @ResponseBody
     public ResponseBo addPrisoner(JzPrisoner jzPrisoner){
         try {
-            jzPrisoner.setPassword("111111");
+            jzPrisoner.setPassword("1111");
         prisonerService.addPrisoner(jzPrisoner);
             return ResponseBo.ok();
         } catch (Exception e) {

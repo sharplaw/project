@@ -78,7 +78,7 @@ public class ImageMarkLogoByIcon {
             // 得到Image对象。
             Image img = imgIcon.getImage();
 
-            float alpha = 0.5f; // 透明度
+            float alpha = 0.4f; // 透明度
             g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,
                     alpha));
 
