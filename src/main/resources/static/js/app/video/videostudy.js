@@ -128,11 +128,11 @@ function getMoiveDetail(id) {
 function getMoiveComments(id, url,photoUrl) {
 
     var comments_html="";
-    comments_html+="  <div class='m' style='  height: 600px; '><video id='my-video' class='video-js' controls preload='auto' width='650' height='590' poster='"+photoUrl+"' data-setup='{}'><source src='"+url+"' type='video/mp4'></video> </div><input type='text' id='aa' value='0'> ";
+    comments_html+="  <div class='m' style='  height: 600px; '><video id='my-video' class='video-js' controls preload='auto' width='650' height='590' poster='"+photoUrl+"' data-setup='{}'><source src='"+url+"' type='video/mp4'></video> </div><input type='text' style='display: none' id='aa' value='0'> ";
         $("#listview--bordered").html("").append(comments_html);
         var $form = $('#movie-comments');
         $form.modal();
-    videosart()
+    videosart(id)
     // $.post(ctx + "movie/comments", {"id": id}, function (r) {
     //     var data = JSON.parse(r.msg).data;
     //     var mini = data.mini.list;

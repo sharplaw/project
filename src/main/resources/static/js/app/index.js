@@ -8,9 +8,9 @@ var rediskeysSizeInterval;
 $(function(){
     $.ajax({
         type: "get",
-        url: ctx + "role/checkRoleName",
+        url: ctx + "user/findRoleByName",
         data: {
-            "roleName": localStorage.getItem("username"),
+            "userName": localStorage.getItem("username"),
         },
         dataType: "json",
         success: function (r) {

@@ -10,14 +10,14 @@
 </style>
 <script>
 
-   function videosart() {
+   function videosart(id) {
         var options = {
         };
         var player = videojs('my-video', options, function onPlayerReady() {
             var time1;
             var t1 = 0;
             function aa() {
-                t1 += 0.25;
+                t1 += 1;
                 document.getElementById('aa').value = t1;
                 console.log('aa-' + t1);
             }
@@ -26,18 +26,24 @@
                 console.log('开始播放');
                 time1 = setInterval(function () {
                     aa();
-                }, 250)
+                }, 1000)
             });
             //结束和暂时时清除定时器，并向后台发送数据
             this.on('ended', function () {
                 console.log('结束播放');
                 window.clearInterval(time1);
-                countTime();   //向后台发数据
+              //  alert($('#aa').val())
+                var seetime=s_to_hs($('#aa').val())
+            if(seetime=='00'){
+                seetime='01';
+            }
+                countTime(id,seetime);   //向后台发数据
             });
             this.on('pause', function () {
                 console.log('暂停播放');
                 window.clearInterval(time1);
-                countTime();  //向后台发数据
+            // countTime();  //向后台发数据
+
             });
         });
         //直接关闭页面，并向后台发送数据
@@ -47,16 +53,42 @@
         //     window.attachEvent("onbeforeunload",countTime);
         // }
     }
+   /**
+    * 将秒转换为 分:秒
+    * s int 秒数
+    */
+   var seetime='0';
+   function s_to_hs(s){
+       //计算分钟
+       //算法：将秒数除以60，然后下舍入，既得到分钟数
+       var h;
+       h  =   Math.floor(s/60);
+       //计算秒
+       //算法：取得秒%60的余数，既得到秒数
+       s  =   s%60;
+       //将变量转换为字符串
+       h    +=    '';
+       s    +=    '';
+       //如果只有一位数，前面增加一个0
+       h  =   (h.length==1)?'0'+h:h;
+       s  =   (s.length==1)?'0'+s:s;
 
-    function countTime() {
-        var sTime = $("#aa").val();
+     //  return h+':'+s;
+       return h;
+   }
+    function countTime(id,setim) {
         $.ajax({
-            url : "{{ route('time') }}",
+            url : "task/update",
             type : "POST",
             dataType : 'json',
-            data : {'sTime':sTime,'_token':"{{ csrf_token() }}"},
+            data : {'sminute':setim,'id':id},
             success:function (data) {
-                console.log(data);
+                if(data.code=='0'){
+                    $MB.n_success(data.msg);
+                    window.setTimeout(function(){
+                        window.location.reload()
+                    },1000);
+                }
             }
         })
     }
