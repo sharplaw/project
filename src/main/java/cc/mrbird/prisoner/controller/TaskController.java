@@ -10,6 +10,7 @@ import cc.mrbird.prisoner.domain.JzPrisoner;
 import cc.mrbird.prisoner.domain.JzTask;
 import cc.mrbird.prisoner.service.PrisonerService;
 import cc.mrbird.prisoner.service.TaskService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class TaskController  extends BaseController {
     @Log("添加社区服刑人员信息")
     @RequestMapping("task/add")
     @ResponseBody
-    public ResponseBo addTask(JzTask jzTask,QueryRequest request){
+    public ResponseBo addTask(JzTask jzTask,QueryRequest request) {
         try {
             Date date = new Date();
             String[] strNow = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString().split("-");
@@ -62,8 +63,18 @@ public class TaskController  extends BaseController {
             int months = month + 1;
             String mon = String.valueOf(months);
             jzTask.setStatue("0");
-            jzTask.setYear( strNow[0]);
+            jzTask.setYear(strNow[0]);
             jzTask.setMonth(mon);
+            if (StringUtils.isNotBlank(jzTask.getSminute())) {
+                List<JzTask> res = taskService.findSingleTask(jzTask);
+                if (res.size() > 0) {
+                    return ResponseBo.ok();
+                } else {
+                    taskService.save(jzTask);
+                    return ResponseBo.ok();
+                }
+
+            }
             taskService.save(jzTask);
             return ResponseBo.ok();
         } catch (Exception e) {
@@ -81,6 +92,29 @@ public class TaskController  extends BaseController {
 
         System.out.println(jzTask.getFingerUrl());
         try {
+
+            if (StringUtils.isNotBlank(jzTask.getSminute())) {
+                Date date = new Date();
+                String[] strNow = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString().split("-");
+                int month = date.getMonth();
+                int months = month + 1;
+                String mon = String.valueOf(months);
+                jzTask.setStatue("0");
+                jzTask.setYear(strNow[0]);
+                jzTask.setMonth(mon);
+                List<JzTask> res = taskService.findSingleTask(jzTask);
+                if (StringUtils.isNotBlank(res.get(0).getSminute())) {
+                 int oldminute=  Integer.valueOf( res.get(0).getSminute());
+                 int newminute=Integer.valueOf( jzTask.getSminute());
+                    newminute= newminute+oldminute;
+                    jzTask.setSminute(String.valueOf(newminute));
+                    taskService.updateNotNull(jzTask);
+                    return ResponseBo.ok();
+                } else {
+                    taskService.updateNotNull(jzTask);
+                    return ResponseBo.ok();
+                }
+            }
             taskService.updateNotNull(jzTask);
             return ResponseBo.ok();
         } catch (Exception e) {
