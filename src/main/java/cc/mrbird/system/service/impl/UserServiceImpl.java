@@ -49,6 +49,21 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         return list.isEmpty() ? null : list.get(0);
     }
 
+
+    @Override
+    public List<UserWithRole> findRoleByName(String userName) {
+        Example example = new Example(User.class);
+        example.createCriteria().andCondition("lower(username)=", userName.toLowerCase());
+        List<User> list = this.selectByExample(example);
+        if(list.size()>0){
+           ;
+            return   userMapper.findUserWithRole( list.get(0).getUserId());
+
+
+        }
+        return null;
+    }
+
     @Override
     public List<User> findUserWithDept(User user, QueryRequest request) {
         try {
@@ -172,5 +187,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
             user.setDeptId(0L);
         this.updateNotNull(user);
     }
+
+
+
+
 
 }
