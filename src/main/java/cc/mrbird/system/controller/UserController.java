@@ -7,6 +7,7 @@ import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.FileUtil;
 import cc.mrbird.common.util.MD5Utils;
 import cc.mrbird.system.domain.User;
+import cc.mrbird.system.domain.UserWithRole;
 import cc.mrbird.system.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -190,6 +191,19 @@ public class UserController extends BaseController {
         String encrypt = MD5Utils.encrypt(user.getUsername().toLowerCase(), password);
         return user.getPassword().equals(encrypt);
     }
+
+    @RequestMapping("user/findRoleByName")
+    @ResponseBody
+    public ResponseBo findRoleByName(String userName) {
+        try {
+            List<UserWithRole> result=this.userService.findRoleByName(userName);
+            return ResponseBo.ok(result);
+        } catch (Exception e) {
+            log.error("查询失败", e);
+            return ResponseBo.error("查询失败");
+        }
+    }
+
 
     @RequestMapping("user/updatePassword")
     @ResponseBody
