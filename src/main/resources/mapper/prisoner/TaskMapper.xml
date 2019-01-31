@@ -41,8 +41,12 @@
         <if test="taskType != null and taskType != ''">
             AND j.taskType = #{taskType}
         </if>
-
-
+        <if test="year != null and year != ''">
+            AND j.year = #{year}
+        </if>
+        <if test="month != null and month != ''">
+            AND j.month = #{month}
+        </if>
   </select>
 
 </mapper>
