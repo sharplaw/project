@@ -1,10 +1,258 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    .card{
+        height:630px;
+    }
+    .img_body{
+        width:  100%;
+        text-align:  center;
+    }
+    .img_sty{
+        height: 500px;
+        padding: 20px;
+    }
+    .img_body div{
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        background: #3F51B5;
+        color: #fff;
+        text-align: left;
+        padding-left: 20px;
+    }
+    #chat_room_msg{
+        height: 300px;
+        overflow: auto;
+    }
+    #chat_room_msg span{
+        border-bottom: 1px solid #ccc;
+        display: block;
+        height: 25px;
+        line-height: 25px;
+    }
+</style>
+<div class="card">
+    <div style=" display: flex; " id="img1">
+        <div class="img_body">
+            <div>请假模板</div>
+            <img src="../img/static/free.png" alt="" class="img_sty">
+            <!--<input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 10%;width: 80%;" value="点击填写活动情况" onclick="reportCover()">-->
+        </div>
+        <!--<div style="width: 2px;"></div>-->
+        <!--<div class="img_body">-->
+            <!--<div>教育谈话模板</div>-->
+            <!--<img src="../img/static/jyth.png" alt="" class="img_sty">-->
+            <!--&lt;!&ndash;<input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 10%;width: 80%;" value="点击填写教育谈话" onclick="reportCover()">&ndash;&gt;-->
+        <!--</div>-->
+    </div>
+    <!--<div id="img2" style="display: none;">-->
+    <!--<div class="img_body">-->
+    <!--<div>正在登入中...</div>-->
+    <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547922905876&di=74e15d62e2bc05034179a2d7d4cbbb1d&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01212057a062c30000012e7ed325fe.gif" alt="">-->
+    <!--</div>-->
+    <!--</div>-->
+    <input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 36%" value="填写请假条" onclick="sendbao()">
+</div>
 
-</body>
-</html>
+<script>
+    $(function(){
+
+        report_cover()//弹出登录
+
+        //   reportCover()//登录聊天室
+
+    })
+
+    var ws;
+    var lineUsernamePC=localStorage.getItem("username");
+    function reportCover(){
+        console.log('登录聊天室...')
+        $("#chat_room_msg").html('')
+
+        /* 开始建立连接*/
+        if('WebSocket' in window){
+           // ws = new WebSocket("ws://61.181.104.62:8088/websocket/"+lineUsernamePC );
+            ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsernamePC );
+            console.log("连接成功");
+            $("#chat_room_msg").append("<span>连接成功</span>")
+        }else{
+            alert('无法连接机器...');
+            $("#chat_room_msg").append("<span>无法连接机器...</span>")
+        }
+
+
+        // 建立 web socket 连接成功触发事件
+        ws.onopen = function () {
+
+            // 使用 send() 方法发送数据
+            //ws.send("openA");
+            console.log("数据发送中...");
+            $("#chat_room_msg").append("<span>数据发送中...</span>")
+        };
+
+        // 接收服务端数据时触发事件
+        ws.onmessage = function (evt) {
+            var received_msg = evt.data;
+            console.log(evt)
+            if(evt.data=='offline'){
+                $("#chat_room_msg").append("<span>ipad未连接...</span>")
+                $("#chat_room_msg").append(evt.data)
+                window.setTimeout(function(){
+                    $MB.n_warning("<span>"+evt.data+",请检查设备重试...</span>");
+                    $('#chat_room').modal('hide')
+                },1000);
+            }else if(evt.data=="01"){
+                $("#chat_room_msg").append("<span>设备正在填写活动情况...</span>")
+                ws.send(lineUsernamePC+",prisonerNo"+sendprisonerNo+"");
+            }else if(evt.data=="02"){
+                $("#chat_room_msg").append("<span>活动情况填写完毕...</span>")
+                ws.send(lineUsernamePC+",openB");
+            }else if(evt.data=="03"){
+                $("#chat_room_msg").append("<span>正在填写谈话记录...</span>")
+            }else if(evt.data=='finish'){
+                $("#chat_room_msg").append("<span>已完成任务...</span>");
+                $('#chat_room').modal('hide')
+                $MB.n_success("已完成报道内容...");
+                window.setTimeout(function(){
+                    window.location.reload()
+                },1500);
+
+            }else if(evt.data=="04"){//04+关于请假条
+                $("#chat_room_msg").append("<span>设备正在填写请假条...</span>")
+            }else if(evt.data=="05"){//05+关于请假条
+            $("#chat_room_msg").append("<span>已提交申请请假...</span>")
+        }
+            console.log(evt.data);
+
+        };
+
+        // 断开 web socket 连接成功触发事件
+        ws.onclose = function () {
+            $MB.n_success("连接已关闭...");
+            $("#chat_room_msg").append("连接已关闭...")
+            $('#chat_room').modal('hide')
+            window.setTimeout(function(){
+               window.location.reload()
+            },1000);
+
+        };
+    }
+
+    function sendbao(){
+        var $form = $('#chat_room');
+        $form.modal();
+        ws.send(lineUsernamePC+",free");
+        ws.send(lineUsernamePC+",prisonerNo"+sendprisonerNo+"");
+    }
+    function report_cover() {
+        var $form = $('#report_cover');
+        $form.modal();
+    }
+    var sendprisonerNo='';
+    function baodao(){
+        var card=$("input[name=card]").val();
+        var password=$("input[name=password]").val();
+        $.ajax({
+            type:"get",
+            url:ctx + "prisoner/select",
+            dataType:"json", //预期服务器返回数据的类型
+            data:{
+                card:card,
+                password:password
+            },
+            success:function(r){
+                if(r.total=='1'){
+                    $('#report_cover').modal('hide')
+                    $MB.n_success('成功登入...');
+                    sendprisonerNo = r.rows[0].prisonerNo;
+                    reportCover()//加载链接
+                }else{
+                    $MB.n_warning('未查询到该人员，请正确填写！');
+                }
+            },
+            error:function(jqXHR){
+                alert("发生错误："+ jqXHR.status);
+            }
+        });
+
+
+    }
+
+</script>
+
+<div class="modal fade" id="report_cover" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">请假登录</h3>
+            </div>
+            <div class="modal-body" style="background: #f0f0f075">
+                <form id="job-add-form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               身份证号码：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="card" class="form-control" placeholder="请输入身份证号码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					                         机器随机码：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="password" class="form-control"placeholder="请输入随机码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="button" class="btn btn-success bg-indigo" style="height:  50px;width: 80%;margin: 0 10%;" value="登录" onclick="baodao()">
+                        </div>
+                    </div>
+
+                    <hr>  <hr>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-save" >保存</button>-->
+                <!--<button type="button" class="btn btn-secondary btn-close" onclick=" $('#report_cover').modal('hide')">关闭</button>-->
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹出框2-->
+<div class="modal fade" id="chat_room" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">机器连接中...</h3>
+            </div>
+            <div class="modal-body" style="background: #f0f0f075">
+                <form id="chat_room_msg">
+                    <span>xxxxx</span>
+                    <span>xxxxx</span>
+                    <span>xxxxx</span>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-save" >保存</button>-->
+                <!--<button type="button" class="btn btn-secondary btn-close" onclick=" $('#report_cover').modal('hide')">关闭</button>-->
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -51,6 +51,7 @@
         </div>
         <div data-th-include="ipad/index" style="display: none" id="two"></div>
         <div data-th-include="ipad/indexlogin" style="display: none" id="three"></div>
+        <div data-th-include="ipad/free" style="display: none" id="four"></div>
     </main>
 </body>
 </html>
@@ -62,7 +63,8 @@
         //alert('${user.username}')// data-th-utext="${user.username}"
         $("#chat_room_msg").html('')
         /* 开始建立连接*/
-        ws=new WebSocket("ws://61.181.104.62:8088/websocket/"+lineUsername );
+       // ws=new WebSocket("ws://61.181.104.62:8088/websocket/"+lineUsername );
+        ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsername );
         /*  备注：发送给pc====01为设备正在填写活动情况  02活动情况填写完毕 03正在填写谈话记录*/
         if('WebSocket' in window){
             console.log("连接成功");
@@ -91,14 +93,23 @@
                 $('#one').hide();
                 $('#two').show();
                 $('#three').hide();
+                $('#four').hide();
             }else if(evt.data=='openB'){
                 ws.send(""+lineUsername+",03");
                 $('#one').hide();
                 $('#two').hide();
                 $('#three').show();
+                $('#four').hide();
                 showMSG(pullprisonerNo)
             }else if(evt.data.indexOf('prisonerNo')!='-1'){
                 pullprisonerNo=evt.data.replace("prisonerNo","");
+
+            }else if(evt.data=='free'){
+                $('#one').hide();
+                $('#two').hide();
+                $('#three').hide();
+                $('#four').show();
+                ws.send(""+lineUsername+",04");
 
             }else{
                 window.setTimeout(function(){

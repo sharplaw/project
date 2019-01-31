@@ -69,6 +69,25 @@ function refresh() {
 
 $(function () {
 
+    $.ajax({
+        type:"get",
+        url:ctx + "user/checklist?deptId=6",
+        dataType:"json", //预期服务器返回数据的类型
+        success:function(r){
+            var html='';
+            var res=r.msg
+            for(var i=0;i<res.length;i++){
+                html+="<option value='"+res[i].userId+"'>"+res[i].username+"</option>"
+            }
+            console.log(html)
+            $("select[name='leader']").append(html)
+        },
+        error:function(jqXHR){
+            alert("发生错误："+ jqXHR.status);
+        }
+    });
+
+
     var $jobTableForm = $(".job-table-form");
     var settings = {
         url: ctx + "task/select",//prisoner/select   job/list
@@ -78,10 +97,9 @@ $(function () {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                name: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".form-control").val(),
-                talker: $jobTableForm.find("#sys-cron-clazz-list-method").find(".form-control").val(),
-                 //leader: $jobTableForm.find("select[name='leader']").val()
-            };
+                name: $("input[name=beanName]").val(),
+                leader: $("select[name='leader']").val()
+            };d
         },
         columns: [{
             checkbox: true
@@ -97,7 +115,7 @@ $(function () {
                 title: '任务类型'
 
             },{
-                field: 'username',
+                field: 'leader',
                 title: '负责人'
             }, {
                 field: 'card',

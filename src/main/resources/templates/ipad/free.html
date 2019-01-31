@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<head>
+    <meta charset="UTF-8">
+    <title>demo-签名</title>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <style>
+        .canvashide{
+            background-color: rgba(0, 0, 0, 0.4);
+            position: fixed;
+            z-index: 1500;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            top: 0;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .yzmsendx{
+            position: fixed;
+            top: 0;
+            left: 0;
+            /*   display: none; */
+            background: #fff;
+            width: 100%;
+            /*   height: 67%; */
+            z-index: 10240;
+            border-radius: 10px;
+            box-shadow: 0px 3px 14px 3px #ccc;
+        }
+        .topyzmx{
+            font-size: 20px;
+            height: 45px;
+            line-height: 45px;
+            border-bottom: 1px solid #000;
+            text-align: center;
+            background: #3F51B5;
+            color: #fff;
+        }
+        #btn_clearfree{
+            width: 50%;
+            height: 50px;
+            background: #ccc;
+            display: inline-block;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            font-size: 15px;
+            display: none;
+        }
+        #btn_submitfree{
+            width: 100%;
+            height: 50px;
+            background: #3F51B5;
+            display: inline-block;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            font-size: 15px;
+            margin: 0 auto;
+        }
+        .bottomyzmx{
+            padding: 0.5rem;
+            background: #04BE02;
+            width: 100%;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            color: #fff;
+            font-weight: 700;
+
+        }
+    </style>
+    <script>
+        function showAutograph(){
+            $('.autographshow').show();
+            // document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+            document.addEventListener('touchmove', function (e) { e.returnValue = false;}, false);
+        }
+
+        window.onload = function() {
+            new lineCanvas({
+                el: document.getElementById("canvasDivfree"),//绘制canvas的父级div
+                clearEl: document.getElementById("btn_clearfree"),//清除按钮
+                saveEl: document.getElementById("btn_submitfree"),//保存按钮
+                img:"../img/static/freeedit.png",
+                //      linewidth:1,//线条粗细，选填
+                //      color:"black",//线条颜色，选填
+                //      background:"#ffffff"//线条背景，选填
+            });
+
+        };
+        function lineCanvas(obj) {
+            var padwidth=window.screen.availWidth;
+            var padheight=window.screen.availHeight-200;
+            console.log(padwidth)
+            console.log(padheight)
+            this.linewidth = 1;
+            this.color = "#000000";
+            this.background = "#ffffff";
+            for (var i in obj) {
+                this[i] = obj[i];
+            };
+            this.canvas = document.createElement("canvas");
+            this.el.appendChild(this.canvas);
+            this.cxt = this.canvas.getContext("2d");
+            this.canvas.width = padwidth;
+            this.canvas.height = padheight;
+            this.cxt.fillStyle = '#fff';
+            this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.width);
+            this.cxt.strokeStyle = this.color;
+            this.cxt.lineWidth = this.linewidth;
+            this.cxt.lineCap = "round";
+
+
+            var cxt = this.cxt
+            var imgs = new Image();
+            imgs.src = this.img;
+            imgs.onload = drawImg;//图片加载完成再执行
+            function drawImg(){
+                cxt.drawImage(imgs,0,0,padwidth,padheight);
+            }
+
+
+
+            //开始绘制
+            this.canvas.addEventListener("touchstart", function(e) {
+                this.cxt.beginPath();
+                this.cxt.moveTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY-45);
+            }.bind(this), false);
+            //绘制中
+            this.canvas.addEventListener("touchmove", function(e) {
+                this.cxt.lineTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY-45);
+                this.cxt.stroke();
+            }.bind(this), false);
+            //结束绘制
+            this.canvas.addEventListener("touchend", function() {
+                this.cxt.closePath();
+            }.bind(this), false);
+            //清除画布
+            this.clearEl.addEventListener("click", function() {
+                this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            }.bind(this), false);
+            //保存图片，直接转base64
+            this.saveEl.addEventListener("click", function() {
+                var imgBase64 = this.canvas.toDataURL();
+                console.log(imgBase64);
+               // $("#qmimg").attr("src",imgBase64);
+                document.addEventListener('touchmove', function (e) { e.returnValue = true;}, false);/* 取消关于touchmove---preventdefault页面不滚动  */
+                var aaa=$("#qmimg").attr('src')
+                //$('#autographbase64').val(aaa)
+                // $('#autographfinish').val('成功')
+                //$('.autographshow').hide();
+
+                $.ajax({
+                    type:"post",
+                    url: "../picture/upload",
+                    dataType:"json", //预期服务器返回数据的类型
+                    data:{
+                        prisonerNo:pullprisonerNo,
+                        imgStr:imgBase64,
+                        seet:1,
+                    },
+                    success:function(r){
+                        if(r.code=='0'){
+                            actiivityUrl=r.msg;
+                            ws.send(lineUsername+",finish");
+                            alert('已提交申请')
+                            window.setTimeout(function(){
+                                window.location.reload()
+                            },1500);
+                        }
+                    },
+                    error:function(jqXHR){
+                        alert("发生错误："+ jqXHR.status);
+                    }
+                });
+            }.bind(this), false);
+        };
+
+
+    </script>
+</head>
+<body>
+<div class='canvashide'>
+    <div class='yzmsendx'>
+        <div class='topyzmx'>请假条</div>
+        <div id="canvasDivfree" ></div>
+        <div id="btn_clearfree">重新填写</div>
+        <div id="btn_submitfree">提交内容</div>
+    </div>
+    <!--<input type='hidden' id='autographbase64' name='baseqianming' />-->
+    <!--<img  id="qmimg"  />-->
+</div>
+
+</body>
+</html>

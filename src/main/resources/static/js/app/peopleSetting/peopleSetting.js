@@ -1,15 +1,15 @@
 $(function () {
     $.ajax({
         type:"get",
-        url:ctx + "user/list?deptId=6",
+        url:ctx + "user/checklist?deptId=6",
         dataType:"json", //预期服务器返回数据的类型
         success:function(r){
             var html='';
-            var res=r.rows
+            var res=r.msg
             for(var i=0;i<res.length;i++){
-                console.log(r.rows[i])
-                html+="<option value='"+r.rows[i].userId+"'>"+r.rows[i].username+"</option>"
+                html+="<option value='"+res[i].userId+"'>"+res[i].username+"</option>"
             }
+            console.log(html)
             $("select[name='leader']").append(html)
         },
         error:function(jqXHR){
@@ -51,7 +51,7 @@ var settings = {
             field: 'telephone',
             title: '联系电话'
         }, {
-            field: 'username',
+            field: 'leader',
             title: '负责人'
         }, {
             field: 'corrective',
