@@ -100,8 +100,8 @@ public class TaskController  extends BaseController {
                 jzTask.setYear(strNow[0]);
                 jzTask.setMonth(mon);
                 List<JzTask> res = taskService.findSingleTask(jzTask);
+                jzTask.setId(res.get(0).getId());
                 if (StringUtils.isNotBlank(res.get(0).getSminute())) {
-                    jzTask.setId(res.get(0).getId());
                  int oldminute=  Integer.valueOf( res.get(0).getSminute());
                  int newminute=Integer.valueOf( jzTask.getSminute());
                     newminute= newminute+oldminute;
