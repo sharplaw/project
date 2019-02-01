@@ -1,4 +1,4 @@
-function funcvideoList() {
+function funcvideoList(sendprisonerNo) {
     $.post(ctx + 'video/select', {}, function (r) {
         if (r!= '') {
             // var data = JSON.parse(r.msg);
@@ -18,7 +18,7 @@ function funcvideoList() {
                 movie_list_html += '</div>';
                 movie_list_html += '<div class="dropdown-menu dropdown-menu-right movie-action" style="min-width:100px;background-color:rgba(255,255,255,.9);z-index:1">';
                 // movie_list_html += '<a class="dropdown-item" onclick="getMoiveDetail(\'' + movie_list[i].id + '\');" href="javascript:void(0)">查看详情</a>';
-                movie_list_html += '<a class="dropdown-item" onclick="getMoiveComments(\'' + movie_list[i].id + '\',\'' + movie_list[i].videoUrl + '\',\'' + movie_list[i].photoUrl + '\');" href="javascript:void(0)">学习视频</a>';
+                movie_list_html += '<a class="dropdown-item" onclick="getMoiveComments(\'' + sendprisonerNo + '\',\'' + movie_list[i].videoUrl + '\',\'' + movie_list[i].photoUrl + '\');" href="javascript:void(0)">学习视频</a>';
                 movie_list_html += '</div></div></div>';
             }
             $(".movie-list").html("").append(movie_list_html);

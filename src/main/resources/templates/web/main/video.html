@@ -50,7 +50,7 @@
                             if(res.code=='0'){
                                 $('#report_cover').modal('hide')
                                 $MB.n_success('成功登入...');
-                                funcvideoList()
+                                funcvideoList(sendprisonerNo)
                             }else{
                                 $MB.n_warning('登录错误，请重新登录...');
                             }

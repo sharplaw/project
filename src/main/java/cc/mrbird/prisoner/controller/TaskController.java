@@ -65,8 +65,8 @@ public class TaskController  extends BaseController {
             jzTask.setStatue("0");
             jzTask.setYear(strNow[0]);
             jzTask.setMonth(mon);
-            if (StringUtils.isNotBlank(jzTask.getSminute())) {
-                List<JzTask> res = taskService.findSingleTask(jzTask);
+            List<JzTask> res = taskService.findSingleTask(jzTask);
+
                 if (res.size() > 0) {
                     return ResponseBo.ok();
                 } else {
@@ -74,9 +74,6 @@ public class TaskController  extends BaseController {
                     return ResponseBo.ok();
                 }
 
-            }
-            taskService.save(jzTask);
-            return ResponseBo.ok();
         } catch (Exception e) {
             log.error("添加失败", e);
             return ResponseBo.error("添加失败！");
@@ -104,6 +101,7 @@ public class TaskController  extends BaseController {
                 jzTask.setMonth(mon);
                 List<JzTask> res = taskService.findSingleTask(jzTask);
                 if (StringUtils.isNotBlank(res.get(0).getSminute())) {
+                    jzTask.setId(res.get(0).getId());
                  int oldminute=  Integer.valueOf( res.get(0).getSminute());
                  int newminute=Integer.valueOf( jzTask.getSminute());
                     newminute= newminute+oldminute;

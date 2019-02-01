@@ -81,7 +81,7 @@
             url : "task/update",
             type : "POST",
             dataType : 'json',
-            data : {'sminute':setim,'id':id},
+            data : {'sminute':setim,'prisonerNo':id},
             success:function (data) {
                 if(data.code=='0'){
                     $MB.n_success(data.msg);

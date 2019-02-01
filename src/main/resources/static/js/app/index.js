@@ -15,17 +15,17 @@ $(function(){
         dataType: "json",
         success: function (r) {
             console.log(r)
-            if(r.msg.roleName=='监管pc设备'){
-
-                $('#gl').remove()
-                $('#zf').show()
-            }else  if(r.msg.roleName=='监管人员'){
-                $('#gl').show()
-                $('#zf').remove()
-            }else{
-                $('#gl').show()
-                $('#zf').show()
-            }
+            // if(r.msg.roleName=='监管pc设备'){
+            //
+            //     $('#gl').remove()
+            //     $('#zf').show()
+            // }else  if(r.msg.roleName=='监管人员'){
+            //     $('#gl').show()
+            //     $('#zf').remove()
+            // }else{
+            //     $('#gl').show()
+            //     $('#zf').show()
+            // }
         }
     });
 })
