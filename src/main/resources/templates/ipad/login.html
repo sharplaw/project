@@ -63,8 +63,8 @@
         //alert('${user.username}')// data-th-utext="${user.username}"
         $("#chat_room_msg").html('')
         /* 开始建立连接*/
-        ws=new WebSocket("ws://61.181.104.62:8088/websocket/"+lineUsername );
-       // ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsername );
+        //   ws=new WebSocket("ws://61.181.104.62:8088/websocket/"+lineUsername );
+       ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsername );
         /*  备注：发送给pc====01为设备正在填写活动情况  02活动情况填写完毕 03正在填写谈话记录*/
         if('WebSocket' in window){
             console.log("连接成功");
