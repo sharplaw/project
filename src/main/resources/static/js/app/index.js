@@ -17,11 +17,11 @@ $(function(){
             console.log(r)
             if(r.msg.roleName=='监管pc设备'){
 
-                $('#gl').hide()
+                $('#gl').remove()
                 $('#zf').show()
             }else  if(r.msg.roleName=='监管人员'){
                 $('#gl').show()
-                $('#zf').hide()
+                $('#zf').remove()
             }else{
                 $('#gl').show()
                 $('#zf').show()
