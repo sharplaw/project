@@ -111,7 +111,7 @@
         };
         function lineCanvas3(obj) {
             var padwidth=window.screen.availWidth;
-            var padheight=window.screen.availHeight-200;
+            var padheight=window.screen.availHeight-300;
             console.log(padwidth)
             console.log(padheight)
             this.linewidth = 1;
@@ -178,16 +178,35 @@
                     data:{
                         prisonerNo:pullprisonerNo,
                         imgStr:imgBase64,
-                        seet:1,
+                        seet:3,
                     },
                     success:function(r){
+                       var rmsg=r.msg;
                         if(r.code=='0'){
-                            actiivityUrl=r.msg;
-                            ws.send(lineUsername+",finish");
-                            alert('已提交申请')
-                            window.setTimeout(function(){
-                                window.location.reload()
-                            },1500);
+                            $.ajax({
+                                type:"post",
+                                url: "../task/add",
+                                dataType:"json", //预期服务器返回数据的类型
+                                data:{
+                                    prisonerNo:pullprisonerNo,
+                                    taskType:'请假',
+                                    freedayUrl:rmsg,
+
+                                },
+                                success:function(r){
+                                    if(r.code=='0'){
+                                        actiivityUrl=r.msg;
+                                        ws.send(lineUsername+",finish");
+                                        alert('已提交申请')
+                                        window.setTimeout(function(){
+                                            window.location.reload()
+                                        },1500);
+                                    }
+                                },
+                                error:function(jqXHR){
+                                    alert("发生错误："+ jqXHR.status);
+                                }
+                            });
                         }
                     },
                     error:function(jqXHR){

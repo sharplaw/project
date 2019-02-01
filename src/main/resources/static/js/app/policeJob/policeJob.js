@@ -5,11 +5,11 @@ function updateJob() {
     console.log(selected)
     var selected_length = selected.length;
     if (!selected_length) {
-        $MB.n_warning('请勾选需要修改的任务！');
+        $MB.n_warning('请勾选需要处理的任务！');
         return;
     }
     if (selected_length > 1) {
-        $MB.n_warning('一次只能修改一个任务！');
+        $MB.n_warning('一次只能处理一个任务！');
         return;
     }
     var sels = selected[0];
@@ -23,10 +23,28 @@ function updateJob() {
             data:{id:sels.id},
             success:function(r){
                 console.log(r.msg[0].actiivityUrl)
-                $('#img1').attr("src","data:image/png;base64,"+r.msg[0].actiivityUrl+"")
-                $('#img2').attr("src","data:image/png;base64,"+r.msg[0].talkUrl+"")
+                if(r.msg[0].taskType=='学习教育'){
+                    $('#baodao').hide();
+                    $('#xuexi').show();
+                    $('#qingjia').hide();
+
+                }else if(r.msg[0].taskType=='报道'){
+                    $('#baodao').show();
+                    $('#xuexi').hide();
+                    $('#qingjia').hide();
+                    $('#img1').attr("src","data:image/png;base64,"+r.msg[0].actiivityUrl+"")
+                    $('#img2').attr("src","data:image/png;base64,"+r.msg[0].talkUrl+"")
+
+                }else if(r.msg[0].taskType=='请假'){
+                    $('#baodao').hide();
+                    $('#xuexi').hide();
+                    $('#qingjia').show();
+                    $('#img3').attr("src","data:image/png;base64,"+r.msg[0].freedayUrl+"")
+
+                }
                 var $form = $('#job-add');
                 $form.modal();
+
             },
             error:function(jqXHR){
                 alert("发生错误："+ jqXHR.status);
@@ -40,9 +58,31 @@ function updateJob() {
             dataType:"json", //预期服务器返回数据的类型
             data:{id:sels.id},
             success:function(r){
+                // console.log(r.msg[0].actiivityUrl)
+                // $('.img1').attr("src","data:image/png;base64,"+r.msg[0].actiivityUrl+"")
+                // $('.img2').attr("src","data:image/png;base64,"+r.msg[0].talkUrl+"")
+                // var $form = $('#job-add1');
+                // $form.modal();
                 console.log(r.msg[0].actiivityUrl)
-                $('.img1').attr("src","data:image/png;base64,"+r.msg[0].actiivityUrl+"")
-                $('.img2').attr("src","data:image/png;base64,"+r.msg[0].talkUrl+"")
+                if(r.msg[0].taskType=='学习教育'){
+                    $('.baodao').hide();
+                    $('.xuexi').show();
+                    $('.qingjia').hide();
+
+                }else if(r.msg[0].taskType=='报道'){
+                    $('.baodao').show();
+                    $('.xuexi').hide();
+                    $('.qingjia').hide();
+                    $('.img1').attr("src","data:image/png;base64,"+r.msg[0].actiivityUrl+"")
+                    $('.img2').attr("src","data:image/png;base64,"+r.msg[0].talkUrl+"")
+
+                }else if(r.msg[0].taskType=='请假'){
+                    $('.baodao').hide();
+                    $('.xuexi').hide();
+                    $('.qingjia').show();
+                    $('.img3').attr("src","data:image/png;base64,"+r.msg[0].freedayUrl+"")
+
+                }
                 var $form = $('#job-add1');
                 $form.modal();
             },
@@ -203,13 +243,6 @@ function zwsb() {
             }
         });
 
-        // /*成功后--调试接口时可删除下面此部分*/
-        // window.setTimeout(function(){
-        //     $('#skip').val('1');
-        //     $('#zhiwMsg').show();
-        //     $('.hidezw2').hide();
-        //     $('#zhiwMsg').val('开始录入')
-        // },1000);
 
     }else if(skip=='1'){//开始识别
         $('#zhiwMsg').hide()
