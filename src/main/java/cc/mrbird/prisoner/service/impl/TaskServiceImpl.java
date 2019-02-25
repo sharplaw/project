@@ -34,11 +34,22 @@ public class TaskServiceImpl extends BaseService<JzTask> implements TaskService 
 
         List<JzTask> result=task.findTask(jzTask);
         if(result.size()>0){
-           String targerPath= result.get(0).getActiivityUrl();
-           String iconPath=result.get(0).getFingerUrl();
-            String targersPath= result.get(0).getTalkUrl();
-            ImageMarkLogoByIcon.markImageByIcon(iconPath, targerPath, targerPath);
-            ImageMarkLogoByIcon.markImageByIcon(iconPath, targersPath, targersPath);
+            if(StringUtils.isNotBlank( result.get(0).getActiivityUrl())&&StringUtils.isNotBlank(result.get(0).getFingerUrl())){
+                String targerPath= result.get(0).getActiivityUrl();
+
+                String iconPath=result.get(0).getFingerUrl();
+                ImageMarkLogoByIcon.markImageByIcon(iconPath, targerPath, targerPath);
+            }
+            if(StringUtils.isNotBlank( result.get(0).getTalkUrl())&&StringUtils.isNotBlank(result.get(0).getFingerUrl())){
+                String targersPath= result.get(0).getTalkUrl();
+                String iconPath=result.get(0).getFingerUrl();
+                ImageMarkLogoByIcon.markImageByIcon(iconPath, targersPath, targersPath);
+            }
+            if(StringUtils.isNotBlank( result.get(0).getFreedayUrl())&&StringUtils.isNotBlank(result.get(0).getFingerUrl())){
+                String freePath=result.get(0).getFreedayUrl();
+                String iconPath=result.get(0).getFingerUrl();
+                ImageMarkLogoByIcon.markImageByIcon(iconPath, freePath, freePath);
+            }
             jzTask.setStatue("1");
            int rs= this.updateNotNull(jzTask);
            if(rs!=0){
