@@ -62,7 +62,7 @@
     <div style="height:80px;"></div>
 </div>
 
-<div style="height: 50px;line-height: 50px;text-align: center;position: fixed;bottom: 102px;width: 100%;background: #3F51B5;color: #fff;" id="btn_submit2">确认提交</div>
+<div style=" height: 50px; line-height: 50px; text-align: center; position: fixed; bottom: 0; width: 100%; background: #3F51B5; color: #fff; " id="btn_submit2">确认提交</div>
 </body>
 <script>
     $(function(){
@@ -80,7 +80,6 @@
                 prisonerNo:data,
             },
             success:function(r){
-            if(r.msg!=''){
                 var res=r.msg[0]
                 $('#THtime').html(""+res.talkStartTime+"至"+res.talkEndTime+"")
                 $('#talker').html(res.talker)
@@ -89,7 +88,6 @@
                 $('#recorderUnit').html(res.recorderUnit)
                 $('#THname').html(res.name)
                 $('#conment').html(res.conment)
-            }
                 html2canvas(document.querySelector("#capture")).then(canvas => {
                    // document.body.appendChild(canvas)
                  img2url = canvas.toDataURL();
@@ -174,9 +172,10 @@
                             },
                             success:function(r){
                                 if(r.code=='0'){
+                                    ws.send(lineUsername+",finish");
                                     alert('已完成报道！')
                                     window.setTimeout(function(){
-                                        location.href = '../../index';
+                                        window.location.reload()
                                     },1000);
 
                                 }

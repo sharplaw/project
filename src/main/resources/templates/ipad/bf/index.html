@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>demo-签名</title>
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <script data-th-src="@{../js/html2canvas.js}"></script>
     <style>
         .canvashide{
             background-color: rgba(0, 0, 0, 0.4);
@@ -93,19 +92,6 @@
 
 
         };
-        window.onload = function() {
-            new lineCanvas({
-                el: document.getElementById("canvasDiv"),//绘制canvas的父级div
-                clearEl: document.getElementById("btn_clear"),//清除按钮
-                saveEl: document.getElementById("btn_submit"),//保存按钮
-                img:"../img/static/hdqk0.png",
-                //      linewidth:1,//线条粗细，选填
-                //      color:"black",//线条颜色，选填
-                //      background:"#ffffff"//线条背景，选填
-            });
-
-
-        };
         function lineCanvas(obj) {
             var padwidth=window.screen.availWidth;
             var padheight=window.screen.availHeight-300;
@@ -180,11 +166,7 @@
                     success:function(r){
                         if(r.code=='0'){
                             actiivityUrl=r.msg;
-                            $('#one').hide();
-                            $('#two').hide();
-                            $('#three').show();
-                            $('#four').hide();
-                            showMSG(pullprisonerNo)
+                            ws.send(lineUsername+",02");
                         }
                     },
                     error:function(jqXHR){

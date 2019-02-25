@@ -1,0 +1,128 @@
+<style>
+    .movie-img { background-size: cover; background-repeat: no-repeat; background-clip: padding-box; list-style: none; }
+    .aspectration { position: relative; height: 0; width: 100%; }
+    .aspectration[data-ratio="16:9"] { padding-top: 145%; }
+    .col-xl-3 { flex: 0 0 25%; max-width: 20% !important; }
+    .movie-action a:hover { background-color: rgba(255, 255, 255, 0.2) }
+</style>
+<!--<div data-th-include="web/movie/movieDetail"></div>-->
+<div data-th-include="web/main/video/videstudy"></div>
+<div class="row groups movie-list"></div>
+<link data-th-href="@{js/vide7.4.1/css/video-js.min.css}" rel="stylesheet">
+<script data-th-src="@{js/vide7.4.1/js/video.min.js}"></script>
+<script data-th-src="@{js/app/video/videostudy.js}"></script>
+
+
+<script>
+    $(function(){
+        report_cover()//弹出登录
+    })
+
+    function report_cover() {
+        var $form = $('#report_cover');
+        $form.modal();
+    }
+    var sendprisonerNo='';
+    function baodao(){
+        var card=$("input[name=card]").val();
+        var password=$("input[name=password]").val();
+        $.ajax({
+            type:"get",
+            url:ctx + "prisoner/select",
+            dataType:"json", //预期服务器返回数据的类型
+            data:{
+                card:card,
+                password:password
+            },
+            success:function(r){
+                if(r.total=='1'){
+
+                    sendprisonerNo = r.rows[0].prisonerNo;
+                    $.ajax({
+                        type:"get",
+                        url:ctx + "task/add",
+                        dataType:"json", //预期服务器返回数据的类型
+                        data:{
+                            prisonerNo:sendprisonerNo,
+                            taskType:'学习教育',
+                        },
+                        success:function(res){
+                            if(res.code=='0'){
+                                $('#report_cover').modal('hide')
+                                $MB.n_success('成功登入...');
+                                funcvideoList(sendprisonerNo)
+                            }else{
+                                $MB.n_warning('登录错误，请重新登录...');
+                            }
+                        },
+                        error:function(jqXHR){
+                            $MB.n_warning('登录错误，请重新登录...');
+                            alert("发生错误："+ jqXHR.status);
+                        }
+                    });
+                }else{
+                    $MB.n_warning('未查询到该人员，请正确填写！');
+                }
+            },
+            error:function(jqXHR){
+                alert("发生错误："+ jqXHR.status);
+            }
+        });
+
+
+    }
+
+</script>
+
+
+<div class="modal fade" id="report_cover" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">开始登录</h3>
+            </div>
+            <div class="modal-body" style="background: #f0f0f075">
+                <form id="job-add-form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               身份证号码：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="card" class="form-control" placeholder="请输入身份证号码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					                         机器随机码：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="password" class="form-control"placeholder="请输入随机码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="button" class="btn btn-success bg-indigo" style="height:  50px;width: 80%;margin: 0 10%;" value="登录" onclick="baodao()">
+                        </div>
+                    </div>
+
+                    <hr>  <hr>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-save" >保存</button>-->
+                <!--<button type="button" class="btn btn-secondary btn-close" onclick=" $('#report_cover').modal('hide')">关闭</button>-->
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>

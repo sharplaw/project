@@ -30,7 +30,6 @@
         line-height: 25px;
     }
 </style>
-
 <div class="card">
     <div style=" display: flex; " id="img1">
         <div class="img_body">
@@ -51,7 +50,7 @@
             <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547922905876&di=74e15d62e2bc05034179a2d7d4cbbb1d&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01212057a062c30000012e7ed325fe.gif" alt="">-->
         <!--</div>-->
       <!--</div>-->
-    <input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 36%" value="点击报道" onclick="sendbaox()">
+    <input type="button" class="btn btn-success bg-indigo" style="height:  50px;margin: 0 36%" value="点击报道" onclick="sendbao()">
 </div>
 
 <script>
@@ -65,17 +64,14 @@
 
     var ws;
     var lineUsernamePC=localStorage.getItem("username");
-
     function reportCover(){
-
-
         console.log('登录聊天室...')
         $("#chat_room_msg").html('')
 
     /* 开始建立连接*/
         if('WebSocket' in window){
              ws = new WebSocket("ws://61.181.104.62:8088/websocket/"+lineUsernamePC );
-          //ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsernamePC );
+            //  ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsernamePC );
             console.log("连接成功");
             $("#chat_room_msg").append("<span>连接成功</span>")
         }else{
@@ -137,19 +133,10 @@
                 };
     }
 
-    function sendbaox(){
-        if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
-            location.href = ctx + 'pad/login?id=1&sendprisonerNo='+sendprisonerNo+'';
-        }
-        else {
-            var $form = $('#chat_room');
-            $form.modal();
-        }
-        return false;
-
-        // var $form = $('#chat_room');
-        // $form.modal();
-        // ws.send(lineUsernamePC+",openA");
+    function sendbao(){
+        var $form = $('#chat_room');
+        $form.modal();
+        ws.send(lineUsernamePC+",openA");
     }
 function report_cover() {
     var $form = $('#report_cover');
@@ -172,7 +159,7 @@ function baodao(){
                 $('#report_cover').modal('hide')
                 $MB.n_success('成功登入...');
                 sendprisonerNo = r.rows[0].prisonerNo;
-               // reportCover()//加载链接
+                reportCover()//加载链接
             }else{
                 $MB.n_warning('未查询到该人员，请正确填写！');
             }

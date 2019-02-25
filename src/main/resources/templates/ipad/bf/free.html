@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>demo-签名</title>
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <script data-th-src="@{../js/html2canvas.js}"></script>
     <style>
         .canvashide{
             background-color: rgba(0, 0, 0, 0.4);
@@ -49,7 +48,7 @@
             background: #3F51B5;
             color: #fff;
         }
-        #btn_clear{
+        #btn_clearfree{
             width: 50%;
             height: 50px;
             background: #ccc;
@@ -60,7 +59,7 @@
             font-size: 15px;
             display: none;
         }
-        #btn_submit{
+        #btn_submitfree{
             width: 100%;
             height: 50px;
             background: #3F51B5;
@@ -90,10 +89,6 @@
         }
 
         window.onload = function() {
-
-
-        };
-        window.onload = function() {
             new lineCanvas({
                 el: document.getElementById("canvasDiv"),//绘制canvas的父级div
                 clearEl: document.getElementById("btn_clear"),//清除按钮
@@ -103,10 +98,18 @@
                 //      color:"black",//线条颜色，选填
                 //      background:"#ffffff"//线条背景，选填
             });
-
+            new lineCanvas3({
+                el: document.getElementById("canvasDivfree"),//绘制canvas的父级div
+                clearEl: document.getElementById("btn_clearfree"),//清除按钮
+                saveEl: document.getElementById("btn_submitfree"),//保存按钮
+                img:"../img/static/freeedit.png",
+                //      linewidth:1,//线条粗细，选填
+                //      color:"black",//线条颜色，选填
+                //      background:"#ffffff"//线条背景，选填
+            });
 
         };
-        function lineCanvas(obj) {
+        function lineCanvas3(obj) {
             var padwidth=window.screen.availWidth;
             var padheight=window.screen.availHeight-300;
             console.log(padwidth)
@@ -175,16 +178,35 @@
                     data:{
                         prisonerNo:pullprisonerNo,
                         imgStr:imgBase64,
-                        seet:1,
+                        seet:3,
                     },
                     success:function(r){
+                       var rmsg=r.msg;
                         if(r.code=='0'){
-                            actiivityUrl=r.msg;
-                            $('#one').hide();
-                            $('#two').hide();
-                            $('#three').show();
-                            $('#four').hide();
-                            showMSG(pullprisonerNo)
+                            $.ajax({
+                                type:"post",
+                                url: "../task/add",
+                                dataType:"json", //预期服务器返回数据的类型
+                                data:{
+                                    prisonerNo:pullprisonerNo,
+                                    taskType:'请假',
+                                    freedayUrl:rmsg,
+
+                                },
+                                success:function(r){
+                                    if(r.code=='0'){
+                                        actiivityUrl=r.msg;
+                                        ws.send(lineUsername+",finish");
+                                        alert('已提交申请')
+                                        window.setTimeout(function(){
+                                            window.location.reload()
+                                        },1500);
+                                    }
+                                },
+                                error:function(jqXHR){
+                                    alert("发生错误："+ jqXHR.status);
+                                }
+                            });
                         }
                     },
                     error:function(jqXHR){
@@ -200,13 +222,13 @@
 <body>
 <div class='canvashide'>
     <div class='yzmsendx'>
-        <div class='topyzmx'>活动情况报告</div>
-        <div id="canvasDiv" ></div>
-        <div id="btn_clear">重新填写</div>
-        <div id="btn_submit">提交内容</div>
+        <div class='topyzmx'>请假条</div>
+        <div id="canvasDivfree" ></div>
+        <div id="btn_clearfree">重新填写</div>
+        <div id="btn_submitfree">提交内容</div>
     </div>
-    <input type='hidden' id='autographbase64' name='baseqianming' />
-    <img  id="qmimg"  />
+    <!--<input type='hidden' id='autographbase64' name='baseqianming' />-->
+    <!--<img  id="qmimg"  />-->
 </div>
 
 </body>
