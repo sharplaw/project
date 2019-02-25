@@ -1,0 +1,113 @@
+<style>
+    .modal-lg{
+        max-width: 1200px !important;
+    }
+</style>
+<div class="modal fade" id="moban" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="job-add-modal-title">谈话模板</h3>
+            </div>
+            <div class="modal-body">
+                <form id="moban-form">
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               开始时间：
+					            </span>
+                                <div class="form-group">
+                                         <input type="hidden" name="id" class="form-control" />
+                                    <input type="text" id="date3" name="date3" class="form-control">
+                                    <input type="hidden" id = "talkStartTime" name="talkStartTime" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					              结束时间：
+					            </span>
+                                <div class="form-group">
+                                    <!--<input type="text" name="servingEndTim" class="form-control">-->
+                                    <input type="text" id="date4" name="date4" class="form-control">
+                                    <input type="hidden" id = "talkEndTime" name="talkEndTime" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               谈话人：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="talker" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					             谈话人职务及职务：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="talkerUnit" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               记录人：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="recorder" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					             记录人职务及职务：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="recorderUnit" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                <span class="input-group-addon">
+					               谈话内容：
+					            </span>
+                                    <div class="form-group">
+                                        <textarea type="text" name="conment" class="form-control" placeholder="点击输入谈话内容" style=" height: 150px; "></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" >
+                <button type="button" class="btn btn-save" id="savemoban">保存</button>
+                <button type="button" class="btn btn-secondary btn-close" onclick="closemoban()" >关闭</button>
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script data-th-src="@{js/app\peopleSetting/setAdd.js}"></script>-->
+<script data-th-src="@{js/app\peopleSetting/moban.js}"></script>

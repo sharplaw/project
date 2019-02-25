@@ -40,91 +40,117 @@
     </style>
 </head>
 <body>
-    <main class="main">
-        <div id="one">
-            <header style=" height: 200px; margin-top: 50px; line-height: 200px; text-align: center; font-size: 40px; color: #3F51B5; ">矫正链接系统</header>
-            <div style=" padding: 200px; ">
-                <input type="button" name="" class="btn btn-success" style="height: 50px;margin: 0 auto;width: 100%;" value="连接进入系统" onclick="linkto()">
-            </div>
-            <div></div>
-            <div id="chat_room_msg"></div>
-        </div>
-        <div data-th-include="ipad/index" style="display: none" id="two"></div>
-        <div data-th-include="ipad/indexlogin" style="display: none" id="three"></div>
-        <div data-th-include="ipad/free" style="display: none" id="four"></div>
-    </main>
+<main class="main">
+    <div id="one">
+        <header style=" height: 200px; margin-top: 50px; line-height: 200px; text-align: center; font-size: 40px; color: #3F51B5; ">正在加载中....</header>
+        <!--<div style=" padding: 200px; ">-->
+            <!--<input type="button" name="" class="btn btn-success" style="height: 50px;margin: 0 auto;width: 100%;" value="连接进入系统" onclick="linkto()">-->
+        <!--</div>-->
+        <div></div>
+        <div id="chat_room_msg"></div>
+    </div>
+    <div data-th-include="ipad/index" style="display: none" id="two"></div>
+    <div data-th-include="ipad/indexlogin" style="display: none" id="three"></div>
+    <div data-th-include="ipad/free" style="display: none" id="four"></div>
+</main>
 </body>
 </html>
 <script>
-    var ws = '';
-    var pullprisonerNo='';
-    var lineUsername=localStorage.getItem("username");
-    function linkto() {
-        //alert('${user.username}')// data-th-utext="${user.username}"
-        $("#chat_room_msg").html('')
-        /* 开始建立连接*/
-          ws=new WebSocket("ws://61.181.104.62:8088/websocket/"+lineUsername );
-        //  ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsername );
-        /*  备注：发送给pc====01为设备正在填写活动情况  02活动情况填写完毕 03正在填写谈话记录*/
-        if('WebSocket' in window){
-            console.log("连接成功");
-            $("#chat_room_msg").append("<span>连接成功</span>")
-        }else{
-            alert('无法连接机器...');
-            $("#chat_room_msg").append("<span>无法连接机器...</span>")
-        }
-
-
-        // 建立 web socket 连接成功触发事件
-        ws.onopen = function () {
-            // 使用 send() 方法发送数据
-
-            console.log("数据发送中...");
-            $("#chat_room_msg").append("<span>数据发送中...</span>")
-        };
-
-        // 接收服务端数据时触发事件
-        ws.onmessage = function (evt) {
-            console.log(evt.data)
-            $("#chat_room_msg").append("<span>数据已接收...</span>")
-            $("#chat_room_msg").append("<span>"+evt.data+"</span>")
-            if(evt.data=='openA'){
-                ws.send(""+lineUsername+",01");
-                $('#one').hide();
-                $('#two').show();
-                $('#three').hide();
-                $('#four').hide();
-            }else if(evt.data=='openB'){
-                ws.send(""+lineUsername+",03");
-                $('#one').hide();
-                $('#two').hide();
-                $('#three').show();
-                $('#four').hide();
-                showMSG(pullprisonerNo)
-            }else if(evt.data.indexOf('prisonerNo')!='-1'){
-                pullprisonerNo=evt.data.replace("prisonerNo","");
-
-            }else if(evt.data=='free'){
-                $('#one').hide();
-                $('#two').hide();
-                $('#three').hide();
-                $('#four').show();
-                ws.send(""+lineUsername+",04");
-
-            }else{
-                window.setTimeout(function(){
-                    $("#chat_room_msg").append("<span>"+evt.data+",请检查设备重试...</span>");
-                },1000);
-            }
-        };
-
-        // 断开 web socket 连接成功触发事件
-        ws.onclose = function () {
-            $("#chat_room_msg").append("连接已关闭...")
-            window.setTimeout(function(){
-                window.location.reload()
-            },1000);
-
-        };
+    // var ws = '';
+     var pullprisonerNo='';
+    // var lineUsername=localStorage.getItem("username");
+    // function linkto() {
+    //     //alert('${user.username}')// data-th-utext="${user.username}"
+    //     $("#chat_room_msg").html('')
+    //     /* 开始建立连接*/
+    //     ws=new WebSocket("ws://61.181.104.62:8088/websocket/"+lineUsername );
+    //     //  ws = new WebSocket("ws://localhost:8080/websocket/"+lineUsername );
+    //     /*  备注：发送给pc====01为设备正在填写活动情况  02活动情况填写完毕 03正在填写谈话记录*/
+    //     if('WebSocket' in window){
+    //         console.log("连接成功");
+    //         $("#chat_room_msg").append("<span>连接成功</span>")
+    //     }else{
+    //         alert('无法连接机器...');
+    //         $("#chat_room_msg").append("<span>无法连接机器...</span>")
+    //     }
+    //
+    //
+    //     // 建立 web socket 连接成功触发事件
+    //     ws.onopen = function () {
+    //         // 使用 send() 方法发送数据
+    //
+    //         console.log("数据发送中...");
+    //         $("#chat_room_msg").append("<span>数据发送中...</span>")
+    //     };
+$(function () {
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(r[2]); return null;
     }
+    pullprisonerNo=GetQueryString("sendprisonerNo")
+    var  sendid=GetQueryString("id")
+    if(sendid=='1'){
+        $('#one').hide();
+        $('#two').show();
+        $('#three').hide();
+        $('#four').hide();
+    }else if(sendid=='2'){
+        $('#one').hide();
+        $('#two').hide();
+        $('#three').hide();
+        $('#four').show();
+    }else{
+        alert('指令错误！')
+        window.setTimeout(function(){
+            location.href = '../../index';
+        },1000);
+    }
+
+})
+        // 接收服务端数据时触发事件
+    //
+    //     ws.onmessage = function (evt) {
+    //         console.log(evt.data)
+    //         $("#chat_room_msg").append("<span>数据已接收...</span>")
+    //         $("#chat_room_msg").append("<span>"+evt.data+"</span>")
+    //         if(evt.data=='openA'){
+    //             ws.send(""+lineUsername+",01");
+    //             $('#one').hide();
+    //             $('#two').show();
+    //             $('#three').hide();
+    //             $('#four').hide();
+    //         }else if(evt.data=='openB'){
+    //             ws.send(""+lineUsername+",03");
+    //             $('#one').hide();
+    //             $('#two').hide();
+    //             $('#three').show();
+    //             $('#four').hide();
+    //             showMSG(pullprisonerNo)
+    //         }else if(evt.data.indexOf('prisonerNo')!='-1'){
+    //             pullprisonerNo=evt.data.replace("prisonerNo","");
+    //
+    //         }else if(evt.data=='free'){
+    //             $('#one').hide();
+    //             $('#two').hide();
+    //             $('#three').hide();
+    //             $('#four').show();
+    //             ws.send(""+lineUsername+",04");
+    //
+    //         }else{
+    //             window.setTimeout(function(){
+    //                 $("#chat_room_msg").append("<span>"+evt.data+",请检查设备重试...</span>");
+    //             },1000);
+    //         }
+    //     };
+    //
+    //     // 断开 web socket 连接成功触发事件
+    //     ws.onclose = function () {
+    //         $("#chat_room_msg").append("连接已关闭...")
+    //         window.setTimeout(function(){
+    //             window.location.reload()
+    //         },1000);
+    //
+    //     };
+    // }
 </script>

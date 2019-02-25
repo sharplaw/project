@@ -1,0 +1,173 @@
+<style>
+    .modal-lg{
+        max-width: 1200px !important;
+    }
+</style>
+<div class="modal fade" id="job-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="job-add-modal-title">新增任务</h3>
+            </div>
+            <div class="modal-body">
+                <form id="job-add-form">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               姓名：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               矫正开始时间：
+
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" id="date1" name="date1" class="form-control">
+                                    <input type="hidden" id = "servingStartTime" name="servingStartTime" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               编号：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="prisonerNo" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               矫正结束时间：
+					            </span>
+                                <div class="form-group">
+                                    <!--<input type="text" name="servingEndTim" class="form-control">-->
+                                    <input type="text" id="date2" name="date2" class="form-control">
+                                    <input type="hidden" id = "servingEndTime" name="servingEndTime" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               矫正类型：
+					            </span>
+                                <div class="form-group">
+                                    <!--<input type="text" name="corrective" class="form-control">-->
+                                    <select class="form-control" name="corrective">
+                                        <option value="管制">管制</option>
+                                        <option value="缓刑">缓刑</option>
+                                        <option value="假释">假释</option>
+                                        <option value="暂予监外执行">暂予监外执行</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               性别：
+					            </span>
+                                <div class="form-group">
+                                    <!--<input type="text" name="sex" class="form-control">-->
+                                    <select class="form-control" name="sex">
+                                        <option value="男">男</option>
+                                        <option value="女">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               身份证号：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="card" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               电话：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="telephone" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               地址：
+					            </span>
+                                <div class="form-group" id="lhn ">
+                                    <input type="text" name="address" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-sm-6">-->
+                            <!--<div class="input-group">-->
+                                <!--<span class="input-group-addon">-->
+					               <!--指纹录入：-->
+					            <!--</span>-->
+                                <!--<div class="form-group" id="addID">-->
+                                    <!--<input type="button" name="" class="btn btn-success" value="指纹信息录入">-->
+                                    <!--<input type="hidden" name="fingerprints"/>-->
+                                    <!--&lt;!&ndash;<input type="hidden" name="id"/>&ndash;&gt;-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="row" style=" background: #eee; margin: 0; height: 150px; ">
+                        <div class="col-sm-12">
+                            <div style=" height: 100%; display: flex;    padding: 20px 20px 20px 25%;">
+                                <span style="line-height: 110px;">
+					              录入指纹：
+					            </span>
+                                <div style="line-height: 107px;">
+                                    <input type="button" name="" class="btn btn-success" style="height:  50px;" id="zhiwMsg" value="启动指纹识别" onclick="zwsb()">
+                                    <input type="button" name=""  class="btn btn-success bg-red" style="height:  50px;display: none" id="zhiwerror" value="重新识别指纹" onclick="chongzhiwen()">
+                                    <input type="hidden" id="skip" value="0"/>
+                                    <input type="hidden" name="fingerprints"/>
+                                </div>
+                                <div style=" width: 110px; height: 110px; margin: 0 50px; display: none;" class="hidezw1" >
+                                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547834929067&di=a5ac28d81175c8e7867eecd396783172&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01c5d75a1e800da801217132ed9143.gif"
+                                         style=" width: 110px; height: 110px; " alt="">
+                                </div>
+                                <div style="line-height: 110px;color: #2fbb7f;font-size:  20px;display: none;" class="hidezw2"><i class=" iconfont icon-send" style=" font-size: 20px; "></i>    <span class="spmsg">正在唤起设备中请稍候...</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>  <hr>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-save" id="job-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-secondary btn-close">关闭</button>
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-th-src="@{js/app\peopleSetting/setAdd.js}"></script>
+<script data-th-src="@{js/app\peopleSetting/setEdit.js}"></script>

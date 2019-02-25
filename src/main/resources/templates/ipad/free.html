@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>demo-签名</title>
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script data-th-src="@{../js/html2canvas.js}"></script>
     <style>
         .canvashide{
             background-color: rgba(0, 0, 0, 0.4);
@@ -196,10 +197,10 @@
                                 success:function(r){
                                     if(r.code=='0'){
                                         actiivityUrl=r.msg;
-                                        ws.send(lineUsername+",finish");
+                                       // ws.send(lineUsername+",finish");
                                         alert('已提交申请')
                                         window.setTimeout(function(){
-                                            window.location.reload()
+                                            location.href = '../../index';
                                         },1500);
                                     }
                                 },
