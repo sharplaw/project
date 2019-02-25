@@ -307,7 +307,7 @@ function timingFunc() {
                         window.clearInterval(timing);
                         $('#zhiwMsg').hide();
                         $('#zhiwerror').show();
-                    }}
+                    }}x
                    );
 
 

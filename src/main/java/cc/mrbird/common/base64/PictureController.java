@@ -24,22 +24,45 @@ public class PictureController  extends BaseController {
     @Log("上传图片")
     @RequestMapping("picture/upload")
     @ResponseBody
-    public ResponseBo upload(String imgStr, String prisonerNo, String seet) {
-        String a[]=  imgStr.split(",");
-        String imgStrs= a[1];
-        Date date = new Date();
-        int month = date.getMonth();
-        int months = month + 1;
-        String mon = String.valueOf(months);
-        String path = "E://" + prisonerNo + "//" + mon + "//" + prisonerNo + "-" + mon + "-" + seet + ".png";
-        String filepath="E://" + prisonerNo + "//" + mon;
-        boolean flag= Base.CreateImage(imgStrs, path,filepath);
-        if(flag=true){
-            return ResponseBo.ok(path);
-        }else{
-            return ResponseBo.error();
-        }
+    public ResponseBo upload(String imgStr,String imgStre, String prisonerNo, String seet) {
 
+        if(seet.equals("1")) {
+            String a[] = imgStr.split(",");
+            String imgStrs = a[1];
+            Date date = new Date();
+            int month = date.getMonth();
+            int months = month + 1;
+            String mon = String.valueOf(months);
+            String path = "E://" + prisonerNo + "//" + mon + "//" + prisonerNo + "-" + mon + "-" + seet + ".png";
+            String filepath = "E://" + prisonerNo + "//" + mon;
+            boolean flag = Base.CreateImage(imgStrs, path, filepath);
+
+            String b[] = imgStre.split(",");
+            String imgStres = b[1];
+            seet="11";
+            String pathe= "E://" + prisonerNo + "//" + mon + "//" + prisonerNo + "-" + mon + "-" + seet + ".png";
+            String filepathe = "E://" + prisonerNo + "//" + mon;
+            boolean flage = Base.CreateImage(imgStres, pathe, filepathe);
+
+
+
+        }else{
+            String a[] = imgStr.split(",");
+            String imgStrs = a[1];
+            Date date = new Date();
+            int month = date.getMonth();
+            int months = month + 1;
+            String mon = String.valueOf(months);
+            String path = "E://" + prisonerNo + "//" + mon + "//" + prisonerNo + "-" + mon + "-" + seet + ".png";
+            String filepath = "E://" + prisonerNo + "//" + mon;
+            boolean flag = Base.CreateImage(imgStrs, path, filepath);
+            if(flag=true){
+                return ResponseBo.ok(path);
+            }else{
+                return ResponseBo.error();
+            }
+        }
+        return ResponseBo.error();
     }
     @Log("上传指纹图片")
     @RequestMapping("picture/zwupload")
