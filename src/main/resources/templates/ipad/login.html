@@ -57,6 +57,18 @@
 </body>
 </html>
 <script>
+    $(function(){
+        fullScreen();
+    })
+    function fullScreen(){
+        var el = document.documentElement;
+        var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+        if(typeof rfs != "undefined" && rfs) {
+            rfs.call(el);
+        };
+        return;
+    }
+
     // var ws = '';
      var pullprisonerNo='';
     // var lineUsername=localStorage.getItem("username");
