@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<head>
+    <meta charset="UTF-8">
+    <title>demo-签名</title>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script data-th-src="@{../js/html2canvas.js}"></script>
+    <style>
+        .canvashide{
+            background-color: rgba(0, 0, 0, 0.4);
+            position: fixed;
+            z-index: 1500;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            top: 0;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .yzmsendx{
+            position: fixed;
+            top: 0;
+            left: 0;
+            /*   display: none; */
+            background: #fff;
+            width: 100%;
+            /*   height: 67%; */
+            z-index: 10240;
+            border-radius: 10px;
+            box-shadow: 0px 3px 14px 3px #ccc;
+        }
+        .topyzmxz{
+            font-size: 20px;
+            height: 45px;
+            line-height: 45px;
+            border-bottom: 1px solid #000;
+            text-align: center;
+            background: #3F51B5;
+            color: #fff;
+        }
+        #btn_clearz{
+            width: 50%;
+            height: 50px;
+            background: #ccc;
+            display: inline-block;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            font-size: 15px;
+            display: none;
+        }
+        #btn_submitz{
+            width: 100%;
+            height: 80px;
+            background: #3F51B5;
+            display: inline-block;
+            text-align: center;
+            line-height: 80px;
+            color: #fff;
+            font-size: 15px;
+            margin: 0 auto;
+            position: fixed;
+            bottom: 0;
+        }
+        .bottomyzmx{
+            padding: 0.5rem;
+            background: #04BE02;
+            width: 100%;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            color: #fff;
+            font-weight: 700;
+
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+<div class='canvashide'>
+    <div class='yzmsendx'>
+        <!--<div class='topyzmx'>活动情况报告</div>-->
+        <div id="canvasDivz" ></div>
+        <div id="btn_clearz">重新填写</div>
+        <div id="btn_submitz">提交内容</div>
+    </div>
+    <!--<input type='hidden' id='autographbase64' name='baseqianming' />-->
+    <!--<img  id="qmimg"  />-->
+</div>
+
+</body>
+</html>
