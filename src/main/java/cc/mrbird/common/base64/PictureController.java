@@ -43,8 +43,15 @@ public class PictureController  extends BaseController {
             String pathe= "E://" + prisonerNo + "//" + mon + "//" + prisonerNo + "-" + mon + "-" + seet + ".png";
             String filepathe = "E://" + prisonerNo + "//" + mon;
             boolean flage = Base.CreateImage(imgStres, pathe, filepathe);
+            Test t = new Test();
+            try {
+             String res=  t.main(path,pathe);
+                return ResponseBo.ok(res);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-
+            return ResponseBo.error();
 
         }else{
             String a[] = imgStr.split(",");
@@ -62,7 +69,7 @@ public class PictureController  extends BaseController {
                 return ResponseBo.error();
             }
         }
-        return ResponseBo.error();
+
     }
     @Log("上传指纹图片")
     @RequestMapping("picture/zwupload")
