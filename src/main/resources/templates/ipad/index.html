@@ -62,14 +62,16 @@
         }
         #btn_submit{
             width: 100%;
-            height: 50px;
+            height: 80px;
             background: #3F51B5;
             display: inline-block;
             text-align: center;
-            line-height: 50px;
+            line-height: 80px;
             color: #fff;
             font-size: 15px;
             margin: 0 auto;
+            position: fixed;
+            bottom: 0;
         }
         .bottomyzmx{
             padding: 0.5rem;
@@ -88,27 +90,12 @@
             // document.addEventListener( 'touchmove', onDocumentTouchMove, false );
             document.addEventListener('touchmove', function (e) { e.returnValue = false;}, false);
         }
-
-        window.onload = function() {
-
-
-        };
-        window.onload = function() {
-            new lineCanvas({
-                el: document.getElementById("canvasDiv"),//绘制canvas的父级div
-                clearEl: document.getElementById("btn_clear"),//清除按钮
-                saveEl: document.getElementById("btn_submit"),//保存按钮
-                img:"../img/static/hdqk0.png",
-                //      linewidth:1,//线条粗细，选填
-                //      color:"black",//线条颜色，选填
-                //      background:"#ffffff"//线条背景，选填
-            });
-
-
-        };
+var imgBase641=''
         function lineCanvas(obj) {
-            var padwidth=window.screen.availWidth;
-            var padheight=window.screen.availHeight-300;
+            //var padwidth=window.screen.availWidth;
+           // var padheight=window.screen.availHeight-300;
+            var padwidth=window.screen.availHeight-300;
+            var padheight=window.screen.availWidth;
             console.log(padwidth)
             console.log(padheight)
             this.linewidth = 1;
@@ -142,11 +129,11 @@
             //开始绘制
             this.canvas.addEventListener("touchstart", function(e) {
                 this.cxt.beginPath();
-                this.cxt.moveTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY-45);
+                this.cxt.moveTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
             }.bind(this), false);
             //绘制中
             this.canvas.addEventListener("touchmove", function(e) {
-                this.cxt.lineTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY-45);
+                this.cxt.lineTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
                 this.cxt.stroke();
             }.bind(this), false);
             //结束绘制
@@ -167,6 +154,103 @@
                 //$('#autographbase64').val(aaa)
                 // $('#autographfinish').val('成功')
                 //$('.autographshow').hide();
+                imgBase641=imgBase64;
+                $('#one').hide();
+                $('#two').hide();
+                $('#three').hide();
+                $('#four').hide();
+                $('#five').show();
+                // $.ajax({
+                //     type:"post",
+                //     url: "../picture/upload",
+                //     dataType:"json", //预期服务器返回数据的类型
+                //     data:{
+                //         prisonerNo:pullprisonerNo,
+                //         imgStr:imgBase64,
+                //         seet:1,
+                //     },
+                //     success:function(r){
+                //         if(r.code=='0'){
+                //             actiivityUrl=r.msg;
+                //             $('#one').hide();
+                //             $('#two').hide();
+                //             $('#three').show();
+                //             $('#four').hide();
+                //             showMSG(pullprisonerNo)
+                //         }
+                //     },
+                //     error:function(jqXHR){
+                //         alert("发生错误："+ jqXHR.status);
+                //     }
+                // });
+            }.bind(this), false);
+        };
+
+
+
+        function lineCanvas0(obj) {
+            var padwidth=window.screen.availWidth;
+            var padheight=window.screen.availHeight-300;
+            //  var padwidth=window.screen.availHeight-300;
+            //  var padheight=window.screen.availWidth;
+            console.log(padwidth)
+            console.log(padheight)
+            this.linewidth = 1;
+            this.color = "#000000";
+            this.background = "#ffffff";
+            for (var i in obj) {
+                this[i] = obj[i];
+            };
+            this.canvas = document.createElement("canvas");
+            this.el.appendChild(this.canvas);
+            this.cxt = this.canvas.getContext("2d");
+            this.canvas.width = padwidth;
+            this.canvas.height = padheight;
+            this.cxt.fillStyle = '#fff';
+            this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.width);
+            this.cxt.strokeStyle = this.color;
+            this.cxt.lineWidth = this.linewidth;
+            this.cxt.lineCap = "round";
+
+
+            var cxt = this.cxt
+            var imgs = new Image();
+            imgs.src = this.img;
+            imgs.onload = drawImg;//图片加载完成再执行
+            function drawImg(){
+                cxt.drawImage(imgs,0,0,padwidth,padheight);
+            }
+
+
+
+            //开始绘制
+            this.canvas.addEventListener("touchstart", function(e) {
+                this.cxt.beginPath();
+                this.cxt.moveTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+            }.bind(this), false);
+            //绘制中
+            this.canvas.addEventListener("touchmove", function(e) {
+                this.cxt.lineTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+                this.cxt.stroke();
+            }.bind(this), false);
+            //结束绘制
+            this.canvas.addEventListener("touchend", function() {
+                this.cxt.closePath();
+            }.bind(this), false);
+            //清除画布
+            this.clearEl.addEventListener("click", function() {
+                this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            }.bind(this), false);
+            //保存图片，直接转base64
+            this.saveEl.addEventListener("click", function() {
+                var imgBase64 = this.canvas.toDataURL();
+                console.log(imgBase64);
+                // $("#qmimg").attr("src",imgBase64);
+                document.addEventListener('touchmove', function (e) { e.returnValue = true;}, false);/* 取消关于touchmove---preventdefault页面不滚动  */
+                var aaa=$("#qmimg").attr('src')
+                //$('#autographbase64').val(aaa)
+                // $('#autographfinish').val('成功')
+                //$('.autographshow').hide();
 
                 $.ajax({
                     type:"post",
@@ -174,6 +258,7 @@
                     dataType:"json", //预期服务器返回数据的类型
                     data:{
                         prisonerNo:pullprisonerNo,
+                        imgStre:imgBase641,
                         imgStr:imgBase64,
                         seet:1,
                     },
@@ -184,6 +269,7 @@
                             $('#two').hide();
                             $('#three').show();
                             $('#four').hide();
+                            $('#five').hide();
                             showMSG(pullprisonerNo)
                         }
                     },
@@ -200,7 +286,7 @@
 <body>
 <div class='canvashide'>
     <div class='yzmsendx'>
-        <div class='topyzmx'>活动情况报告</div>
+        <!--<div class='topyzmx'>活动情况报告</div>-->
         <div id="canvasDiv" ></div>
         <div id="btn_clear">重新填写</div>
         <div id="btn_submit">提交内容</div>
